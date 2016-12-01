@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {Directive, Input, ElementRef} from '@angular/core';
 
 @Directive({

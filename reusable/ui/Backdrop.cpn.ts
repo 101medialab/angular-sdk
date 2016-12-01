@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {Component, Input} from '@angular/core';
 import {Bindable} from '../Bindable';
 

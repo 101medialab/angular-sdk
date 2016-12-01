@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {Component}  from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {BaseResourceComponent} from "../../HbComponent/BaseResourceComponent";

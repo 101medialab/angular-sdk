@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {NgFor} from '@angular/common';
 import {Component, ViewChild, Input, ElementRef, OnChanges, Inject}  from '@angular/core';
 import {Asset} from "../../reusable/pipe/Asset";

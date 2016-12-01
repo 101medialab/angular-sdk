@@ -1,0 +1,42 @@
+{
+    "jspm": {
+        "dependencies": {
+            "@angular/common": "npm:@angular/common@2.2.3",
+            "@angular/compiler": "npm:@angular/compiler@2.2.3",
+            "@angular/core": "npm:@angular/core@2.2.3",
+            "@angular/forms": "npm:@angular/forms@2.2.3",
+            "@angular/http": "npm:@angular/http@2.2.3",
+            "@angular/platform-browser": "npm:@angular/platform-browser@2.2.3",
+            "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.2.3",
+            "@angular/router": "npm:@angular/router@3.2.3",
+            "angular2-jwt": "npm:angular2-jwt@0.1.25",
+            "angulartics2": "npm:angulartics2@1.5.1",
+            "bootstrap": "npm:bootstrap@3",
+            "bootstrap-sass": "npm:bootstrap-sass@3.3.6",
+            "core-js": "npm:core-js@2.4.0",
+            "crypto": "npm:crypto-js@3.1.6",
+            "flickity": "npm:flickity@2.0.4",
+            "flickity-bg-lazyload": "npm:flickity-bg-lazyload@1.0.0",
+            "intl": "npm:intl@1.1.0",
+            "jdorn/json-editor": "github:jdorn/json-editor@0.7.25",
+            "jquery": "npm:jquery@2.2.3",
+            "lodash": "npm:lodash@4.11.1",
+            "moment": "npm:moment@2.15.2",
+            "ng2-file-upload": "npm:ng2-file-upload@1.1.4-2",
+            "noraesae/perfect-scrollbar": "github:noraesae/perfect-scrollbar@0.6.12",
+            "reflect-metadata": "npm:reflect-metadata@0.1.8",
+            "rx-dom": "npm:rx-dom@7.0.3",
+            "rxjs": "npm:rxjs@5.0.0-beta.12",
+            "selectize": "github:brianreavis/selectize.js@0.12.1",
+            "text": "github:systemjs/plugin-text@0.0.9",
+            "urijs": "npm:urijs@1.17.1",
+            "zone.js": "npm:zone.js@0.6.21"
+        },
+        "devDependencies": {
+            "babel": "npm:babel-core@^5.8.24",
+            "babel-runtime": "npm:babel-runtime@^5.8.24",
+            "clean-css": "npm:clean-css@3.4.10",
+            "typescript": "npm:typescript@1.6.2"
+        }
+    }
+}

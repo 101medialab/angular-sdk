@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {ProfileSearchMixin} from "../../reusable/mixin/ProfileSearchMixin";
 import {applyMixins} from "../Mixin";
 import {SluggedIdvComponent} from "./slugged-idv.cpn";

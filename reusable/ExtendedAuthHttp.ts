@@ -1,5 +1,3 @@
-/// <reference path="../../typings/angular2.d.ts" />
-
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {AuthHttp, AuthConfig, JwtHelper} from 'angular2-jwt';

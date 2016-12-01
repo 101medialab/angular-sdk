@@ -1,5 +1,3 @@
-/// <reference path="../../typings/angular2.d.ts" />
-
 import {Injectable} from '@angular/core';
 import {Headers, Response} from '@angular/http';
 import {HttpHeader} from './HttpHeader';

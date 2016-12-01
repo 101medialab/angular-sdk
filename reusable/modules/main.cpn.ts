@@ -1,12 +1,10 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {ActivatedRoute} from '@angular/router';
 import URI from 'urijs';
 
 import {BaseResourceComponent} from "../../HbComponent/BaseResourceComponent";
 import {DummyDIContainer} from "./DummyDIContainer";
 import Debounce from "../../reusable/Debounce";
-import {NavItem} from "../../Entity/NavItem";
+import {NavItem} from "../../HbComponent/NavItem";
 
 export class MainComponent extends BaseResourceComponent {
     protected data;

@@ -1,7 +1,6 @@
 import {Injectable, Inject} from '@angular/core';
 import {Config as BaseConfig} from '../../reusable/Config';
-import {NavItem} from "../../Entity/NavItem";
-import {Profile} from "../../Entity/Resource/Profile";
+import {NavItem} from "../../HbComponent/NavItem";
 
 @Injectable()
 export class Config extends BaseConfig {
@@ -59,10 +58,6 @@ export class Config extends BaseConfig {
         //});
     }
 
-    public static getProfileTemplateUrl(ProfileName) {
-        return Config.getTemplateUrl('profile/' + ProfileName);
-    }
-
     public getDomainTemplateUrl(url) {
         return Config.getTemplateUrl('/' + this.getPluralResourceName() + '/' + url);
     }
@@ -72,28 +67,6 @@ export class Config extends BaseConfig {
             new NavItem('Home', 'Home'),
             new NavItem(this.getPluralResourceName(true), this.route.main),
         ]
-    }
-
-    public getProfileBreadcrumbStack(profile: Profile, routeType = '') {
-        var base = this.getBaseDomainBreadcrumb();
-
-        base.push(
-            new NavItem(profile.name, this.route.view, {
-                slug: profile.slug
-            })
-        );
-
-        if ([this.ROUTE_TYPE_CREATE, this.ROUTE_TYPE_UPDATE].indexOf(routeType) > -1) {
-            base.push(
-                new NavItem(routeType.capitalize(), this.route[routeType],
-                    this.ROUTE_TYPE_UPDATE ? {
-                        slug: profile.slug
-                    } : null
-                )
-            );
-        }
-
-        return base;
     }
 
     public generateHTMLTitle(name: string = null) {

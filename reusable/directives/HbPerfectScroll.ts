@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {Directive, Input, ElementRef, OnChanges, OnDestroy} from '@angular/core';
 import 'noraesae/perfect-scrollbar/js/perfect-scrollbar.jquery.min';
 import {Bindable} from "../Bindable";

@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {Component, Input, OnChanges}  from '@angular/core';
 import {FileUploader} from 'ng2-file-upload/file-upload/file-uploader.class';
 import {ExtendedAuthHttp} from "../ExtendedAuthHttp";

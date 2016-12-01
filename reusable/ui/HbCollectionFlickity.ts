@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {Component, ViewChild, Input, ElementRef, OnChanges, Inject}  from '@angular/core';
 import {EventDispatcher} from "../../HbComponent/EventDispatcher";
 import {HbFlickity} from "./HbFlickity";

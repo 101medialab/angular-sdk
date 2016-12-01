@@ -1,5 +1,3 @@
-/// <reference path="../../typings/angular2.d.ts" />
-
 import {Bindable} from "../reusable/Bindable";
 import {Status} from '../reusable/modules/status.svc';
 import {BaseComponent} from "../HbComponent/BaseComponent";

@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {Directive, Input, OnChanges, ElementRef} from '@angular/core';
 import {BaseComponent} from "../../HbComponent/BaseComponent";
 import {Status} from "../modules/status.svc";

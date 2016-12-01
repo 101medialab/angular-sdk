@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({

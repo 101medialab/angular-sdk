@@ -1,5 +1,3 @@
-/// <reference path="../../typings/angular2.d.ts" />
-
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';

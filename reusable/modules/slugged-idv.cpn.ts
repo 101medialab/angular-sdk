@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {ActivatedRoute} from '@angular/router';
 import {IdvComponent} from "./idv.cpn";
 import {DummyDIContainer} from "./DummyDIContainer";

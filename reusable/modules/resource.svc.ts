@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {Injectable, Inject} from '@angular/core';
 import {Http} from '@angular/http';
 import {ExtendedAuthHttp} from '../ExtendedAuthHttp';

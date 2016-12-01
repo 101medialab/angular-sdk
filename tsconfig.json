@@ -1,0 +1,56 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "module": "commonjs",
+        "target": "es5",
+        "sourceMap": true,
+        "baseUrl": "./jspm_packages",
+        "paths": {
+            "angulartics2": [
+                "npm/angulartics2@1.5.1/index.d.ts"
+            ],
+            "angulartics2/src/providers/angulartics2-ga": [
+                "npm/angulartics2@1.5.1/src/providers/angulartics2-ga.d.ts"
+            ],
+            "angular2-jwt": [
+                "npm/angular2-jwt@0.1.25/angular2-jwt.d.ts"
+            ],
+            "ng2-file-upload": [
+                "npm/ng2-file-upload@1.1.4-2/ng2-file-upload.d.ts"
+            ],
+            "rxjs": [
+                "npm/rxjs@5.0.0-beta.12/Rx.d"
+            ],
+            "rx-dom": [
+                "npm/rx-dom@7.0.3/dist/rx.dom.js"
+            ],
+            "urijs": [
+                "npm/urijs@1.17.1/src/URI.js"
+            ],
+            "moment": [
+                "npm/moment@2.15.2/moment.js"
+            ],
+            "bootstrap": [
+                "npm/bootstrap@3.3.7"
+            ],
+            "ngSDK/*": [
+                "github/101medialab/angular2-sdk@master/*"
+            ],
+            "@angular/*": [
+                "npm/@angular/*@2.2.3"
+            ],
+            "@angular/router": [
+                "npm/@angular/router@3.2.3"
+            ],
+            "rxjs/*": [
+                "npm/rxjs@5.0.0-beta.12/*"
+            ],
+            "jquery": [
+                "npm/jquery@2.2.3/dist/jquery"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

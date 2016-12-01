@@ -1,17 +1,12 @@
-/// <reference path="../../typings/angular2.d.ts" />
-
 import {OnInit, OnDestroy}  from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {Angulartics2GoogleAnalytics} from 'angulartics2/dist/providers/ga/angulartics2-ga';
 
 import {BaseComponent} from './BaseComponent';
-import {NavItem} from '../Entity/NavItem';
 
-import {Status as MainStatus} from '../reusable/modules/status.svc';
 import {Status as Status} from '../reusable/modules/status.svc';
 import {Config} from '../reusable/modules/Config';
-import Rx from 'rxjs';
 import {CanComponentDeactivate} from "./CanDeactivateGuard";
 import {DummyDIContainer} from "../reusable/modules/DummyDIContainer";
 import {BaseDIContainer} from "./BaseDIContainer";

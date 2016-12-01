@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {Injectable, Inject} from '@angular/core';
 import {BaseStatus} from '../../HbComponent/BaseStatus';
 import {EventDispatcher} from "../../HbComponent/EventDispatcher";

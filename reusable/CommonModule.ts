@@ -1,5 +1,3 @@
-/// <reference path="../../typings/angular2.d.ts" />
-
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
@@ -22,12 +20,8 @@ import {ScrollToWhen} from "./directives/ScrollToWhen";
 import {Selectize} from "./directives/Selectize";
 
 import {Backdrop} from "./ui/Backdrop.cpn";
-import {HbCollectionFlickity} from "./ui/HbCollectionFlickity";
-import {HbFlickity} from "./ui/HbFlickity";
-import {HbFlickityNav} from "./ui/HbFlickityNav";
 import {JSONEditorComponent} from "./ui/JSONEditor.cpn";
 import {UploaderComponent} from "./ui/Uploader.cpn";
-import {SideListComponent} from "../module/side-list.cpn";
 
 import {Default} from './pipe/Default';
 import {Asset} from './pipe/Asset';
@@ -58,7 +52,6 @@ var directivesAndPipes = [
     Backdrop,
     JSONEditorComponent,
     UploaderComponent,
-    SideListComponent,
 
     // Pipe
     Default,

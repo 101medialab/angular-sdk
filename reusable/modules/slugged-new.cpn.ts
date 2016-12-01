@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {SluggedEditComponent} from "./slugged-edit.cpn";
 import {ObjectAttributeTypeExtractor} from "../ObjectAttributeTypeExtractor";
 

@@ -1,5 +1,3 @@
-/// <reference path="../../typings/angular2.d.ts" />
-
 import {Injectable, EventEmitter} from '@angular/core';
 
 @Injectable()

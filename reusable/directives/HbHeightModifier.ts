@@ -1,5 +1,3 @@
-/// <reference path="../../../typings/angular2.d.ts" />
-
 import {Directive, Input, OnChange, ElementRef, OnDestroy} from '@angular/core';
 import {EventDispatcher} from "../../HbComponent/EventDispatcher";
 
