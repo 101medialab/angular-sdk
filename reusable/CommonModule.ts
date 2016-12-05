@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule as BaseCommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
+import {HttpModule} from '@angular/http';
 
 import {CanDeactivateGuard} from "../HbComponent/CanDeactivateGuard";
 
@@ -63,7 +64,8 @@ var directivesAndPipes = [
 @NgModule({
     imports: [
         BaseCommonModule,
-        RouterModule
+        RouterModule,
+        HttpModule
     ],
     providers: [
         BaseDIContainer,
@@ -79,6 +81,7 @@ var directivesAndPipes = [
     declarations: directivesAndPipes,
     exports: directivesAndPipes.concat([
         BaseCommonModule,
+        HttpModule,
         RouterModule
     ])
 })

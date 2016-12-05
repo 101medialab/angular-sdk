@@ -36,13 +36,14 @@ export class Config extends BaseConfig {
     constructor(
         resourceName: string = '',
         pluralResourceName: string = '',
-        ResourceClass
+        ResourceClass,
+        apiBaseUrl = '/api'
     ) {
         super({
             resourceName,
             pluralResourceName,
             ResourceClass,
-            apiBaseUrl: '/api'
+            apiBaseUrl
         });
 
         this.generateRouteNames();
