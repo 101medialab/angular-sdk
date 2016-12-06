@@ -1,6 +1,5 @@
 import {Directive, Input, Output, EventEmitter, OnChanges, ElementRef} from '@angular/core';
-import BaseComponent from '../../HbComponent/BaseComponent';
-import setupProfileSelectize from '../JSONEditor/plugin';
+import {setupProfileSelectize} from '../JSONEditor/plugin';
 import Selectize from './Selectize';
 
 @Directive({
