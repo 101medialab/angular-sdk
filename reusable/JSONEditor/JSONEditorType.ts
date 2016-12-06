@@ -1,7 +1,7 @@
 export class Type {
     constructor(public type: string, public title: string = '', config: {} = null) {
         if (config) {
-            for (var key in config) {
+            for (let key in config) {
                 if (!(key in this)) {
                     this[key] = config[key];
                 }

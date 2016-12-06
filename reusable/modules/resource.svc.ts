@@ -1,5 +1,4 @@
-import {Injectable, Inject} from '@angular/core';
-import {Http} from '@angular/http';
+import {Injectable} from '@angular/core';
 import {ExtendedAuthHttp} from '../ExtendedAuthHttp';
 import {EventDispatcher} from "../../HbComponent/EventDispatcher";
 import {BaseResource} from '../../HbComponent/BaseResource';

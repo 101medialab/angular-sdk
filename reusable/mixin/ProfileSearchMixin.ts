@@ -12,11 +12,11 @@ export class ProfileSearchMixin {
     }
 
     protected fixProfileSelectizeValue(slug) {
-        var indexOf = slug.indexOf(ProfileSearchMixin.fromSeparator),
+        let indexOf = slug.indexOf(ProfileSearchMixin.fromSeparator),
             type = slug.substring(indexOf + ProfileSearchMixin.fromSeparator.length, slug.length);
 
         if (indexOf > -1) {
-            var result = {
+            let result = {
                 slug: slug.substring(0, indexOf).trim(),
                 type
             };
@@ -33,14 +33,14 @@ export class ProfileSearchMixin {
 
     protected convertToProfileNameAndSlug(data, key) {
         if (data[key].indexOf(',') > -1) {
-            var eachSlug = data[key].split(',');
+            let eachSlug = data[key].split(',');
             data[key] = [];
 
             eachSlug.forEach((slug) => {
                 data[key].push(this.fixProfileSelectizeValue(slug));
             });
         } else {
-            var slug = data[key];
+            let slug = data[key];
 
             if (slug != '') {
                 data[key] = [this.fixProfileSelectizeValue(slug)];

@@ -22,9 +22,9 @@ export class HbClass implements OnChanges {
                 this.config = [this.config];
             }
 
-            var normalizedConfig = [];
+            let normalizedConfig = [];
             this.config.forEach((_config) => {
-                var result = null;
+                let result = null;
 
                 if ('toggle' in _config) {
                     result = this.normalizeToggleConfig(_config);
@@ -56,11 +56,11 @@ export class HbClass implements OnChanges {
 //      }
 //  }
     normalizeToggleConfig(config) {
-        var result = [];
+        let result = [];
 
         ['add', 'remove'].forEach((action)=> {
             if (action in config.toggle) {
-                var temp = new HbClassConfig();
+                let temp = new HbClassConfig();
 
                 temp.action = action;
                 temp.event = config.toggle[action];
@@ -88,12 +88,12 @@ export class HbClass implements OnChanges {
 //      }]
 //  }
     normalizeChainConfig(config) {
-        var result = [];
+        let result = [];
 
         config.actions.forEach((action) => {
-            var temp = new HbClassConfig();
+            let temp = new HbClassConfig();
 
-            for (var key in action) {
+            for (let key in action) {
                 if (key in temp) {
                     temp[key] = action[key];
                 }
@@ -114,7 +114,7 @@ export class HbClass implements OnChanges {
             config.event,
             [() => {
                 setTimeout(() => {
-                    var action = !('action' in config) ?
+                    let action = !('action' in config) ?
                             this.$el.hasClass(config.class) ?
                                 'remove' : 'add' :
                             config.action

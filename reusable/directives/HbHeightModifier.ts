@@ -18,7 +18,7 @@ export class HbHeightModifier implements OnChange, OnDestroy {
         if (config.currentValue) {
             if (this.config.initializable) {
                 setTimeout(()=> {
-                    var $target = $(this.config.target),
+                    let $target = $(this.config.target),
                         $heightSource = $(this.config.heightSource),
                         $defaultHeightSource = this.config.defaultHeightSource && $(this.config.defaultHeightSource);
 
@@ -61,7 +61,7 @@ export class HbHeightModifier implements OnChange, OnDestroy {
     }
 
     ngOnDestroy() {
-        for (var key in this.config.event) {
+        for (let key in this.config.event) {
             this.eventDispatcher.remove(this.config.event[key]);
         }
     }

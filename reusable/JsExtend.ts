@@ -7,18 +7,18 @@ export class JsExtend {
             return;
         }
 
-        for (var key in extend) {
+        for (let key in extend) {
             if (key in exportTo) {
-                var target = exportTo[key];
+                let target = exportTo[key];
 
-                for (var fnKey in extend[key]) {
+                for (let fnKey in extend[key]) {
                     if (fnKey !== 'prototype' && !(fnKey in target)) {
                         target[fnKey] = extend[key][fnKey];
                     }
                 }
 
                 if ('prototype' in extend[key]) {
-                    for (var fnKey in extend[key]['prototype']) {
+                    for (let fnKey in extend[key]['prototype']) {
                         if (!(fnKey in target)) {
                             target['prototype'][fnKey] = extend[key]['prototype'][fnKey];
                         }

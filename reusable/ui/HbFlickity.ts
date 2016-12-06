@@ -1,8 +1,7 @@
 import {NgFor} from '@angular/common';
 import {Component, ViewChild, Input, ElementRef, OnChanges, Inject}  from '@angular/core';
-import {Asset} from "../../reusable/pipe/Asset";
-import {Photon} from "../../reusable/pipe/Photon";
-//import 'woothemes/FlexSlider';
+import {Asset} from "../pipe/Asset";
+import {Photon} from "../pipe/Photon";
 import {EventDispatcher} from "../../HbComponent/EventDispatcher";
 
 @Component({

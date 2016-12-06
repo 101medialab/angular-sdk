@@ -12,7 +12,7 @@ export class ObjectAttributeTypeExtractor {
     }
 
     static generateMapping(obj: {}, options: {} = {}) {
-        var types = {};
+        let types = {};
         options = $.extend({
             keyNamingStrategy: 'camelCase',
             stripUnderscore: false
@@ -21,15 +21,15 @@ export class ObjectAttributeTypeExtractor {
         if (obj instanceof Array) {
             return new ObjectAttributeTypeExtractor(obj[0], options);
         } else {
-            for (var key in obj) {
+            for (let key in obj) {
                 if (typeof obj[key] !== 'function') {
-                    var type = {};
+                    let type = {};
 
                     if (typeof obj[key] === 'object') {
                         if (obj[key] === null) {
                             type = 'any';
                         } else if (obj[key] instanceof Array) {
-                            var target = obj[key];
+                            let target = obj[key];
 
                             if (typeof target[0] !== 'object') {
                                 target = target[0];
@@ -63,7 +63,7 @@ export class ObjectAttributeTypeExtractor {
 
                     // if set function exists, rename _attr to attr
                     if (options.stripUnderscore && key.charAt(0) === '_') {
-                        var setterKey = key.substr(1, key.length);
+                        let setterKey = key.substr(1, key.length);
 
                         if (setterKey in obj) {
                             key = setterKey;
@@ -84,7 +84,7 @@ export class ObjectAttributeTypeExtractor {
     }
 
     static fixObjectAttrs(data: any, options: {}) {
-        var result = null;
+        let result = null;
         options = $.extend({
             keyNamingStrategy: 'camelCase',
             stripUnderscore: false
@@ -99,9 +99,9 @@ export class ObjectAttributeTypeExtractor {
         } else if (typeof data === 'object') {
             result = {};
 
-            for (var key in data) {
+            for (let key in data) {
                 if (!options.stripUnderscore || key.charAt(0) !== '_') {
-                    var finalKey = key;
+                    let finalKey = key;
 
                     if (options.keyNamingStrategy === 'snake_case') {
                         finalKey = key.toSnakecase();
@@ -120,7 +120,7 @@ export class ObjectAttributeTypeExtractor {
     }
 
     static convertDataToString(data: any, callbacks: {} = {}) {
-        var result = null;
+        let result = null;
 
         if (data instanceof Array) {
             result = [];
@@ -131,7 +131,7 @@ export class ObjectAttributeTypeExtractor {
         } else if (typeof data === 'object') {
             result = {};
 
-            for (var key in data) {
+            for (let key in data) {
                 if (typeof data[key] === 'object') {
                     if (data[key] instanceof Date) {
                         result[key] = 'date' in callbacks && callbacks.date instanceof Function ? callbacks.date(data[key]) : data[key].yyyymmdd('-');

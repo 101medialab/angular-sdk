@@ -60,7 +60,7 @@ export class BaseResourceComponent extends BaseComponent implements OnInit, OnDe
     onInit() {}
 
     onInitialized() {
-        var {title, description} = this.getMetaData();
+        let {title, description} = this.getMetaData();
 
         this.titleService.setTitle(title);
         this.mainStatus.setMetaData({title, description});

@@ -29,12 +29,12 @@ export class EmitWhenViewportChanges extends BaseComponent implements OnChanges 
                 this.config.refreshRate = 100;
             }
 
-            var $target = $(this.config.target ? this.config.target : window),
+            let $target = $(this.config.target ? this.config.target : window),
                 prevIsAppearedStatus = false,
                 prevIsDisappearedStatus = false,
                 $window = $(window);
 
-            var observable = RxDOM.DOM.scroll($target[0]);
+            let observable = RxDOM.DOM.scroll($target[0]);
 
             if (this.config.refreshRate !== 0) {
                 observable.throttle(this.config.refreshRate)
@@ -48,7 +48,7 @@ export class EmitWhenViewportChanges extends BaseComponent implements OnChanges 
             }, this.config);
 
             observable.subscribe(() => {
-                var docViewTop = $window.scrollTop() + this.config.offsetViewport.top,
+                let docViewTop = $window.scrollTop() + this.config.offsetViewport.top,
                     docViewBottom = docViewTop + $window.outerHeight() + this.config.offsetViewport.bottom,
                     elemTop = this.$el.offset().top,
                     elemBottom = elemTop + this.$el.outerHeight(),

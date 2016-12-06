@@ -34,7 +34,7 @@ import {DummyDIContainer} from "./modules/DummyDIContainer";
 import {Status} from "./modules/status.svc";
 import {Config} from "./modules/Config";
 
-var directivesAndPipes = [
+let directivesAndPipes = [
     Angulartics2On,
 
     FileSelectDirective,

@@ -51,7 +51,7 @@ export class HbFlickityNav implements OnChanges {
 
     onReadyToInitialize() {
         if (this.$el) {
-            var $navCells = this.$el.find('.carousel-cell');
+            let $navCells = this.$el.find('.carousel-cell');
             this.dimensions = {
                 top: (this.$el.position()).top,
                 height: this.$el.height()
@@ -61,7 +61,7 @@ export class HbFlickityNav implements OnChanges {
                 if ('for' in this.options && target == this.options.for + '-nav') {
                     this.$el.find('.current').removeClass('current');
 
-                    var $current = $navCells.eq(index).addClass('current'),
+                    let $current = $navCells.eq(index).addClass('current'),
                         cellHeight = $current.height();
 
                     this.$el.stop().animate({

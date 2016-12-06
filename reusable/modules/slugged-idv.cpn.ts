@@ -15,7 +15,7 @@ export class SluggedIdvComponent extends IdvComponent {
 
         this.status.resource.isCancelIfLoading = false;
 
-        var isForceReload = this.routeType !== this.domainConfig.ROUTE_TYPE_VIEW;
+        let isForceReload = this.routeType !== this.domainConfig.ROUTE_TYPE_VIEW;
 
         try {
             if (this.activatedRoute.parent.url.value[0].path !== 'collections') {
@@ -41,7 +41,7 @@ export class SluggedIdvComponent extends IdvComponent {
                     '/' + slug, [], isForceReload
                 ).then((data) => {
                     this.data = this.setupData(
-                        JSON.parse(JSON.stringify(data))
+                        Object.assign({}, data)
                     );
 
                     this.status.resource.isCancelIfLoading = true;

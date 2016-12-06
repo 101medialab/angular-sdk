@@ -35,7 +35,7 @@ export function setupProfileSelectizeField(
         };
 
         options.selectizeOptions.onItemRemove = (value) => {
-            var replace = cpn.getValue().replace(value, '').replace(/^,|,$/gm, '');
+            let replace = cpn.getValue().replace(value, '').replace(/^,|,$/gm, '');
 
             cpn.input.value = Date.now().toString();
             cpn.setValue(replace);
@@ -61,7 +61,7 @@ export function setupProfileSelectize(
         resolveResponse?: (resp, callWhenDone, instance) => {}
     }
 ) {
-    var $el = $(input);
+    let $el = $(input);
 
     $el.selectize(
         $.extend(true, {
@@ -96,7 +96,7 @@ export function setupProfileSelectize(
             load: (query, callback) => {
                 if (!query.length) return callback();
 
-                var instance = $el[0].selectize;
+                let instance = $el[0].selectize;
 
                 options.resource.get(
                     (options.apiEndPoint ? options.apiEndPoint : '/search/by-name/') + query, [], true

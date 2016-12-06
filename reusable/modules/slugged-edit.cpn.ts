@@ -1,4 +1,4 @@
-import {ProfileSearchMixin} from "../../reusable/mixin/ProfileSearchMixin";
+import {ProfileSearchMixin} from "../mixin/ProfileSearchMixin";
 import {applyMixins} from "../Mixin";
 import {SluggedIdvComponent} from "./slugged-idv.cpn";
 import {EditComponent} from "./edit.cpn";

@@ -16,7 +16,7 @@ export class HbPerfectScroll implements OnChanges, OnDestroy {
 
     ngOnChanges(change) {
         if ('hb-perfect-scroll' in change) {
-            var changes = change['hb-perfect-scroll'].currentValue;
+            let changes = change['hb-perfect-scroll'].currentValue;
 
             if (changes) {
                 this.options = changes;

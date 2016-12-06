@@ -29,17 +29,17 @@ export class JSONEditorFactory {
         resolveTypeAny: (JSONEditorTypes) => void = null,
         resolveTypeUndefined: (attrMapping, key) => void = null
     ) {
-        var schema = {},
+        let schema = {},
             attrMapping = attrMappingObj instanceof ObjectAttributeTypeExtractor ? attrMappingObj.mapping : attrMappingObj,
             defaultValue = {},
             i = 1;
 
-        for (var key in attrMapping) {
+        for (let key in attrMapping) {
             if (['id'].indexOf(key) === -1) {
-                var titleCase = key.replace(/([A-Z]+)/g, " $1").replace(/_/g, ' ').capitalize();
+                let titleCase = key.replace(/([A-Z]+)/g, " $1").replace(/_/g, ' ').capitalize();
 
                 if (['object', 'array'].indexOf(attrMapping[key]._type) > -1) {
-                    var type = attrMapping[key]._type,
+                    let type = attrMapping[key]._type,
                         schemaTemp;
 
                     if ('_type' in attrMapping[key]._mapping) {

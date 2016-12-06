@@ -47,7 +47,7 @@ export class JSONEditorComponent implements OnChanges {
                 this.schemaData ? this.schemaData : this.data,
                 this.objectAttributeTypeExtractorOptions
             );
-            var schema = JSONEditorFactory.generateSchemaByAttributeTypeObject(this.attrMapping);
+            let schema = JSONEditorFactory.generateSchemaByAttributeTypeObject(this.attrMapping);
 
             if (this.schemaTransformer) {
                 schema = this.schemaTransformer(schema, this.context);
@@ -62,7 +62,7 @@ export class JSONEditorComponent implements OnChanges {
     }
 
     notifyJSONEditDone() {
-        var data = this.factoryInstance.instance.getValue();
+        let data = this.factoryInstance.instance.getValue();
 
         if (data && this.attrMapping) {
             this.onSubmit.emit(data);

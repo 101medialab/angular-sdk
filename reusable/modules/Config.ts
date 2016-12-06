@@ -1,4 +1,4 @@
-import {Injectable, Inject} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Config as BaseConfig} from '../../reusable/Config';
 import {NavItem} from "../../HbComponent/NavItem";
 
@@ -52,7 +52,7 @@ export class Config extends BaseConfig {
     private generateRouteNames() {
         this.route.base = '/' + this.getPluralResourceName();
 
-        //var name = this.getPluralResourceName(true);
+        //let name = this.getPluralResourceName(true);
         //
         //this.routeTypes.forEach((routeType) => {
         //    this.route[routeType] = name + routeType.capitalize();

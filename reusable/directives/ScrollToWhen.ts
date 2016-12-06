@@ -1,4 +1,4 @@
-import {Directive, Input, ElementRef, Inject, OnChanges, OnDestroy} from '@angular/core';
+import {Directive, Input, ElementRef, OnChanges} from '@angular/core';
 import {Status} from "../modules/status.svc";
 import {BaseComponent} from "../../HbComponent/BaseComponent";
 
@@ -20,7 +20,7 @@ export class ScrollToWhen extends BaseComponent implements OnChanges {
     }
 
     scrollOnce() {
-        var scrollTo =
+        let scrollTo =
             'scrollTo' in this.data ?
                 this.data.scrollTo :
                 'childTarget' in this.data ?

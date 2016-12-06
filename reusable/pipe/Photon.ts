@@ -13,7 +13,7 @@ export class Photon implements PipeTransform {
         path = path.replace(/https?:\/\//, '');
         path = path.replace(/[\/]{2,}/, '/');
 
-        var external = path.match(/https?:\/\//, '');
+        let external = path.match(/https?:\/\//, '');
 
         return Status.APP_ENV ?
             'http://i0.wp.com/' + path + '?' + args :

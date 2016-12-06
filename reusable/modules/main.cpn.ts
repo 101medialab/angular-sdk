@@ -60,7 +60,7 @@ export class MainComponent extends BaseResourceComponent {
     }
 
     updateNPerRow() {
-        var isBrand = this.domainConfig.getResourceName() == 'brand';
+        let isBrand = this.domainConfig.getResourceName() == 'brand';
         switch (this.mainStatus.DEVICE_TYPE.value) {
             case 'mobile':
             case 'xs':
@@ -97,9 +97,9 @@ export class MainComponent extends BaseResourceComponent {
     }
 
     resolveCriteriaFromRouteParams() {
-        var fromUrl = {};
+        let fromUrl = {};
         this.criteriaNames.forEach((key) => {
-            var value = key in this.activatedRoute.snapshot.params ? this.activatedRoute.snapshot.params[key] : null;
+            let value = key in this.activatedRoute.snapshot.params ? this.activatedRoute.snapshot.params[key] : null;
 
             if (value) {
                 fromUrl[key] = decodeURIComponent(value);
@@ -118,7 +118,7 @@ export class MainComponent extends BaseResourceComponent {
     resolveRequestingNoOfResult(netCriteria, includePage) {
         this.state.isUsingDefaultCriteria = Object.keys(netCriteria).length === 0;
 
-        var result = {
+        let result = {
             num: (this.nPerRow * 6) - (
                 this.state.isUsingDefaultCriteria &&
                 this.currentCriteria.page === 1 ? 4 : 0
@@ -134,7 +134,7 @@ export class MainComponent extends BaseResourceComponent {
     }
 
     onCriteriaChanged(includePage = false) {
-        var netCriteria = this.getNetCriteria(),
+        let netCriteria = this.getNetCriteria(),
             query = Object.assign({}, netCriteria),
             {num, offset} = this.resolveRequestingNoOfResult(includePage, netCriteria);
 
@@ -144,10 +144,10 @@ export class MainComponent extends BaseResourceComponent {
     }
 
     sendRequest(query, num, offset, includePage) {
-        var endpoint = new URI('/');
+        let endpoint = new URI('/');
 
-        for (var key in query) {
-            var name = key;
+        for (let key in query) {
+            let name = key;
 
             if (key !== 'sortedBy') {
                 name = 'criteria[' + key + ']';
@@ -167,7 +167,7 @@ export class MainComponent extends BaseResourceComponent {
     }
 
     onRequestDone(data, includePage, num) {
-        var data = this.setupData(data);
+        let data = this.setupData(data);
 
         this.data = includePage ? this.data.concat(data) : data;
         this.state.isInitialized = true;
@@ -180,20 +180,20 @@ export class MainComponent extends BaseResourceComponent {
     }
 
     private generateRoute(name, config = null) {
-        var returnArgs = false;
+        let returnArgs = false;
 
         if (typeof name === 'object') {
             config = name;
             returnArgs = true;
         }
 
-        var fromConfig = this.getNetCriteria(config);
+        let fromConfig = this.getNetCriteria(config);
 
         return returnArgs ? fromConfig : new NavItem(name, fromConfig);
     }
 
     protected getNetCriteria(config = {}) {
-        var fromConfig = {};
+        let fromConfig = {};
 
         this.criteriaNames.forEach((key) => {
             if (

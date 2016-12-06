@@ -21,8 +21,8 @@ export class ShareButton {
                 break;
 
             case 'link':
-                var $linkContainer = $(this.el.nativeElement).parent().find('.link-container');
-                var input = $linkContainer.find('input')[0];
+                let $linkContainer = $(this.el.nativeElement).parent().find('.link-container'),
+                    input = $linkContainer.find('input')[0];
                 input.selectionStart = 0;
                 input.selectionEnd = input.value.length;
 
@@ -34,24 +34,29 @@ export class ShareButton {
                 break;
 
             default:
-                var width = 600,
+                let width = 600,
                     height = 400;
 
-                if (this.data.name === 'reddit') {
-                    width = 900;
-                    height = 600;
-                } else if (this.data.name === 'pinterest') {
-                    width = 870;
-                    height = 680;
-                }
+                switch (this.data.name) {
+                    case 'reddit':
+                        width = 900;
+                        height = 600;
+                        break;
 
-                var centerX = (window.outerWidth - width) / 2,
-                    centerY = (window.outerHeight - height) / 2;
+                    case 'pinterest':
+                        width = 870;
+                        height = 680;
+                        break;
+                }
 
                 window.open(
                     this.data.href,
                     '_blank',
-                    'width=' + width + ',height=' + height + ',titlebar=0,left=' + centerX + ',top=' + centerY
+                    'width=' + width + ',height=' + height + ',titlebar=0,left=' + (
+                        (window.outerWidth - width) / 2
+                    ) + ',top=' + (
+                        (window.outerHeight - height) / 2
+                    )
                 );
 
                 break;

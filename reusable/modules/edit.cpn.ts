@@ -1,12 +1,6 @@
-import {Component}  from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {Title} from '@angular/platform-browser';
-import {Status as MainStatus} from './status.svc';
+import {ActivatedRoute} from '@angular/router';
 
-import {IdvComponent} from './idv.cpn.ts';
-import {Status} from './status.svc';
-import {Config} from "./Config";
-import {BaseDIContainer} from "../../HbComponent/BaseDIContainer";
+import {IdvComponent} from './idv.cpn';
 import {DummyDIContainer} from "./DummyDIContainer";
 
 export class EditComponent extends IdvComponent {
@@ -41,11 +35,11 @@ export class EditComponent extends IdvComponent {
     }
 
     onEditDoneClearUpData(data) {
-        return JSON.parse(JSON.stringify(data));
+        return Object.assign({}, data);
     }
 
     resolveUpdateUrl(data) {
-        return '/' + (data.slug ? data.slug + '/' : '') + 'update';
+        return '/' + (data.slug ? data.slug + '/' : (data.id ? data.id + '/' : '')) + 'update';
     }
 
     onEditDone(data, onFinishedCb = null) {

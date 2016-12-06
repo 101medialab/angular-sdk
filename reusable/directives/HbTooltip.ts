@@ -1,5 +1,4 @@
 import {Directive, Input, OnChange, ElementRef} from '@angular/core';
-import {BaseComponent} from "../../HbComponent/BaseComponent";
 import 'bootstrap/js/tooltip.js'
 
 @Directive({

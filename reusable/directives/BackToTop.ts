@@ -1,5 +1,4 @@
 import {Directive, Input, OnInit, OnChanges, ElementRef} from '@angular/core';
-import {BaseComponent} from "../../HbComponent/BaseComponent";
 
 @Directive({
     selector: '.hb-back-to-top',

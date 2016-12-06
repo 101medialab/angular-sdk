@@ -8,7 +8,7 @@ export class ExtendedJSONEditorFactory extends JSONEditorFactory {
     }
 
     setupExtendFields() {
-        var editors = window.JSONEditor.defaults.editors,
+        let editors = window.JSONEditor.defaults.editors,
             resolvers = window.JSONEditor.defaults.resolvers;
 
         editors.autocomplete = editors.string.extend({

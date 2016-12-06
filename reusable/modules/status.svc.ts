@@ -1,4 +1,4 @@
-import {Injectable, Inject} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BaseStatus} from '../../HbComponent/BaseStatus';
 import {EventDispatcher} from "../../HbComponent/EventDispatcher";
 import {Resource} from './resource.svc';
@@ -50,7 +50,7 @@ export class Status extends BaseStatus {
     }
 
     getDataPassedFromPreviousRoute() {
-        var clone = this.getDataPassingToNextRoute() ? Object.assign(this.getDataPassingToNextRoute()) : null;
+        let clone = this.getDataPassingToNextRoute() ? Object.assign(this.getDataPassingToNextRoute()) : null;
         this.dataForNextRoute = null;
 
         return clone;
@@ -67,7 +67,7 @@ export class Status extends BaseStatus {
      * }
      */
     setMetaData(attrs) {
-        for (var name in attrs) {
+        for (let name in attrs) {
             if (!(name in this.$metas)) {
                 this.$metas[name] = this.$head.find('meta[name=' + name + ']');
 
@@ -81,7 +81,7 @@ export class Status extends BaseStatus {
             if (typeof attrs[name] === 'string') {
                 this.$metas[name].attr('content', attrs[name]);
             } else {
-                for (var attr in attrs[name]) {
+                for (let attr in attrs[name]) {
                     this.$metas[name].attr(attr, attrs[name][attr]);
                 }
             }
@@ -89,7 +89,7 @@ export class Status extends BaseStatus {
     }
 
     private onWindowResize() {
-        var width = this.$win.width();
+        let width = this.$win.width();
 
         if (width <= 480) {
             this.deviceType.value = 'mobile';

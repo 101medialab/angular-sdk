@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Headers, Response} from '@angular/http';
+import {Headers} from '@angular/http';
 import {HttpHeader} from './HttpHeader';
 import {ExtendedAuthHttp} from "../reusable/ExtendedAuthHttp";
 import {EventDispatcher} from "./EventDispatcher";
@@ -74,7 +74,7 @@ export class BaseResource {
     }
 
     get(url: string, headers: Array<HttpHeader> = [], forceReload: boolean = false, noLoadingScreen = false) {
-        var reqHeaders = this.extendBaseHeader(headers),
+        let reqHeaders = this.extendBaseHeader(headers),
             requestUrl = this._baseUrl + url;
 
         if (this.isCancelIfLoading) {
@@ -96,7 +96,7 @@ export class BaseResource {
                 this.eventDispatcher.emit('HB.resource.LOAD_BEGIN');
             }
 
-            var containQuestionMark = requestUrl.indexOf('?') > -1,
+            let containQuestionMark = requestUrl.indexOf('?') > -1,
                 request = this.http.get(
                     requestUrl + (
                         forceReload ? (
@@ -110,7 +110,7 @@ export class BaseResource {
                 .map((res) => res.json())
                 .subscribe(
                     (res) => {
-                        var notCancelYet = this.currentLoading.has(requestUrl);
+                        let notCancelYet = this.currentLoading.has(requestUrl);
 
                         this.currentLoading.delete(requestUrl);
                         this.cache.set(requestUrl, res);
@@ -130,7 +130,7 @@ export class BaseResource {
     }
 
     post(url: string, body: {} | '', headers: Array<HttpHeader> = []) {
-        var reqHeaders = this.extendBaseHeader(headers),
+        let reqHeaders = this.extendBaseHeader(headers),
             reqBody = typeof body === 'object' ? JSON.stringify(body) : body;
 
         if (this.isCancelIfLoading) {
@@ -138,7 +138,7 @@ export class BaseResource {
         }
 
         return new Promise((resolve, reject) => {
-            var request =
+            let request =
                 this.http.post(this._baseUrl + url, reqBody, {headers: reqHeaders})
                     .map((res) => res.json())
                     .subscribe(
@@ -164,13 +164,13 @@ export class BaseResource {
     }
 
     cancelCurrentLoading(url) {
-        var currentLoading = this.currentLoading.get(url);
+        let currentLoading = this.currentLoading.get(url);
 
         currentLoading.reject(new Error('BaseResource is cancelling loading. URL: ' + this.baseUrl + url));
     }
 
     private extendBaseHeader(headers): Headers {
-        var reqHeaders = new Headers(this.headers);
+        let reqHeaders = new Headers(this.headers);
         reqHeaders._headersMap = new Map(this.headers._headersMap);
         headers.forEach((header: HttpHeader) => reqHeaders.append(header.name, header.value));
 
