@@ -1,4 +1,4 @@
-export class ProfileSearchMixin {
+export default class ProfileSearchMixin {
     public static get fromSeparator() {
         return '__type__';
     }

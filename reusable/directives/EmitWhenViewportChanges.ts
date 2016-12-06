@@ -1,13 +1,13 @@
 import {Directive, Input, ElementRef, Inject, OnChanges, OnDestroy} from '@angular/core';
-import {Status} from "../modules/status.svc";
-import {BaseComponent} from "../../HbComponent/BaseComponent";
+import Status from '../modules/status.svc';
+import BaseComponent from '../../HbComponent/BaseComponent';
 import * as RxDOM from 'rx-dom';
 
 @Directive({
     selector: '[emitWhenViewportChanges]'
 })
 
-export class EmitWhenViewportChanges extends BaseComponent implements OnChanges {
+export default class EmitWhenViewportChanges extends BaseComponent implements OnChanges {
     private $el;
     private isInitialized: boolean = false;
     @Input('emitWhenViewportChanges') private config: {};

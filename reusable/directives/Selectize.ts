@@ -3,7 +3,7 @@ import {Directive, Input, Output, EventEmitter, OnChanges, ElementRef} from '@an
 @Directive({
     selector: 'selectize',
 })
-export class Selectize implements OnChanges {
+export default class Selectize implements OnChanges {
     protected $el;
     protected options;
     private list;

@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 
 @Injectable()
-export class BaseEventEmitter {
+export default class BaseEventEmitter {
     protected _emitter: EventEmitter = new EventEmitter();
 
     constructor(private name: string) {}

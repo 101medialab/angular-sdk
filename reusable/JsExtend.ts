@@ -1,5 +1,5 @@
 // Extend Native JS, skip if function name has been used.
-export class JsExtend {
+export default class JsExtend {
     constructor(extend, exportTo: {} = window) {
         if (typeof extend !== 'object') {
             console.error('JSExtend: First argument in constructor is not typeof object.');

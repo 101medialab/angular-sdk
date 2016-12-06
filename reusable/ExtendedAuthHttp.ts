@@ -3,7 +3,7 @@ import {Http, Response} from '@angular/http';
 import {AuthHttp, AuthConfig, JwtHelper} from 'angular2-jwt';
 
 @Injectable()
-export class ExtendedAuthHttp extends AuthHttp {
+export default class ExtendedAuthHttp extends AuthHttp {
     private jwtHelper: JwtHelper;
     private externalConfig;
     private token: string;

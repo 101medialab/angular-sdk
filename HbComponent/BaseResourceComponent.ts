@@ -3,15 +3,15 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {Angulartics2GoogleAnalytics} from 'angulartics2/dist/providers/ga/angulartics2-ga';
 
-import {BaseComponent} from './BaseComponent';
+import BaseComponent from './BaseComponent';
 
-import {Status as Status} from '../reusable/modules/status.svc';
-import {Config} from '../reusable/modules/Config';
-import {CanComponentDeactivate} from "./CanDeactivateGuard";
-import {DummyDIContainer} from "../reusable/modules/DummyDIContainer";
-import {BaseDIContainer} from "./BaseDIContainer";
+import Status from '../reusable/modules/status.svc';
+import Config from '../reusable/modules/Config';
+import CanComponentDeactivate from './CanDeactivateGuard';
+import DummyDIContainer from '../reusable/modules/DummyDIContainer';
+import BaseDIContainer from './BaseDIContainer';
 
-export class BaseResourceComponent extends BaseComponent implements OnInit, OnDestroy, CanComponentDeactivate {
+export default class BaseResourceComponent extends BaseComponent implements OnInit, OnDestroy, CanComponentDeactivate {
     protected routeType = '';
     protected dataFromPreviousRoute: any = null;
 

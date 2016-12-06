@@ -1,8 +1,8 @@
-import {BaseDIContainer} from "../../HbComponent/BaseDIContainer";
-import {Config} from "./Config";
-import {Status} from "./status.svc";
+import BaseDIContainer from '../../HbComponent/BaseDIContainer';
+import Config from './Config';
+import Status from './status.svc';
 
-export class DummyDIContainer {
+export default class DummyDIContainer {
     private _baseDI: BaseDIContainer;
     private _config: Config;
     private _status: Status;

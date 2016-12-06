@@ -1,12 +1,12 @@
 import {Directive, Input, OnChanges, ElementRef} from '@angular/core';
-import {BaseComponent} from "../../HbComponent/BaseComponent";
-import {Status} from "../modules/status.svc";
+import BaseComponent from '../../HbComponent/BaseComponent';
+import Status from '../modules/status.svc';
 
 // TODO: isInitialized has not checked
 @Directive({
     selector: '[hbClass]',
 })
-export class HbClass implements OnChanges {
+export default class HbClass implements OnChanges {
     private $el;
     @Input('hbClass') private config;
 

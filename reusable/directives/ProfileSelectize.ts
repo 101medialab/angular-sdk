@@ -1,12 +1,12 @@
 import {Directive, Input, Output, EventEmitter, OnChanges, ElementRef} from '@angular/core';
-import {BaseComponent} from "../../HbComponent/BaseComponent";
-import {setupProfileSelectize} from "../JSONEditor/plugin";
-import {Selectize} from "./Selectize";
+import BaseComponent from '../../HbComponent/BaseComponent';
+import setupProfileSelectize from '../JSONEditor/plugin';
+import Selectize from './Selectize';
 
 @Directive({
     selector: '[profileSelectize]',
 })
-export class ProfileSelectize extends Selectize {
+export default class ProfileSelectize extends Selectize {
     // Pathetically you cannot inherit EventEmitter, add it manually
     @Output('onChange') onChange = new EventEmitter();
     @Input('profileSelectize') private options;

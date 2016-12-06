@@ -1,6 +1,6 @@
 import {Component, Input, Output, ViewChild, EventEmitter, ElementRef, OnChanges} from '@angular/core';
-import {ExtendedJSONEditorFactory as JSONEditorFactory} from "../JSONEditor/ExtendedJSONEditorFactory";
-import {ObjectAttributeTypeExtractor} from "../ObjectAttributeTypeExtractor";
+import JSONEditorFactory from '../JSONEditor/ExtendedJSONEditorFactory';
+import ObjectAttributeTypeExtractor from '../ObjectAttributeTypeExtractor';
 
 @Component({
     selector: 'json-editor',
@@ -12,7 +12,7 @@ import {ObjectAttributeTypeExtractor} from "../ObjectAttributeTypeExtractor";
     </form>
     `
 })
-export class JSONEditorComponent implements OnChanges {
+export default class JSONEditorComponent implements OnChanges {
     @Input('name') private name: string;
     @Input('config') private config: {} = {};
     @Input('objectAttributeTypeExtractorOptions') private objectAttributeTypeExtractorOptions: {} = {};

@@ -1,8 +1,8 @@
 import {ActivatedRoute} from '@angular/router';
-import {BaseResourceComponent} from "../../HbComponent/BaseResourceComponent";
-import {DummyDIContainer} from "./DummyDIContainer";
+import BaseResourceComponent from '../../HbComponent/BaseResourceComponent';
+import DummyDIContainer from './DummyDIContainer';
 
-export class IdvComponent extends BaseResourceComponent {
+export default class IdvComponent extends BaseResourceComponent {
     protected data: {} = {};
 
     constructor(diContainer: DummyDIContainer, activatedRoute: ActivatedRoute) {

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {EventDispatcher} from "./EventDispatcher";
-import {BaseResource} from "./BaseResource";
+import EventDispatcher from './EventDispatcher';
+import BaseResource from './BaseResource';
 
 @Injectable()
-export class BaseStatus {
+export default class BaseStatus {
     constructor(protected _evtDispatcher: EventDispatcher, private _resource?: BaseResource = null) {}
 
     get evtDispatcher(): EventDispatcher {

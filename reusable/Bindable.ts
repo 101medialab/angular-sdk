@@ -1,4 +1,4 @@
-export class Bindable {
+export default class Bindable {
     constructor(private _value: any) {}
 
     get value(): any {

@@ -1,7 +1,7 @@
-import {SluggedEditComponent} from "./slugged-edit.cpn";
-import {ObjectAttributeTypeExtractor} from "../ObjectAttributeTypeExtractor";
+import SluggedEditComponent from './slugged-edit.cpn';
+import ObjectAttributeTypeExtractor from '../ObjectAttributeTypeExtractor';
 
-export class SluggedNewComponent extends SluggedEditComponent {
+export default class SluggedNewComponent extends SluggedEditComponent {
     ngOnInit() {
 
         this.onInitialized();

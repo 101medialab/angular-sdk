@@ -1,4 +1,4 @@
-export class BaseClass {
+export default class BaseClass {
     static isDefinedNotNull(obj) {
         return typeof obj !== 'undefined' && obj != null;
     }
