@@ -28,6 +28,7 @@ import Default from './pipe/Default';
 import Asset from './pipe/Asset';
 import Photon from './pipe/Photon';
 import Values from './pipe/Values';
+import MapToIterable from './pipe/MapToIterable';
 import BaseDIContainer from '../HbComponent/BaseDIContainer';
 
 import DummyDIContainer from './modules/DummyDIContainer';
@@ -58,7 +59,8 @@ let directivesAndPipes = [
     Default,
     Asset,
     Photon,
-    Values
+    Values,
+    MapToIterable
 ];
 
 @NgModule({

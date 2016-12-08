@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-    name: 'values'
+    name: 'values',  pure: false
 })
 export default class Values implements PipeTransform {
     transform(value: any, args: any[] = null): any {
