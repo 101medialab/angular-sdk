@@ -35,86 +35,83 @@ export default class Ng2FormFactory {
                 if (['object', 'array'].indexOf(attrMapping[key]._type) > -1) {
                     let type = attrMapping[key]._type,
                         schemaTemp;
-                    
-                    if ('_type' in attrMapping[key]._mapping) {
-                        console.log(attrMapping[key]._mapping);
 
+                    if ('_type' in attrMapping[key]._mapping) {
                         // For primitive type array
-                        schemaTemp = {
+                        let control = new FormControl(
+                            '_value' in attrMapping[key]._mapping ? attrMapping[key]._mapping._value : '',
+                            [Validators.required]
+                        ), template = {};
+
+                        template[key] = {
+                            label: titleCase,
                             type: attrMapping[key]._mapping._type,
+                            control
                         };
 
-                        if ('_value' in attrMapping[key]._mapping) {
-                            schemaTemp['default'] = attrMapping[key]._mapping._value;
-                        }
-
                         schemaTemp = {
-                            ngForm: new FormControl('', [Validators.required]),
-                            template: {
-
-                            }
+                            ngForm: control,
+                            template
                         }
                     } else {
-                        console.log(attrMapping[key].mapping);
-
                         // For reference type array
                         schemaTemp = Ng2FormFactory.generateFormGroupByAttributeTypeObject(formBulider, attrMapping[key].mapping);
                     }
 
                     let init = () => {
-                        return formBulider.group(schemaTemp);
+                        return schemaTemp.ngForm;
                     };
 
                     if (type === 'array') {
-                        console.log('array');
-                        console.log(schemaTemp);
-
-                        form.ngForm[key] = new FormArray(schemaTemp.ngForm);
+                        form.ngForm[key] = new FormArray([init()]);
 
                         let add = () => {
-                            const control = <FormArray>form.ngForm[key].controls[key];
+                            const control = <FormArray>form.ngForm.controls[key];
                             control.push(init());
                         }, remove = (i: number) => {
-                            const control = <FormArray>form.ngForm[key].controls[key];
+                            const control = <FormArray>form.ngForm.controls[key];
                             control.removeAt(i);
                         };
 
                         form.template[key] = {
                             groupType: 'array',
+                            label: titleCase,
                             add,
-                            remove
+                            remove,
+                            children: schemaTemp.template
                         }
                     } else {
-                        // schemaTemp.title = titleCase;
-                        form.ngForm[key] = init();
-                        // form.template[key] = {
-                        //     groupType: 'group'
-                        // };
+                        form.ngForm[key] = new FormGroup(init());
+                        form.template[key] = {
+                            label: titleCase,
+                            groupType: 'object',
+                            children: schemaTemp.template,
+                            control: form.ngForm[key]
+                        };
                     }
                 } else if (attrMapping[key]._type !== 'any') {
                     if (attrMapping[key] !== 'undefined' && attrMapping[key]._type != 'undefined') {
-                        form.ngForm[key] = attrMapping[key]._value === undefined ? [
-                                ''
-                            ] : [
-                                attrMapping[key]._value, [Validators.required]
-                            ]
-                        ;
+                        form.ngForm[key] = attrMapping[key]._value === undefined ?
+                            new FormControl('') : new FormControl(attrMapping[key]._value, [Validators.required]);
 
                         // attrMapping[key]._type.capitalize() + '(\'' + titleCase + '\')');
                         form.template[key] = {
                             label: titleCase,
-                            type: Ng2FormFactory.resolveDefaultTemplateConfigByType(attrMapping[key]._type)
+                            type: Ng2FormFactory.resolveDefaultTemplateConfigByType(attrMapping[key]._type),
+                            control: form.ngForm[key]
                         };
                     } else {
                         if (resolveTypeUndefined) {
                             let resolved = resolveTypeUndefined(attrMapping, key);
                             form.ngForm[key] = resolved.ngForm;
                             form.template[key] = resolved.template;
+                            form.template[key].control = form.ngForm[key];
                         } else {
-                            form.ngForm[key] = new FormControl(['']);
+                            form.ngForm[key] = new FormControl('');
                             form.template[key] = {
                                 label: titleCase,
                                 type: 'text',
+                                control: form.ngForm[key]
                             };
                         }
                     }
@@ -123,18 +120,18 @@ export default class Ng2FormFactory {
                         let resolved = resolveTypeAny(key);
                         form.ngForm[key] = resolved.ngForm;
                         form.template[key] = resolved.template;
+                        form.template[key].control = form.ngForm[key];
                     } else {
-                        form.ngForm[key] = [''];
+                        form.ngForm[key] = new FormControl('');
                         form.template[key] = {
                             label: titleCase,
-                            type: 'text'
+                            type: 'text',
+                            control: form.ngForm[key]
                         };
                     }
                 }
             }
         }
-
-        form.ngForm = formBulider.group(form.ngForm);
 
         return form;
     }

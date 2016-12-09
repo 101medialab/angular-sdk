@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule as BaseCommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HttpModule} from '@angular/http';
 
@@ -19,6 +20,8 @@ import HbTooltip from './directives/HbTooltip';
 import ProfileSelectize from './directives/ProfileSelectize';
 import ScrollToWhen from './directives/ScrollToWhen';
 import Selectize from './directives/Selectize';
+
+import HbFormWidget from './directives/HbFormWidget';
 
 import Backdrop from './ui/Backdrop.cpn';
 import JSONEditorComponent from './ui/JSONEditor.cpn';
@@ -51,6 +54,8 @@ let directivesAndPipes = [
     ScrollToWhen,
     Selectize,
 
+    HbFormWidget,
+
     Backdrop,
     JSONEditorComponent,
     UploaderComponent,
@@ -67,7 +72,9 @@ let directivesAndPipes = [
     imports: [
         BaseCommonModule,
         RouterModule,
-        HttpModule
+        HttpModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         BaseDIContainer,
@@ -83,8 +90,10 @@ let directivesAndPipes = [
     declarations: directivesAndPipes,
     exports: directivesAndPipes.concat([
         BaseCommonModule,
+        RouterModule,
         HttpModule,
-        RouterModule
+        FormsModule,
+        ReactiveFormsModule
     ])
 })
 export default class CommonModule {}
