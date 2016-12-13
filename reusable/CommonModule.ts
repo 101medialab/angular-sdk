@@ -21,6 +21,8 @@ import ProfileSelectize from './directives/ProfileSelectize';
 import ScrollToWhen from './directives/ScrollToWhen';
 import Selectize from './directives/Selectize';
 
+import HbFormArray from './directives/HbFormArray';
+import HbFormObject from './directives/HbFormObject';
 import HbFormWidget from './directives/HbFormWidget';
 
 import Backdrop from './ui/Backdrop.cpn';
@@ -54,6 +56,8 @@ let directivesAndPipes = [
     ScrollToWhen,
     Selectize,
 
+    HbFormArray,
+    HbFormObject,
     HbFormWidget,
 
     Backdrop,
