@@ -1,4 +1,8 @@
 export default class BaseClass {
+    log() {
+        console.log(arguments);
+    }
+
     static isDefinedNotNull(obj) {
         return typeof obj !== 'undefined' && obj != null;
     }

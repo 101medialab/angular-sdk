@@ -46,10 +46,6 @@ export default class BaseComponent extends Base implements OnDestroy {
         this.eventEmitters = new Map();
     }
 
-    log() {
-        console.log(arguments);
-    }
-
     ngOnDestroy() {
         this.muteAll();
     }

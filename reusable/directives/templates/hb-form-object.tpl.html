@@ -1,0 +1,12 @@
+<div *ngIf="data.control != undefined" [formGroup]="data.control" class="form-object {{ key }}">
+    <h2>{{ data.label }}</h2>
+
+    <div *ngFor="let each of data.children | mapToIterable" class="panel panel-default {{ each.key }}">
+        <hb-form-widget *ngIf="each.val.groupType == undefined"
+                        [data]="each.val" [key]="each.key"></hb-form-widget>
+        <hb-form-array *ngIf="each.val?.groupType == 'array'"
+                       [data]="each.val" [key]="each.key" [formArrayName]="each.key"></hb-form-array>
+        <hb-form-object *ngIf="each.val?.groupType == 'object'"
+                        [data]="each.val" [key]="each.key"></hb-form-object>
+    </div>
+</div>
