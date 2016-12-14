@@ -1,0 +1,21 @@
+<div *ngIf="data.control != undefined && data.groupType == undefined">
+    <label for="{{ key ? key : data.label.slugify() }}-input">{{ data.label }}</label>
+    <!--[type]="data.renderType ? data.renderType : 'text'"-->
+    <input id="{{ key ? key : data.label.slugify() }}-input" 
+           [type]="data.renderType ? data.renderType : 'text'" (change)="
+               data.control.patchValue(
+                   data.renderType === 'checkbox' ? $event.target.checked : $event.target.value
+               );
+           "
+           placeholder="{{ data.label }}" [formControl]="data.control">
+
+    <h5>Value: {{ data.control.value }}</h5>
+
+    <div *ngIf="!data.control.valid" class="ui error message">
+        {{ data.label }} is invalid
+    </div>
+
+    <div *ngIf="data.control.hasError('required')" class="ui error message">
+        {{ data.label }} is required
+    </div>
+</div>

@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import BaseClass from '../BaseClass';
+import HbFormWidget from './HbFormWidget';
 
 import template from './templates/hb-form-array.tpl.html!text';
 
@@ -8,8 +8,4 @@ import template from './templates/hb-form-array.tpl.html!text';
     template,
     inputs: ['id', 'key', 'data']
 })
-export default class HbFormArray extends BaseClass {
-    private id;
-    private key;
-    private data;
-}
+export default class HbFormArray extends HbFormWidget {}

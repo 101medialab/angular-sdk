@@ -110,8 +110,7 @@ export default class Ng2FormFactory {
                     }
                 } else if (attrMapping[key]._type !== 'any') {
                     if (attrMapping[key] !== 'undefined' && attrMapping[key]._type != 'undefined') {
-                        let type = Ng2FormFactory.resolveDefaultTemplateConfigByType(attrMapping[key]._type),
-                            validator = attrMapping[key].validator ? attrMapping[key].validator : [],
+                        let validator = attrMapping[key].validator ? attrMapping[key].validator : [],
                             valueNotEmpty = attrMapping[key]._value !== undefined;
 
                         if (valueNotEmpty) validator.push(Validators.required);
@@ -119,9 +118,13 @@ export default class Ng2FormFactory {
                         form.ngForm[key] = new FormControl(valueNotEmpty ? attrMapping[key]._value : '', validator);
                         form.template[key] = {
                             label: titleCase,
-                            type,
+                            type: attrMapping[key]._type,
                             control: form.ngForm[key]
                         };
+
+                        Ng2FormFactory.resolveTemplateConfigByType(
+                            attrMapping[key], form.template[key]
+                        );
                     } else {
                         resolveTypeUndefined ?
                             Ng2FormFactory.handleResolvedResult(form, key, resolveTypeUndefined(attrMapping, key)) :
@@ -159,7 +162,6 @@ export default class Ng2FormFactory {
     }
 
     static setValueToTemplate(value) {
-        debugger;
         for (var key in value) {
             let target = this.groupType ? this.children : this;
 
@@ -192,14 +194,28 @@ export default class Ng2FormFactory {
         }
     }
 
-    static resolveDefaultTemplateConfigByType(type) {
-        let result = null;
+    static resolveTemplateConfigByType(attrMapping, templateObj) {
+        let type = attrMapping._type;
 
-        switch (type) {
-            default:
-                result = 'text';
+        ['maxChoices', 'expandOptions'].forEach(function (each) {
+            if (attrMapping[each]) {
+                templateObj[each] = attrMapping[each];
+            }
+        });
+
+        if (attrMapping._type === 'boolean') {
+            templateObj.renderType = attrMapping.expandOptions ? 'radio' : 'checkbox';
+        } else if (attrMapping.options) {
+            if (attrMapping.options.length > 2 && attrMapping.maxChoices) {
+                templateObj.renderType = attrMapping.expandOptions ? (
+                    attrMapping.maxChoices > 1 ?
+                        'radio' : 'checkbox'
+                ) : 'select';
+            } else {
+                templateObj.renderType = attrMapping.expandOptions ? 'radio' : 'checkbox';
+            }
+        } else {
+            templateObj.renderType = attrMapping._type;
         }
-
-        return result;
     }
 }
