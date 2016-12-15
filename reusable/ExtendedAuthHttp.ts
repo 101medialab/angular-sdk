@@ -73,6 +73,9 @@ export default class ExtendedAuthHttp extends AuthHttp {
                 })
             }
         ).subscribe(
+            (res: Response) => {
+                this.setToken(res.json()['token'])
+            }, () => {
                 console.error('ExtendedAuthHttp: Token refresh fails.');
             }
         );
