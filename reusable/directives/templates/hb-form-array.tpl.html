@@ -2,23 +2,25 @@
     <header>
         <h2>{{ data.label }}</h2>
 
-        <button type="button" (click)="data.add()">Add</button>
+        <button *ngIf="data.arrayType != 'enum'" type="button" (click)="data.add()">Add</button>
     </header>
 
     <div [attr.id]="id + '-' + i" class="panel panel-default"
-         *ngFor="let cell of data.children; let i=index">
-        <button type="button" (click)="data.remove(i)">Remove</button>
+         *ngFor="let cell of (data.arrayType != 'enum' ? data.children : data.optionsTemplate); let i=index">
+        <hb-form-widget *ngIf="data.arrayType == 'enum' && cell.groupType == undefined"
+                        [data]="cell" [key]="i" [parent]="data"></hb-form-widget>
 
-        <div *ngFor="let each of cell | mapToIterable;" class="panel panel-default">
-            <hb-form-widget
-                    *ngIf="each.val.groupType == undefined"
-                    [data]="each.val" [key]="i"></hb-form-widget>
-            <hb-form-array
-                    *ngIf="each.val?.groupType == 'array'"
-                    [data]="each.val" [key]="each.key"></hb-form-array>
-            <hb-form-object
-                    *ngIf="each.val?.groupType == 'object'"
-                    [data]="each.val" [key]="each.key"></hb-form-object>
+        <button *ngIf="data.arrayType != 'enum'" type="button" (click)="data.remove(i)">Remove</button>
+
+        <div *ngIf="data.arrayType != 'enum'">
+            <div *ngFor="let each of cell | mapToIterable;" class="panel panel-default">
+                <hb-form-widget *ngIf="each.val.groupType == undefined"
+                        [data]="each.val" [key]="i" [parent]="data"></hb-form-widget>
+                <hb-form-array *ngIf="each.val?.groupType == 'array'"
+                        [data]="each.val" [key]="each.key" [parent]="data"></hb-form-array>
+                <hb-form-object *ngIf="each.val?.groupType == 'object'"
+                        [data]="each.val" [key]="each.key" [parent]="data"></hb-form-object>
+            </div>
         </div>
     </div>
 </div>

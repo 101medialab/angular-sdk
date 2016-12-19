@@ -6,6 +6,6 @@ import template from './templates/hb-form-object.tpl.html!text';
 @Component({
     selector: 'hb-form-object',
     template,
-    inputs: ['id', 'key', 'data']
+    inputs: ['id', 'key', 'data', 'parent']
 })
 export default class HbFormObject extends HbFormWidget {}

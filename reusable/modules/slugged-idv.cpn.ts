@@ -38,7 +38,7 @@ export default class SluggedIdvComponent extends IdvComponent {
 
             if (typeof slug !== 'undefined') {
                 this.status.resource.get(
-                    '/' + slug, [], isForceReload
+                    '/' + this.resolveBaseUrl(slug), [], isForceReload
                 ).then((data) => {
                     this.data = this.setupData(
                         Object.assign({}, data)
@@ -56,6 +56,10 @@ export default class SluggedIdvComponent extends IdvComponent {
 
             super.onInit();
         });
+    }
+
+    resolveBaseUrl(slug) {
+        return slug;
     }
 
     onResourceNotFound(error) {

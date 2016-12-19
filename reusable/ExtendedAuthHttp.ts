@@ -15,16 +15,18 @@ export default class ExtendedAuthHttp extends AuthHttp {
 
         this.externalConfig = $.extend({
             JWToken: null,
-            refreshBeforeExpire: 60
+            refreshBeforeExpire: 60,
+            authHttpConfig: {}
         }, config);
 
         this.setToken(this.externalConfig.JWToken || '');
-        super(new AuthConfig({
-            tokenGetter: () => {
-                return this.getToken();
-            },
-            noJwtError: true
-        }), http);
+        super(new AuthConfig(
+            $.extend(
+                this.externalConfig.authHttpConfig, {
+                    tokenGetter: () => this.getToken(),
+                    noJwtError: true
+                }
+            )), http);
     }
 
     private isTokenNeedToRefresh() {
@@ -35,8 +37,8 @@ export default class ExtendedAuthHttp extends AuthHttp {
         return this.token;
     }
 
-    private setToken(token) {
-        this.token = token;
+    public setToken(token) {
+        if (token && !this.jwtHelper.isTokenExpired(token)) this.token = token;
 
         if (this.token) {
             if (this.isTokenNeedToRefresh()) {
@@ -54,7 +56,7 @@ export default class ExtendedAuthHttp extends AuthHttp {
             clearTimeout(this.refreshTimeoutId);
         }
 
-        var now = (new Date()).getTime(),
+        let now = (new Date()).getTime(),
             then = this.jwtHelper.getTokenExpirationDate(this.token).getTime(),
             diff = Math.max((then - now), 0);
 

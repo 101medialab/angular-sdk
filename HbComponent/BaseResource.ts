@@ -21,7 +21,8 @@ export default class BaseResource {
         this.addDefaultHeaders(headers);
     }
 
-    createOne() {}
+    createOne() {
+    }
 
     addDefaultHeader(header: HttpHeader) {
         this.headers.append(header.name, header.value);
@@ -100,8 +101,8 @@ export default class BaseResource {
                 request = this.http.get(
                     requestUrl + (
                         forceReload ? (
-                            containQuestionMark ? '&' : '?'
-                        ) + 'force=1&_cache_busting=' + Date.now() : ''
+                                containQuestionMark ? '&' : '?'
+                            ) + 'force=1&_cache_busting=' + Date.now() : ''
                     ),
                     {headers: reqHeaders}
                 );
@@ -130,6 +131,10 @@ export default class BaseResource {
     }
 
     post(url: string, body: {} | '', headers: Array<HttpHeader> = []) {
+        return this.send('post', url, body, headers);
+    }
+
+    send(action: string, url: string, body: {} | '', headers: Array<HttpHeader> = []) {
         let reqHeaders = this.extendBaseHeader(headers),
             reqBody = typeof body === 'object' ? JSON.stringify(body) : body;
 
@@ -139,7 +144,7 @@ export default class BaseResource {
 
         return new Promise((resolve, reject) => {
             let request =
-                this.http.post(this._baseUrl + url, reqBody, {headers: reqHeaders})
+                this.http[action](this._baseUrl + url, reqBody, {headers: reqHeaders})
                     .map((res) => res.json())
                     .subscribe(
                         (res) => {

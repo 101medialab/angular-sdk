@@ -6,6 +6,6 @@ import template from './templates/hb-form-array.tpl.html!text';
 @Component({
     selector: 'hb-form-array',
     template,
-    inputs: ['id', 'key', 'data']
+    inputs: ['id', 'key', 'data', 'parent']
 })
 export default class HbFormArray extends HbFormWidget {}

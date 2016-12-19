@@ -32,7 +32,8 @@ export default class Ng2FormFactory {
 
                 if (['object', 'array'].indexOf(attrMapping[key]._type) > -1) {
                     let type = attrMapping[key]._type,
-                        arrayType = '_type' in attrMapping[key]._mapping ? 'primitive' : 'object',
+                        arrayType = '_type' in attrMapping[key]._mapping ?
+                            ('arrayType' in attrMapping[key] ? attrMapping[key].arrayType : 'primitive') : 'object',
                         init = () => {
                             let schemaTemp = null;
 
@@ -52,7 +53,11 @@ export default class Ng2FormFactory {
                                 schemaTemp = {
                                     ngForm: control,
                                     template
-                                }
+                                };
+
+                                Ng2FormFactory.resolveTemplateConfigByType(
+                                    attrMapping[key]._mapping, template[key]
+                                );
                             } else {
                                 // For reference type array or object
                                 schemaTemp = Ng2FormFactory.generateFormGroupByAttributeTypeObject(formBulider, attrMapping[key].mapping);
@@ -66,7 +71,7 @@ export default class Ng2FormFactory {
 
                                     // For reference type array
                                     new FormGroup(schemaTemp.ngForm),
-                                template: schemaTemp.template,
+                                template: schemaTemp.template
                             };
                         };
 
@@ -97,6 +102,8 @@ export default class Ng2FormFactory {
                             control: form.ngForm[key],
                             children
                         };
+
+                        Ng2FormFactory.setTemplatePreset(attrMapping[key], form.template[key]);
                     } else {
                         let {ngForm, template} = init();
 
@@ -109,7 +116,7 @@ export default class Ng2FormFactory {
                         };
                     }
                 } else if (attrMapping[key]._type !== 'any') {
-                    if (attrMapping[key] !== 'undefined' && attrMapping[key]._type != 'undefined') {
+                    if (attrMapping[key] !== 'undefined' && typeof attrMapping[key]._type != 'undefined') {
                         let validator = attrMapping[key].validator ? attrMapping[key].validator : [],
                             valueNotEmpty = attrMapping[key]._value !== undefined;
 
@@ -121,20 +128,23 @@ export default class Ng2FormFactory {
                             type: attrMapping[key]._type,
                             control: form.ngForm[key]
                         };
-
-                        Ng2FormFactory.resolveTemplateConfigByType(
-                            attrMapping[key], form.template[key]
-                        );
                     } else {
                         resolveTypeUndefined ?
                             Ng2FormFactory.handleResolvedResult(form, key, resolveTypeUndefined(attrMapping, key)) :
                             Ng2FormFactory.setupDefaultFormControl(form, key, titleCase);
                     }
+                    
+                    Ng2FormFactory.resolveTemplateConfigByType(
+                        attrMapping[key], form.template[key]
+                    );
                 } else {
                     resolveTypeAny ?
                         Ng2FormFactory.handleResolvedResult(form, key, resolveTypeAny(attrMapping, key)) :
                         Ng2FormFactory.setupDefaultFormControl(form, key, titleCase);
 
+                    Ng2FormFactory.resolveTemplateConfigByType(
+                        attrMapping[key], form.template[key]
+                    );
                 }
 
                 form.template[key].setValue = Ng2FormFactory.setValueToTemplate.bind(form.template[key]);
@@ -167,7 +177,11 @@ export default class Ng2FormFactory {
 
             if (key in target) {
                 if (target[key].type) {
-                    target[key].control.setValue(value[key]);
+                    if (typeof value[key] != 'object') {
+                        target[key].control.setValue(
+                            String(value[key])
+                        );
+                    }
                 } else {
                     if (target[key].groupType === 'object') {
                         target[key].setValue(value[key]);
@@ -179,11 +193,11 @@ export default class Ng2FormFactory {
                                 target[key].add();
                             }
 
-                            var fixForPrimitiveArray = {};
+                            let fixForPrimitiveArray = {};
                             fixForPrimitiveArray[key] = each;
 
                             target[key].children[i].setValue(
-                                target[key].arrayType === 'primitive' ? fixForPrimitiveArray : each
+                                target[key].arrayType !== 'object' ? fixForPrimitiveArray : each
                             );
 
                             i++;
@@ -195,20 +209,12 @@ export default class Ng2FormFactory {
     }
 
     static resolveTemplateConfigByType(attrMapping, templateObj) {
-        let type = attrMapping._type;
-
-        ['maxChoices', 'expandOptions'].forEach(function (each) {
-            if (attrMapping[each]) {
-                templateObj[each] = attrMapping[each];
-            }
-        });
-
         if (attrMapping._type === 'boolean') {
             templateObj.renderType = attrMapping.expandOptions ? 'radio' : 'checkbox';
         } else if (attrMapping.options) {
             if (attrMapping.options.length > 2 && attrMapping.maxChoices) {
                 templateObj.renderType = attrMapping.expandOptions ? (
-                    attrMapping.maxChoices > 1 ?
+                    attrMapping.maxChoices == 1 ?
                         'radio' : 'checkbox'
                 ) : 'select';
             } else {
@@ -217,5 +223,15 @@ export default class Ng2FormFactory {
         } else {
             templateObj.renderType = attrMapping._type;
         }
+
+        Ng2FormFactory.setTemplatePreset(attrMapping, templateObj);
+    }
+
+    static setTemplatePreset(attrMapping, templateObj) {
+        ['maxChoices', 'expandOptions', 'options', 'option', 'renderType', 'optionsTemplate'].forEach(function (each) {
+            if (attrMapping[each]) {
+                templateObj[each] = attrMapping[each];
+            }
+        });
     }
 }

@@ -1,21 +1,39 @@
-<div *ngIf="data.control != undefined && data.groupType == undefined">
-    <label for="{{ key ? key : data.label.slugify() }}-input">{{ data.label }}</label>
-    <!--[type]="data.renderType ? data.renderType : 'text'"-->
-    <input id="{{ key ? key : data.label.slugify() }}-input" 
-           [type]="data.renderType ? data.renderType : 'text'" (change)="
-               data.control.patchValue(
-                   data.renderType === 'checkbox' ? $event.target.checked : $event.target.value
-               );
-           "
-           placeholder="{{ data.label }}" [formControl]="data.control">
+<div *ngIf="data.control != undefined && data.groupType == undefined" [ngClass]="{ 'error': !data.control.valid }">
+    <div *ngIf="data.expandOptions == undefined">
+        <label for="{{ key ? key : data.label.slugify() }}-input">{{ data.renderType !== 'checkbox' ? data.label : data.option.name }}</label>
 
-    <h5>Value: {{ data.control.value }}</h5>
-
-    <div *ngIf="!data.control.valid" class="ui error message">
-        {{ data.label }} is invalid
+        <input id="{{ key ? key : data.label.slugify() }}-input"
+               *ngIf="!data.renderType || data.renderType != 'select'"
+               [type]="data.renderType ? data.renderType : 'text'"
+               [attr.checked]="
+                   parent?.arrayType === 'enum' && parent.control.value.indexOf(data.option.value) > -1 ? true : null
+               "
+               (change)="
+                   parent?.arrayType === 'enum' ?
+                       updateParentValue($event, data.option) :
+                       data.control.patchValue(
+                           data.renderType === 'checkbox' ? $event.target.checked : $event.target.value
+                       );
+               "
+               placeholder="{{ data.label }}" [formControl]="data.control"/>
     </div>
 
-    <div *ngIf="data.control.hasError('required')" class="ui error message">
-        {{ data.label }} is required
+    <div *ngIf="data.renderType && data.expandOptions" class="options-group">
+        <div *ngIf="data.renderType != 'select'">
+            <div *ngFor="let option of data.options">
+                <label for="{{ key ? key : data.label.slugify() }}-input">{{ option.name }}</label>
+                <input [type]="data.renderType" [value]="option.value"
+                       [attr.checked]="data.control.value === option.value || option.id === data.control.value ? true : null"
+                       [attr.name]="data.renderType == 'radio' ? (key ? key : data.label.slugify()) + '-input' : null"
+                       (change)="updateParentValue($event, option)"
+                />
+            </div>
+        </div>
+
+        <select *ngIf="data.renderType == 'select'" name="" id="" [attr.multiple]="data.expandOptions ? true : null">
+            <option *ngFor="let option of data.options" [value]="option.value">
+                {{ option.label ? option.label : option.value.toTitleCase() }}
+            </option>
+        </select>
     </div>
 </div>

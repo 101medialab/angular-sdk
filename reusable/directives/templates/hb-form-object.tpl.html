@@ -3,10 +3,13 @@
 
     <div *ngFor="let each of data.children | mapToIterable" class="panel panel-default {{ each.key }}">
         <hb-form-widget *ngIf="each.val.groupType == undefined"
-                        [data]="each.val" [key]="each.key"></hb-form-widget>
+                        [data]="each.val" [key]="each.key" [parent]="data"
+        ></hb-form-widget>
         <hb-form-array *ngIf="each.val?.groupType == 'array'"
-                       [data]="each.val" [key]="each.key" [formArrayName]="each.key"></hb-form-array>
+                       [data]="each.val" [key]="each.key" [formArrayName]="each.key" [parent]="data"
+        ></hb-form-array>
         <hb-form-object *ngIf="each.val?.groupType == 'object'"
-                        [data]="each.val" [key]="each.key"></hb-form-object>
+                        [data]="each.val" [key]="each.key" [parent]="data"
+        ></hb-form-object>
     </div>
 </div>

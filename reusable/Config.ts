@@ -21,7 +21,7 @@ export default class Config {
             this.pluralResourceName = resourceName + 's';
         }
 
-        this._API_DOMAIN_URL = this.API_BASE_URL + '/' + (resourceName ? this.pluralResourceName : '');
+        this._API_DOMAIN_URL = this.API_BASE_URL + (resourceName && resourceName != '' ? '/' + this.pluralResourceName : '');
     }
 
     public static get baseTemplateUrl(): string {
