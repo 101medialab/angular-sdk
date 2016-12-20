@@ -133,7 +133,7 @@ export default class Ng2FormFactory {
                             Ng2FormFactory.handleResolvedResult(form, key, resolveTypeUndefined(attrMapping, key)) :
                             Ng2FormFactory.setupDefaultFormControl(form, key, titleCase);
                     }
-                    
+
                     Ng2FormFactory.resolveTemplateConfigByType(
                         attrMapping[key], form.template[key]
                     );
@@ -186,12 +186,14 @@ export default class Ng2FormFactory {
                     if (target[key].groupType === 'object') {
                         target[key].setValue(value[key]);
                     } else {
+                        while (target[key].control.controls.length > 0) {
+                            target[key].remove(0);
+                        }
+
                         let i = 0;
 
                         value[key].forEach((each) => {
-                            if (!target[key].control.controls[i]) {
-                                target[key].add();
-                            }
+                            target[key].add();
 
                             let fixForPrimitiveArray = {};
                             fixForPrimitiveArray[key] = each;
@@ -214,9 +216,9 @@ export default class Ng2FormFactory {
         } else if (attrMapping.options) {
             if (attrMapping.options.length > 2 && attrMapping.maxChoices) {
                 templateObj.renderType = attrMapping.expandOptions ? (
-                    attrMapping.maxChoices == 1 ?
-                        'radio' : 'checkbox'
-                ) : 'select';
+                        attrMapping.maxChoices == 1 ?
+                            'radio' : 'checkbox'
+                    ) : 'select';
             } else {
                 templateObj.renderType = attrMapping.expandOptions ? 'radio' : 'checkbox';
             }
