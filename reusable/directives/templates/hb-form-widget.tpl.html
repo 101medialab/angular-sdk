@@ -1,9 +1,9 @@
-<div *ngIf="data.control != undefined && data.groupType == undefined" [ngClass]="{ 'error': !data.control.valid }">
+<div *ngIf="data.control != undefined && data.groupType == undefined && key != 'setValue'" [ngClass]="{ 'error': !data.control.valid }">
     <div *ngIf="data.expandOptions == undefined">
         <label for="{{ key ? key : data.label.slugify() }}-input">{{ data.renderType !== 'checkbox' ? data.label : data.option.name }}</label>
 
         <input id="{{ key ? key : data.label.slugify() }}-input"
-               *ngIf="!data.renderType || data.renderType != 'select'"
+               *ngIf="!data.renderType || ['select', 'textarea'].indexOf(data.renderType) === -1"
                [type]="data.renderType ? data.renderType : 'text'"
                [attr.checked]="
                    parent?.arrayType === 'enum' && parent.control.value.indexOf(data.option.value) > -1 ? true : null
@@ -16,6 +16,9 @@
                        );
                "
                placeholder="{{ data.label }}" [formControl]="data.control"/>
+
+        <textarea *ngIf="data.renderType === 'textarea'" id="{{ key ? key : data.label.slugify() }}-input" rows="5" [formControl]="data.control">
+        </textarea>
     </div>
 
     <div *ngIf="data.renderType && data.expandOptions" class="options-group">

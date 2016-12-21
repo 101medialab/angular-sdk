@@ -224,6 +224,7 @@ export default class Ng2FormFactory {
             }
         } else {
             templateObj.renderType = attrMapping._type;
+            if (templateObj.renderType === 'string') templateObj.renderType = 'text';
         }
 
         Ng2FormFactory.setTemplatePreset(attrMapping, templateObj);
