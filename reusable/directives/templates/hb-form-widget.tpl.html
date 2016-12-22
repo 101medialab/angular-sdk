@@ -21,7 +21,7 @@
         </textarea>
     </div>
 
-    <div *ngIf="data.renderType && data.expandOptions" class="options-group">
+    <div *ngIf="data.renderType && data.expandOptions != undefined" class="options-group">
         <div *ngIf="data.renderType != 'select'">
             <div *ngFor="let option of data.options">
                 <label for="{{ key ? key : data.label.slugify() }}-input">{{ option.name }}</label>
@@ -29,13 +29,16 @@
                        [attr.checked]="data.control.value === option.value || option.id === data.control.value ? true : null"
                        [attr.name]="data.renderType == 'radio' ? (key ? key : data.label.slugify()) + '-input' : null"
                        (change)="updateParentValue($event, option)"
+                       [formControl]="data.control"
                 />
             </div>
         </div>
 
-        <select *ngIf="data.renderType == 'select'" name="" id="" [attr.multiple]="data.expandOptions ? true : null">
+        <select *ngIf="data.renderType == 'select'" id=""
+                [attr.multiple]="data.expandOptions ? true : null"
+                [formControl]="data.control">
             <option *ngFor="let option of data.options" [value]="option.value">
-                {{ option.label ? option.label : option.value.toTitleCase() }}
+                {{ option.name ? option.name : option.value }}
             </option>
         </select>
     </div>
