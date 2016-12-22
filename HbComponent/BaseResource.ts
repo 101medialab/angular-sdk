@@ -134,7 +134,7 @@ export default class BaseResource {
         return this.send('post', url, body, headers);
     }
 
-    send(action: string, url: string, body: {} | '', headers: Array<HttpHeader> = []) {
+    send(action: string, url: string, body: {} | '', headers: Array<HttpHeader> = [], skipJSONConverting = false) {
         let reqHeaders = this.extendBaseHeader(headers),
             reqBody = typeof body === 'object' ? JSON.stringify(body) : body;
 
@@ -145,9 +145,12 @@ export default class BaseResource {
         return new Promise((resolve, reject) => {
             let request =
                 this.http[action](this._baseUrl + url, reqBody, {headers: reqHeaders})
-                    .map((res) => res.json())
                     .subscribe(
                         (res) => {
+                            if (!skipJSONConverting) {
+                                (res) => res.json()
+                            }
+
                             this.currentLoading.delete(url);
 
                             resolve(res);
