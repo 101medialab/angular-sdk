@@ -1,23 +1,24 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Headers} from '@angular/http';
-import HttpHeader from './HttpHeader';
-import ExtendedAuthHttp from '../reusable/ExtendedAuthHttp';
-import EventDispatcher from './EventDispatcher';
+import {HttpHeader} from './HttpHeader';
+import {ExtendedAuthHttp} from '../reusable/ExtendedAuthHttp';
+import {EventDispatcher} from './EventDispatcher';
 
 @Injectable()
-export default class BaseResource {
-    private isLoading: boolean = false;
+export class BaseResource {
     private _isCancelIfLoading: boolean = true;
     private headers = new Headers();
-    private cache: Map = new Map();
-    private currentLoading: Map = new Map();
+    private cache: Map<string, any> = new Map();
+    private currentLoading: Map<string, any> = new Map();
 
     constructor(
-        protected http: ExtendedAuthHttp,
-        private _baseUrl: string = '',
-        private headers: HttpHeader[] = [],
-        private eventDispatcher: EventDispatcher
+        @Inject(ExtendedAuthHttp) protected http: ExtendedAuthHttp,
+        @Inject('') private _baseUrl: string,
+        @Inject([]) headers: HttpHeader[] = [],
+        @Inject(EventDispatcher) private eventDispatcher: EventDispatcher
     ) {
+        this.headers = new Headers();
+
         this.addDefaultHeaders(headers);
     }
 
@@ -69,7 +70,7 @@ export default class BaseResource {
     }
 
     cancelIfLoading(url: string) {
-        if (this.isLoading && this.currentLoading.has(url)) {
+        if (this.isLoading() && this.currentLoading.has(url)) {
             this.cancelCurrentLoading(url);
         }
     }
@@ -101,16 +102,17 @@ export default class BaseResource {
                 request = this.http.get(
                     requestUrl + (
                         forceReload ? (
-                                containQuestionMark ? '&' : '?'
-                            ) + 'force=1&_cache_busting=' + Date.now() : ''
+                            containQuestionMark ? '&' : '?'
+                        ) + 'force=1&_cache_busting=' + Date.now() : ''
                     ),
                     {headers: reqHeaders}
                 );
 
             request
-                .map((res) => res.json())
                 .subscribe(
                     (res) => {
+                        res = res.json();
+
                         let notCancelYet = this.currentLoading.has(requestUrl);
 
                         this.currentLoading.delete(requestUrl);
@@ -130,11 +132,11 @@ export default class BaseResource {
         });
     }
 
-    post(url: string, body: {} | '', headers: Array<HttpHeader> = []) {
+    post(url: string, body: any | '', headers: Array<HttpHeader> = []) {
         return this.send('post', url, body, headers);
     }
 
-    send(action: string, url: string, body: {} | '', headers: Array<HttpHeader> = []) {
+    send(action: string, url: string, body: any | '', headers: Array<HttpHeader> = [], skipJSONConverting = false) {
         let reqHeaders = this.extendBaseHeader(headers),
             reqBody = typeof body === 'object' ? JSON.stringify(body) : body;
 
@@ -145,9 +147,12 @@ export default class BaseResource {
         return new Promise((resolve, reject) => {
             let request =
                 this.http[action](this._baseUrl + url, reqBody, {headers: reqHeaders})
-                    .map((res) => res.json())
                     .subscribe(
                         (res) => {
+                            if (!skipJSONConverting) {
+                                res = res.json();
+                            }
+
                             this.currentLoading.delete(url);
 
                             resolve(res);
@@ -176,7 +181,6 @@ export default class BaseResource {
 
     private extendBaseHeader(headers): Headers {
         let reqHeaders = new Headers(this.headers);
-        reqHeaders._headersMap = new Map(this.headers._headersMap);
         headers.forEach((header: HttpHeader) => reqHeaders.append(header.name, header.value));
 
         return reqHeaders;

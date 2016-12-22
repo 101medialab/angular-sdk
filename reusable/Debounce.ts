@@ -1,4 +1,4 @@
-export default class Debounce {
+export class Debounce {
     private timer = 0;
 
     run(callback, ms) {

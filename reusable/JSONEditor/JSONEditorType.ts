@@ -1,5 +1,5 @@
-export class Type {
-    constructor(public type: string, public title: string = '', config: {} = null) {
+export class JSONEditorType {
+    constructor(public type: string, public title: string = '', config: any = null) {
         if (config) {
             for (let key in config) {
                 if (!(key in this)) {
@@ -10,40 +10,40 @@ export class Type {
     }
 }
 
-export class String extends Type {
-    constructor(title: string, config: {} = null) {
+export class StringType extends JSONEditorType {
+    constructor(title: string, config: any = null) {
         super('string', title, config);
     }
 }
 
-export class Object extends Type {
-    constructor(title, public properties: {} = {}, config: {} = null) {
+export class ObjectType extends JSONEditorType {
+    constructor(title, public properties: any = {}, config: any = null) {
         super('object', title, config);
     }
 }
 
-export class Array extends Type {
-    constructor(title, public items: {} = {}, public format: string = 'tabs', config: {} = null) {
+export class ArrayType extends JSONEditorType {
+    constructor(title, public items: any = {}, public format: string = 'tabs', config: any = null) {
         super('array', title, config);
     }
 }
 
-export class Boolean extends Type {
-    constructor(title, public format: string = 'checkbox', config: {} = null) {
+export class BooleanType extends JSONEditorType {
+    constructor(title, public format: string = 'checkbox', config: any = null) {
         super('boolean', title, config);
     }
 }
 
-export class Date extends String {
-    constructor(title: string, config: {} = {}) {
+export class DateType extends StringType {
+    constructor(title: string, config: any = {}) {
         config.format = 'date';
 
         super(title, config);
     }
 }
 
-export class Number extends String {
-    constructor(title: string, config: {} = {}) {
+export class NumberType extends StringType {
+    constructor(title: string, config: any = {}) {
         config.format = 'number';
 
         super(title, config);

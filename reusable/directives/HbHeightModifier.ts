@@ -1,10 +1,10 @@
-import {Directive, Input, OnChange, ElementRef, OnDestroy} from '@angular/core';
-import EventDispatcher from '../../HbComponent/EventDispatcher';
+import {Directive, Input, ElementRef, OnChanges, OnDestroy} from '@angular/core';
+import {EventDispatcher} from '../../HbComponent/EventDispatcher';
 
 @Directive({
     selector: '[hbHeightModifier]',
 })
-export default class HbHeightModifier implements OnChange, OnDestroy {
+export class HbHeightModifier implements OnChanges, OnDestroy {
     private $el;
     @Input('hbHeightModifier') private config;
     private isExpanded = false;
@@ -14,7 +14,7 @@ export default class HbHeightModifier implements OnChange, OnDestroy {
     }
 
     // TODO: Support namespace in this.config.name
-    ngOnChanges({config}) {
+    ngOnChanges({config}: any) {
         if (config.currentValue) {
             if (this.config.initializable) {
                 setTimeout(()=> {

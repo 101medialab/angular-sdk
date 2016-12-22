@@ -1,8 +1,8 @@
 import {ActivatedRoute} from '@angular/router';
-import IdvComponent from './idv.cpn';
-import DummyDIContainer from './DummyDIContainer';
+import {IdvComponent} from './idv.cpn';
+import {DummyDIContainer} from './DummyDIContainer';
 
-export default class SluggedIdvComponent extends IdvComponent {
+export class SluggedIdvComponent extends IdvComponent {
     constructor(
         diContainer: DummyDIContainer,
         activatedRoute: ActivatedRoute
@@ -18,7 +18,7 @@ export default class SluggedIdvComponent extends IdvComponent {
         let isForceReload = this.routeType !== this.domainConfig.ROUTE_TYPE_VIEW;
 
         try {
-            if (this.activatedRoute.parent.url.value[0].path !== 'collections') {
+            if ((<any>this.activatedRoute.parent.url).value[0].path !== 'collections') {
                 this.emit('HB.loading_screen.theme.WHITE');
             }
         } catch (e) {}

@@ -1,11 +1,14 @@
-import {Injectable} from '@angular/core';
-import BaseConfig from '../../reusable/Config';
-import NavItem from '../../HbComponent/NavItem';
+import {Inject, Injectable} from '@angular/core';
+import {Config as BaseConfig} from '../Config';
+import {NavItem} from '../../HbComponent/NavItem';
 
 @Injectable()
-export default class Config extends BaseConfig {
-    public route = {};
-    private routeTypes: Array = [
+export class Config extends BaseConfig {
+    public route: {
+        base: string,
+        main: string
+    } = {base: '', main: ''};
+    private routeTypes: Array<string> = [
         this.ROUTE_TYPE_MAIN,
         this.ROUTE_TYPE_CREATE,
         this.ROUTE_TYPE_LIST,
@@ -34,16 +37,14 @@ export default class Config extends BaseConfig {
     }
 
     constructor(
-        resourceName: string = '',
-        pluralResourceName: string = '',
-        ResourceClass,
-        apiBaseUrl = '/api'
+        @Inject('') resourceName: string = '',
+        @Inject('') pluralResourceName: string = '',
+        @Inject({}) ResourceClass: any,
     ) {
         super({
             resourceName,
             pluralResourceName,
-            ResourceClass,
-            apiBaseUrl
+            ResourceClass
         });
 
         this.generateRouteNames();

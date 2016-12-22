@@ -6,7 +6,7 @@ import {Directive, Input, ElementRef} from '@angular/core';
         '(click)': 'onClick($event)',
     }
 })
-export default class ShareButton {
+export class ShareButton {
     @Input('share-button') data: { name: string, href: string };
 
     constructor(private el: ElementRef) {}
@@ -22,7 +22,7 @@ export default class ShareButton {
 
             case 'link':
                 let $linkContainer = $(this.el.nativeElement).parent().find('.link-container'),
-                    input = $linkContainer.find('input')[0];
+                    input =  (<HTMLInputElement>$linkContainer.find('input')[0]);
                 input.selectionStart = 0;
                 input.selectionEnd = input.value.length;
 

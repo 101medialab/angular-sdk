@@ -1,7 +1,7 @@
 import {Component, ViewChild, Input, ElementRef, OnChanges, Inject}  from '@angular/core';
-import EventDispatcher from '../../HbComponent/EventDispatcher';
-import HbPerfectScroll from '../directives/HbPerfectScroll';
-import Bindable from '../Bindable';
+import {EventDispatcher} from '../../HbComponent/EventDispatcher';
+import {HbPerfectScroll} from '../directives/HbPerfectScroll';
+import {Bindable} from '../Bindable';
 
 @Component({
     selector: 'hb-flickity-nav',
@@ -17,13 +17,12 @@ import Bindable from '../Bindable';
                 <span class="sprite thin-arrow-down"></span>
             </div>
         </div>
-    `,
-    directives: [HbPerfectScroll]
+    `
 })
-export default class HbFlickityNav implements OnChanges {
+export class HbFlickityNav implements OnChanges {
     protected viewInitialized: boolean = false;
     @ViewChild('container') protected container: ElementRef = null;
-    @Input('options') protected options: {} = null;
+    @Input('options') protected options: any = null;
     protected $el = null;
     protected instance = null;
     protected dimensions = null;

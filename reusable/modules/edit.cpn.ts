@@ -1,16 +1,19 @@
 import {ActivatedRoute} from '@angular/router';
 
-import IdvComponent from './idv.cpn';
-import DummyDIContainer from './DummyDIContainer';
+import {IdvComponent} from './idv.cpn';
+import {DummyDIContainer} from './DummyDIContainer';
 
-export default class EditComponent extends IdvComponent {
-    private JSONEditorName: string = 'json-edit';
-    private schemaData;
-    protected objectAttributeTypeExtractorOptions = {
+export class EditComponent extends IdvComponent {
+    public JSONEditorName: string = 'json-edit';
+    public schemaData;
+    public objectAttributeTypeExtractorOptions: {
+        keyNamingStrategy?: string,
+        stripUnderscore?: boolean
+    } = {
         keyNamingStrategy: 'snake_case',
         stripUnderscore: true
     };
-    private uploaderBaseUrl = '';
+    public uploaderBaseUrl = '';
 
     constructor(
         diContainer: DummyDIContainer, activatedRoute: ActivatedRoute

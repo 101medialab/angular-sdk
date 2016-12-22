@@ -1,6 +1,6 @@
-import JsExtend from 'ngSDK/reusable/JsExtend';
+import {JsExtend} from './JsExtend';
 
-new JsExtend({
+export var extended = new JsExtend({
     Array: {
         prototype: {
             prepend: function (elem) {

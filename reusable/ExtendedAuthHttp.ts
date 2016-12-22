@@ -1,39 +1,88 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, Headers} from '@angular/http';
-import {AuthHttp, AuthConfig, JwtHelper} from 'angular2-jwt';
-import HttpHeader from 'ngSDK/HbComponent/HttpHeader';
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { AuthHttp, AuthConfig, JwtHelper, IAuthConfigOptional } from 'angular2-jwt';
+
+export class ExtendedAuthHttpConfig {
+    constructor(
+        public baseUrl: string,
+        public authHttpConfig: IAuthConfigOptional = {},
+        public APIs: Map<string, string> = new Map(),
+        public refreshTokenAPI: string = '',
+        public JWToken: string = null,
+        public refreshBeforeExpire: number = 60,
+    ) {
+    }
+}
 
 @Injectable()
-export default class ExtendedAuthHttp extends AuthHttp {
+export class ExtendedAuthHttp extends AuthHttp {
     private jwtHelper: JwtHelper;
-    private externalConfig;
     private token: string;
     private refreshTimeoutId;
+    private httpClient;
+    private currentAPIid: string = null;
 
-    constructor(config, private http: Http) {
-        this.jwtHelper = new JwtHelper();
-
-        this.externalConfig = $.extend({
-            JWToken: null,
-            refreshBeforeExpire: 60,
-            authHttpConfig: {}
-        }, config);
-
-        this.setToken(this.externalConfig.JWToken || '');
+    constructor(
+        private extendedAuthHttpConfig: ExtendedAuthHttpConfig,
+        http: Http, option: RequestOptions
+    ) {
         super(new AuthConfig(
-            $.extend(
-                this.externalConfig.authHttpConfig, {
-                    tokenGetter: () => this.getToken(),
-                    noJwtError: true
-                }
-            )), http);
+            Object.assign(extendedAuthHttpConfig.authHttpConfig, {
+                tokenGetter: () => this.getToken(),
+                noJwtError: true
+            })
+        ), http, option);
+
+        this.httpClient = http;
+        this.jwtHelper = new JwtHelper();
+        this.setToken(this.extendedAuthHttpConfig.JWToken || '');
+    }
+
+    use(id) {
+        this.currentAPIid = id;
+
+        return this;
+    }
+
+    getCurrentAPIBaseUrl() {
+        return this.extendedAuthHttpConfig.APIs.has(this.currentAPIid) ? this.extendedAuthHttpConfig.APIs.get(this.currentAPIid) : '';
+    }
+
+    get(...args) {
+        return this.__call('get', args);
+    }
+
+    post(...args) {
+        return this.__call('post', args);
+    }
+
+    put(...args) {
+        return this.__call('put', args);
+    }
+
+    patch(...args) {
+        return this.__call('patch', args);
+    }
+
+    delete(...args) {
+        return this.__call('delete', args);
+    }
+
+    __call(action, args) {
+        args[0] =
+            !/^(https?:\/\/|\/\/)/.test(args[0]) ?
+                this.extendedAuthHttpConfig.baseUrl + this.getCurrentAPIBaseUrl() + (args[0] !== '' ? '/' + args[0] : '') :
+                args[0]
+        ;
+
+        return super[action](...args);
     }
 
     private isTokenNeedToRefresh() {
-        return !this.token || this.jwtHelper.isTokenExpired(this.token, this.externalConfig.refreshBeforeExpire);
+        return !this.token || this.jwtHelper.isTokenExpired(this.token, this.extendedAuthHttpConfig.refreshBeforeExpire);
     }
 
-    private getToken() {
+    public getToken() {
         return this.token;
     }
 
@@ -50,7 +99,7 @@ export default class ExtendedAuthHttp extends AuthHttp {
     }
 
     private refreshTokenBeforeExpire(seconds = 0) {
-        seconds = seconds === 0 ? this.externalConfig.refreshBeforeExpire : seconds;
+        seconds = seconds === 0 ? this.extendedAuthHttpConfig.refreshBeforeExpire : seconds;
 
         if (this.refreshTimeoutId) {
             clearTimeout(this.refreshTimeoutId);
@@ -68,8 +117,8 @@ export default class ExtendedAuthHttp extends AuthHttp {
     }
 
     private refreshToken() {
-        this.http.get(
-            this.externalConfig.refreshTokenAPI, {
+        this.httpClient.get(
+            this.extendedAuthHttpConfig.refreshTokenAPI, {
                 headers: new Headers({
                     "Authorization": "Bearer " + this.getToken()
                 })

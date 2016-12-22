@@ -1,4 +1,4 @@
-<div [attr.id]="id" class="form-array">
+<div [attr.id]="id" class="form-array {{ data.arrayType }}">
     <header>
         <h2>{{ data.label }}</h2>
 
@@ -15,12 +15,16 @@
         <div *ngIf="data.arrayType != 'enum'">
             <div *ngFor="let each of cell | mapToIterable;" class="panel panel-default">
                 <hb-form-widget *ngIf="each.val.groupType == undefined"
-                        [data]="each.val" [key]="i" [parent]="data"></hb-form-widget>
+                                [data]="each.val" [key]="i" [parent]="data"></hb-form-widget>
                 <hb-form-array *ngIf="each.val?.groupType == 'array'"
-                        [data]="each.val" [key]="each.key" [parent]="data"></hb-form-array>
+                               [data]="each.val" [key]="each.key" [parent]="data"></hb-form-array>
                 <hb-form-object *ngIf="each.val?.groupType == 'object'"
-                        [data]="each.val" [key]="each.key" [parent]="data"></hb-form-object>
+                                [data]="each.val" [key]="each.key" [parent]="data"></hb-form-object>
             </div>
         </div>
+    </div>
+
+    <div class="hints" *ngIf="data?.hints">
+        {{ data.hints }}
     </div>
 </div>

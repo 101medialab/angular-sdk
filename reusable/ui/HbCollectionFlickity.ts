@@ -1,17 +1,17 @@
 import {Component, ViewChild, Input, ElementRef, OnChanges, Inject}  from '@angular/core';
-import EventDispatcher from '../../HbComponent/EventDispatcher';
-import HbFlickity from './HbFlickity';
+import {EventDispatcher} from '../../HbComponent/EventDispatcher';
+import {HbFlickity} from './HbFlickity';
 
 @Component({
-    selector: 'hb-flickity',
+    selector: 'hb-collection-flickity',
     template: `
         <div #container>
             <ng-content></ng-content>
         </div>
     `
 })
-export default class HbCollectionFlickity extends HbFlickity implements OnChanges {
-    @Input('options') protected options: {} = null;
+export class HbCollectionFlickity extends HbFlickity implements OnChanges {
+    @Input('options') protected options: any = null;
     @ViewChild('container') protected container: ElementRef = null;
 
     constructor(@Inject(EventDispatcher) eventDispatcher: EventDispatcher) {

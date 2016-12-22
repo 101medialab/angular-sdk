@@ -16,5 +16,9 @@
                 [data]="each.val" [key]="each.key" [parent]="data"
             ></hb-form-object>
         </div>
+
+        <span class="hints" *ngIf="data?.hints">
+            {{ data.hints }}
+        </span>
     </div>
 </div>

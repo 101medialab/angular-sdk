@@ -1,12 +1,14 @@
 import {Directive, Input, ElementRef, OnChanges, OnDestroy} from '@angular/core';
-import 'noraesae/perfect-scrollbar/js/perfect-scrollbar.jquery.min';
-import Bindable from '../Bindable';
+
+import mountJQuery from 'perfect-scrollbar/src/js/adaptor/jquery.js';
+
+mountJQuery($);
 
 @Directive({
     selector: '[hb-perfect-scroll]'
 })
-export default class HbPerfectScroll implements OnChanges, OnDestroy {
-    @Input('hb-perfect-scroll') options: {} = {};
+export class HbPerfectScroll implements OnChanges, OnDestroy {
+    @Input('hb-perfect-scroll') options: any = {};
     private $el;
 
     constructor(elemRef: ElementRef) {

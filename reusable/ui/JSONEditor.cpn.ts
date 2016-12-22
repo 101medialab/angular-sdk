@@ -1,6 +1,6 @@
 import {Component, Input, Output, ViewChild, EventEmitter, ElementRef, OnChanges} from '@angular/core';
-import JSONEditorFactory from '../JSONEditor/ExtendedJSONEditorFactory';
-import ObjectAttributeTypeExtractor from '../ObjectAttributeTypeExtractor';
+import {ExtendedJSONEditorFactory as JSONEditorFactory} from '../JSONEditor/ExtendedJSONEditorFactory';
+import {ObjectAttributeTypeExtractor} from '../ObjectAttributeTypeExtractor';
 
 @Component({
     selector: 'json-editor',
@@ -12,12 +12,12 @@ import ObjectAttributeTypeExtractor from '../ObjectAttributeTypeExtractor';
     </form>
     `
 })
-export default class JSONEditorComponent implements OnChanges {
+export class JSONEditorComponent implements OnChanges {
     @Input('name') private name: string;
-    @Input('config') private config: {} = {};
-    @Input('objectAttributeTypeExtractorOptions') private objectAttributeTypeExtractorOptions: {} = {};
-    @Input('schema') private schema: {} = {};
-    @Input('schemaData') private schemaData: {} = null;
+    @Input('config') private config: any = {};
+    @Input('objectAttributeTypeExtractorOptions') private objectAttributeTypeExtractorOptions: any = {};
+    @Input('schema') private schema: any = {};
+    @Input('schemaData') private schemaData: any = null;
     @Input('schemaTransformer') private schemaTransformer: (schema, context) => {} = null;
     @Input('data') private data;
     @Input('isInitializable') private isInitializable;
@@ -26,6 +26,7 @@ export default class JSONEditorComponent implements OnChanges {
     private viewInitialized: boolean = false;
     private attrMapping: ObjectAttributeTypeExtractor = null;
     private factoryInstance: JSONEditorFactory = null;
+    private context: any;
 
     constructor() {}
 

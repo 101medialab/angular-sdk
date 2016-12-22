@@ -1,0 +1,9 @@
+node_modules
+typings/globals
+typings/index.d.ts
+
+reusable/*.js
+HbComponent/*.js
+
+*.ngsummary.json
+*.ngfactory.ts

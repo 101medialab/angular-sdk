@@ -1,14 +1,15 @@
-import BaseResource from '../../HbComponent/BaseResource';
+import {BaseResource} from '../../HbComponent/BaseResource';
+import 'selectize';
 
-export default function setupProfileSelectizeField(
+export function setupProfileSelectizeField(
     options: {
         field,
         resource: BaseResource,
-        list: Array,
-        onSetupDone?: (cpn) => {},
-        selectizeOptions?: {},
+        list: Array<any>,
+        onSetupDone?: (cpn) => void,
+        selectizeOptions?: any,
         apiEndPoint?: string,
-        resolveResponse?: (resp, callWhenDone) => {}
+        resolveResponse?: (resp, callWhenDone) => void
         manuallySetValue?: boolean
     }
 ) {
@@ -55,10 +56,10 @@ export function setupProfileSelectize(
     input,
     options: {
         resource: BaseResource,
-        list: Array,
-        selectizeOptions?: {},
+        list: Array<any>,
+        selectizeOptions?: any,
         apiEndPoint?: string,
-        resolveResponse?: (resp, callWhenDone, instance) => {}
+        resolveResponse?: (resp, callWhenDone, instance) => void
     }
 ) {
     let $el = $(input);

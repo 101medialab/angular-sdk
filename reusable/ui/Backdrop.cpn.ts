@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import Bindable from '../Bindable';
+import {Bindable} from '../Bindable';
 
 @Component({
     selector: 'backdrop',
@@ -8,7 +8,7 @@ import Bindable from '../Bindable';
              [hidden]="!data.value" (click)="data.value = false"></div>
      `
 })
-export default class Backdrop {
+export class Backdrop {
     @Input('showWhen') data: Bindable;
     @Input('mode') mode: string = 'screen';
 

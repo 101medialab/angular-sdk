@@ -1,13 +1,13 @@
 import {Directive, Input, Output, EventEmitter, OnChanges, ElementRef} from '@angular/core';
+import 'selectize';
 
 @Directive({
     selector: 'selectize',
 })
-export default class Selectize implements OnChanges {
+export class Selectize implements OnChanges {
     protected $el;
-    protected options;
-    private list;
-    @Input('selectize') private options;
+    protected list;
+    @Input('selectize') protected options;
 
     // Pathetically you cannot inherit EventEmitter, add it manually
     @Output('onChange') onChange = new EventEmitter();
@@ -16,7 +16,7 @@ export default class Selectize implements OnChanges {
         this.$el = $(el.nativeElement);
     }
 
-    ngOnChanges({options}) {
+    ngOnChanges({options}: {options: any}) {
         if (options.currentValue) {
             this.options = options.currentValue;
 

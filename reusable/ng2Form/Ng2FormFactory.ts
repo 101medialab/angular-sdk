@@ -5,10 +5,10 @@ import {
     FormArray,
     Validators,
 } from '@angular/forms';
-import ObjectAttributeTypeExtractor from '../ObjectAttributeTypeExtractor';
+import {ObjectAttributeTypeExtractor} from '../ObjectAttributeTypeExtractor';
 
-export default class Ng2FormFactory {
-    static generateFormGroupByObject(formBulider: FormBuilder, obj: {}, resolveTypeAny: () => {ngForm: any, template: any} = null, options: {} = {}) {
+export class Ng2FormFactory {
+    static generateFormGroupByObject(formBulider: FormBuilder, obj: any, resolveTypeAny: () => {ngForm: any, template: any} = null, options: any = {}) {
         return Ng2FormFactory.generateFormGroupByAttributeTypeObject(
             formBulider, new ObjectAttributeTypeExtractor(obj, options), resolveTypeAny
         );
@@ -16,11 +16,11 @@ export default class Ng2FormFactory {
 
     static generateFormGroupByAttributeTypeObject(
         formBulider: FormBuilder,
-        attrMappingObj: ObjectAttributeTypeExtractor,
+        attrMappingObj: ObjectAttributeTypeExtractor | { each: any },
         resolveTypeAny: (attrMapping, key: string) => {ngForm: any, template: any} = null,
         resolveTypeUndefined: (attrMapping, key: string) => {ngForm: any, template: any} = null
     ) {
-        let form = {
+        let form: any = {
                 template: {},
                 ngForm: {},
             },
@@ -156,7 +156,7 @@ export default class Ng2FormFactory {
         return form;
     }
 
-    private static setupDefaultFormControl(form: {template: {}; ngForm: {}}, key, titleCase: any) {
+    private static setupDefaultFormControl(form: {template: any; ngForm: any}, key, titleCase: any) {
         form.ngForm[key] = new FormControl('');
         form.template[key] = {
             label: titleCase,
@@ -165,7 +165,7 @@ export default class Ng2FormFactory {
         };
     }
 
-    private static handleResolvedResult(form: {template: {}; ngForm: {}}, key, resolved: {ngForm: any; template: any}) {
+    private static handleResolvedResult(form: {template: any; ngForm: any}, key, resolved: {ngForm: any; template: any}) {
         form.ngForm[key] = resolved.ngForm;
         form.template[key] = resolved.template;
         form.template[key].control = form.ngForm[key];
@@ -173,7 +173,7 @@ export default class Ng2FormFactory {
 
     static setValueToTemplate(value) {
         for (var key in value) {
-            let target = this.groupType ? this.children : this;
+            let target = (this as any).groupType ? (this as any).children : this;
 
             if (key in target) {
                 if (target[key].type) {

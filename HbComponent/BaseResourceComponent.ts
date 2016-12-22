@@ -3,22 +3,23 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 import {Angulartics2GoogleAnalytics} from 'angulartics2/dist/providers/ga/angulartics2-ga';
 
-import BaseComponent from './BaseComponent';
+import {BaseComponent} from './BaseComponent';
 
-import Status from '../reusable/modules/status.svc';
-import Config from '../reusable/modules/Config';
-import CanComponentDeactivate from './CanDeactivateGuard';
-import DummyDIContainer from '../reusable/modules/DummyDIContainer';
-import BaseDIContainer from './BaseDIContainer';
+import {Status} from '../reusable/modules/status.svc';
+import {Config} from '../reusable/modules/Config';
+import {CanComponentDeactivate} from './CanDeactivateGuard';
+import {DummyDIContainer} from '../reusable/modules/DummyDIContainer';
+import {BaseDIContainer} from './BaseDIContainer';
+import {Observable} from "rxjs";
 
-export default class BaseResourceComponent extends BaseComponent implements OnInit, OnDestroy, CanComponentDeactivate {
-    protected routeType = '';
+export class BaseResourceComponent extends BaseComponent implements OnInit, OnDestroy, CanComponentDeactivate {
+    public routeType = '';
     protected dataFromPreviousRoute: any = null;
 
     protected diContainer: DummyDIContainer;
     protected baseDI: BaseDIContainer;
-    protected domainConfig: Config;
-    protected status: Status;
+    public domainConfig: Config;
+    public status: Status;
     protected titleService: Title;
     protected router: Router;
     protected activatedRoute: ActivatedRoute;
@@ -77,7 +78,7 @@ export default class BaseResourceComponent extends BaseComponent implements OnIn
         super.ngOnDestroy();
     }
 
-    canDeactivate() {
+    canDeactivate(component: CanComponentDeactivate): Observable<boolean> | Promise<boolean> | boolean {
         this.state.isInitialized = false;
         this.emit('HB.page.on.DEACTIVATE');
 

@@ -1,27 +1,34 @@
-<div *ngIf="data.control != undefined && data.groupType == undefined && key != 'setValue'" [ngClass]="{ 'error': !data.control.valid }">
+<div *ngIf="data.control != undefined && data.groupType == undefined && key != 'setValue'"
+     [ngClass]="{ 'error': !data.control.valid }" class="expand-to-child">
     <div *ngIf="data.expandOptions == undefined">
         <label for="{{ key ? key : data.label.slugify() }}-input">{{ data.renderType !== 'checkbox' ? data.label : data.option.name }}</label>
 
-        <input id="{{ key ? key : data.label.slugify() }}-input"
-               *ngIf="!data.renderType || ['select', 'textarea'].indexOf(data.renderType) === -1"
-               [type]="data.renderType ? data.renderType : 'text'"
-               [attr.checked]="
-                   parent?.arrayType === 'enum' && parent.control.value.indexOf(data.option.value) > -1 ? true : null
-               "
-               (change)="
-                   parent?.arrayType === 'enum' ?
-                       updateParentValue($event, data.option) :
-                       data.control.patchValue(
-                           data.renderType === 'checkbox' ? $event.target.checked : $event.target.value
-                       );
-               "
-               placeholder="{{ data.label }}" [formControl]="data.control"/>
+        <div class="input-control-container">
+            <input id="{{ key ? key : data.label.slugify() }}-input"
+                   *ngIf="!data.renderType || ['select', 'textarea'].indexOf(data.renderType) === -1"
+                   [type]="data.renderType ? data.renderType : 'text'"
+                   [attr.checked]="
+                       parent?.arrayType === 'enum' && parent.control.value.indexOf(data.option.value) > -1 ? true : null
+                   "
+                   (change)="
+                       parent?.arrayType === 'enum' ?
+                           updateParentValue($event, data.option) :
+                           data.control.patchValue(
+                               data.renderType === 'checkbox' ? $event.target.checked : $event.target.value
+                           );
+                   "
+                   placeholder="{{ data.label }}" [formControl]="data.control"/>
 
-        <textarea *ngIf="data.renderType === 'textarea'" id="{{ key ? key : data.label.slugify() }}-input" rows="5" [formControl]="data.control">
-        </textarea>
+            <textarea *ngIf="data.renderType === 'textarea'" [formControl]="data.control"
+                      id="{{ key ? key : data.label.slugify() }}-input" rows="5"></textarea>
+
+            <span class="hints" *ngIf="data?.hints">
+                {{ data.hints }}
+            </span>
+        </div>
     </div>
 
-    <div *ngIf="data.renderType && data.expandOptions" class="options-group">
+    <div *ngIf="data.renderType && data.expandOptions != undefined" class="options-group">
         <div *ngIf="data.renderType != 'select'">
             <div *ngFor="let option of data.options">
                 <label for="{{ key ? key : data.label.slugify() }}-input">{{ option.name }}</label>
@@ -29,13 +36,16 @@
                        [attr.checked]="data.control.value === option.value || option.id === data.control.value ? true : null"
                        [attr.name]="data.renderType == 'radio' ? (key ? key : data.label.slugify()) + '-input' : null"
                        (change)="updateParentValue($event, option)"
+                       [formControl]="data.control"
                 />
             </div>
         </div>
 
-        <select *ngIf="data.renderType == 'select'" name="" id="" [attr.multiple]="data.expandOptions ? true : null">
+        <select *ngIf="data.renderType == 'select'" id=""
+                [attr.multiple]="data.expandOptions ? true : null"
+                [formControl]="data.control">
             <option *ngFor="let option of data.options" [value]="option.value">
-                {{ option.label ? option.label : option.value.toTitleCase() }}
+                {{ option.name ? option.name : option.value }}
             </option>
         </select>
     </div>

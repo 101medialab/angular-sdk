@@ -1,17 +1,17 @@
-export default class ObjectAttributeTypeExtractor {
-    private _mapping: {};
+export class ObjectAttributeTypeExtractor {
+    private _mapping: any = null;
 
-    constructor(obj: {} = null, options: {} = {}) {
+    constructor(obj: any = null, options: any = {}) {
         if (obj) {
             this._mapping = ObjectAttributeTypeExtractor.generateMapping(obj, options);
         }
     }
 
-    get mapping(): {} {
+    get mapping(): any {
         return this._mapping;
     }
 
-    static generateMapping(obj: {}, options: {} = {}) {
+    static generateMapping(obj: any, options: any = {}): any {
         let types = {};
         options = $.extend({
             keyNamingStrategy: 'camelCase',
@@ -83,7 +83,7 @@ export default class ObjectAttributeTypeExtractor {
         return types;
     }
 
-    static fixObjectAttrs(data: any, options: {}) {
+    static fixObjectAttrs(data: any, options: any) {
         let result = null;
         options = $.extend({
             keyNamingStrategy: 'camelCase',
@@ -119,7 +119,7 @@ export default class ObjectAttributeTypeExtractor {
         return result;
     }
 
-    static convertDataToString(data: any, callbacks: {} = {}) {
+    static convertDataToString(data: any, callbacks: any = {}) {
         let result = null;
 
         if (data instanceof Array) {

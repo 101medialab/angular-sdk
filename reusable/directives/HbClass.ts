@@ -1,20 +1,28 @@
 import {Directive, Input, OnChanges, ElementRef} from '@angular/core';
-import BaseComponent from '../../HbComponent/BaseComponent';
-import Status from '../modules/status.svc';
+import {BaseComponent} from '../../HbComponent/BaseComponent';
+import {Status} from '../modules/status.svc';
+
+export class HbClassConfig {
+    event = '';
+    action = '';
+    class = '';
+    delay = 0;
+    emitWhenDone = null;
+}
 
 // TODO: isInitialized has not checked
 @Directive({
     selector: '[hbClass]',
 })
-export default class HbClass implements OnChanges {
+export class HbClass implements OnChanges {
     private $el;
-    @Input('hbClass') private config;
+    @Input('hbClass') public config: any;
 
     constructor(private el: ElementRef, private mainStatus: Status) {
         this.$el = $(this.el.nativeElement);
     }
 
-    ngOnChanges({config}) {
+    ngOnChanges({config}: any) {
         if (config.currentValue) {
             this.config = config.currentValue;
 
@@ -129,12 +137,4 @@ export default class HbClass implements OnChanges {
             }]
         );
     }
-}
-
-class HbClassConfig {
-    event = '';
-    action = '';
-    class = '';
-    delay = 0;
-    emitWhenDone = null;
 }

@@ -1,18 +1,18 @@
-import ObjectAttributeTypeExtractor from '../ObjectAttributeTypeExtractor';
+import {ObjectAttributeTypeExtractor} from '../ObjectAttributeTypeExtractor';
 import * as JSONEditorTypes from './JSONEditorType';
-import * as JSONEditor from 'jdorn/json-editor';
+import 'json-editor/dist/jsoneditor.js';
 
-export default class JSONEditorFactory {
-    private config: {} = {
+export class JSONEditorFactory {
+    private config: any = {
         disable_collapse: true,
         disable_edit_json: true,
         disable_properties: true,
         required_by_default: true
     };
-    private schema: {};
-    private data: {};
+    private schema: any;
+    private data: any;
     private elem;
-    private _instance: JSONEditor = null;
+    private _instance = null;
 
     constructor({config, schema, data}) {
         this.config = $.extend(this.config, config);
@@ -20,7 +20,7 @@ export default class JSONEditorFactory {
         this.data = data;
     }
 
-    static generateSchemaByObject(obj: {}, resolveTypeAny: () => void = null, options: {} = {}) {
+    static generateSchemaByObject(obj: any, resolveTypeAny: () => void = null, options: any = {}) {
         return this.generateSchemaByAttributeTypeObject(new ObjectAttributeTypeExtractor(obj, options), resolveTypeAny);
     }
 
@@ -28,7 +28,7 @@ export default class JSONEditorFactory {
         attrMappingObj: ObjectAttributeTypeExtractor,
         resolveTypeAny: (JSONEditorTypes) => void = null,
         resolveTypeUndefined: (attrMapping, key) => void = null
-    ) {
+    ): any {
         let schema = {},
             attrMapping = attrMappingObj instanceof ObjectAttributeTypeExtractor ? attrMappingObj.mapping : attrMappingObj,
             defaultValue = {},
@@ -58,24 +58,24 @@ export default class JSONEditorFactory {
 
                     if (type === 'array') {
                         schemaTemp.title = false;
-                        schema[key] = new JSONEditorTypes.Array(titleCase, schemaTemp);
+                        schema[key] = new JSONEditorTypes.ArrayType(titleCase, schemaTemp);
                     } else {
                         schemaTemp.title = titleCase;
                         schema[key] = schemaTemp;
                     }
                 } else if (attrMapping[key]._type !== 'any') {
                     if (attrMapping[key] !== 'undefined' && attrMapping[key]._type != 'undefined') {
-                        schema[key] = eval('new JSONEditorTypes.' + attrMapping[key]._type.capitalize() + '(\'' + titleCase + '\')');
+                        schema[key] = new JSONEditorTypes[attrMapping[key]._type.capitalize() + 'Type'](titleCase);
                         schema[key]['default'] = attrMapping[key]._value;
 
                         defaultValue[key] = attrMapping[key]._value;
                     } else {
                         //console.error(`attrMapping[key] ${key} is undefined`);
 
-                        schema[key] = resolveTypeUndefined ? resolveTypeUndefined(attrMapping, key) : new JSONEditorTypes.String(titleCase, {'default': ''});
+                        schema[key] = resolveTypeUndefined ? resolveTypeUndefined(attrMapping, key) : new JSONEditorTypes.StringType(titleCase, {'default': ''});
                     }
                 } else {
-                    schema[key] = resolveTypeAny ? resolveTypeAny(JSONEditorTypes) : new JSONEditorTypes.String(titleCase, {'default': ''});
+                    schema[key] = resolveTypeAny ? resolveTypeAny(JSONEditorTypes) : new JSONEditorTypes.StringType(titleCase, {'default': ''});
                 }
 
                 schema[key]['propertyOrder'] = i * 100;
@@ -84,7 +84,7 @@ export default class JSONEditorFactory {
             i++;
         }
 
-        return new JSONEditorTypes.Object(' ', schema, {
+        return new JSONEditorTypes.ObjectType(' ', schema, {
             'default': defaultValue
         });
     }
@@ -95,7 +95,7 @@ export default class JSONEditorFactory {
         return this;
     }
 
-    get instance(): JSONEditor {
+    get instance() {
         return this._instance;
     }
 

@@ -1,12 +1,12 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {EventEmitter, Inject, Injectable} from '@angular/core';
 
 @Injectable()
-export default class BaseEventEmitter {
-    protected _emitter: EventEmitter = new EventEmitter();
+export class BaseEventEmitter {
+    protected _emitter: EventEmitter<() => {}> = new EventEmitter();
 
-    constructor(private name: string) {}
+    constructor(@Inject('') private name: string) {}
 
-    get emitter(): EventEmitter {
+    get emitter(): EventEmitter<() => {}> {
         return this._emitter;
     }
 

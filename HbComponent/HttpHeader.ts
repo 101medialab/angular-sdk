@@ -1,3 +1,3 @@
-export default class HttpHeader {
+export class HttpHeader {
     constructor(public name: string, public value: string) {}
 }

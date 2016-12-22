@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import BaseStatus from '../../HbComponent/BaseStatus';
-import EventDispatcher from '../../HbComponent/EventDispatcher';
-import Resource from './resource.svc';
-import Bindable from '../Bindable';
-import * as RxDOM from 'rx-dom';
+import {BaseStatus} from '../../HbComponent/BaseStatus';
+import {EventDispatcher} from '../../HbComponent/EventDispatcher';
+import {Resource} from './resource.svc';
+import {Bindable} from '../Bindable';
+import RxDOM from 'rx-dom';
 
 @Injectable()
-export default class Status extends BaseStatus {
+export class Status extends BaseStatus {
     private static appEnv = $('body').hasClass('env-prod');
     private deviceType = new Bindable('');
     private deviceHeight = new Bindable('');
@@ -15,11 +15,15 @@ export default class Status extends BaseStatus {
     private $metas = {};
     private dataForNextRoute: any = null;
 
-    // Use this to hide UI only, it is very easy to hack
+    // Use this to hide UI only, it is very easy to hack in browser console
     private _isEditor = window._hypebeast.isEditor || false;
     
     get isEditor() {
         return this._isEditor;
+    }
+
+    set isEditor(value: boolean) {
+        this._isEditor = value;
     }
 
     constructor(

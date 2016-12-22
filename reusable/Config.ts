@@ -1,27 +1,35 @@
-export default class Config {
-    private _API_BASE_URL: string = '';
+import {Inject} from "@angular/core";
+
+export interface IConfigObject {
+    resourceName?: string;
+    pluralResourceName?: string;
+    ResourceClass?: any;
+    apiBaseUrl?: string;
+    authHttpConfig?: any;
+}
+
+export class Config {
     private _API_DOMAIN_URL: string = '';
     public route;
     public resourceName: string = '';
     public pluralResourceName: string = '';
     public ResourceClass = null;
 
-    constructor({
-        resourceName,
-        pluralResourceName,
-        ResourceClass,
-        apiBaseUrl
-    }) {
+    constructor(@Inject({})
+        {
+            resourceName,
+            pluralResourceName,
+            ResourceClass
+        }: IConfigObject) {
         this.resourceName = resourceName;
         this.pluralResourceName = pluralResourceName;
         this.ResourceClass = ResourceClass;
-        this._API_BASE_URL = apiBaseUrl;
 
         if (resourceName != '' && pluralResourceName === '') {
             this.pluralResourceName = resourceName + 's';
         }
 
-        this._API_DOMAIN_URL = this.API_BASE_URL + (resourceName && resourceName != '' ? '/' + this.pluralResourceName : '');
+        this._API_DOMAIN_URL = (resourceName && resourceName != '' ? this.pluralResourceName : '');
     }
 
     public static get baseTemplateUrl(): string {
@@ -30,10 +38,6 @@ export default class Config {
 
     public static get templateSuffix(): string {
         return '.tpl.html';
-    }
-
-    public get API_BASE_URL() {
-        return this._API_BASE_URL;
     }
 
     public get API_DOMAIN_URL() {

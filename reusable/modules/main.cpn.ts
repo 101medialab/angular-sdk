@@ -1,20 +1,21 @@
 import {ActivatedRoute} from '@angular/router';
 import URI from 'urijs';
 
-import BaseResourceComponent from '../../HbComponent/BaseResourceComponent';
-import DummyDIContainer from './DummyDIContainer';
-import Debounce from '../../reusable/Debounce';
-import NavItem from '../../HbComponent/NavItem';
+import {BaseResourceComponent} from '../../HbComponent/BaseResourceComponent';
+import {DummyDIContainer} from './DummyDIContainer';
+import {Debounce} from '../Debounce';
+import {NavItem} from '../../HbComponent/NavItem';
 
-export default class MainComponent extends BaseResourceComponent {
-    protected data;
+export class MainComponent extends BaseResourceComponent {
+    public data;
     protected currentCriteria;
-    protected defaultCriteria;
+
     protected nPerRow = 0;
     private criteriaChangeEventDebounce;
 
     constructor(
         protected criteriaNames = [],
+        protected defaultCriteria: any = {},
         diContainer: DummyDIContainer,
         activatedRoute: ActivatedRoute
     ) {
@@ -96,7 +97,7 @@ export default class MainComponent extends BaseResourceComponent {
         this.onCriteriaChanged(true);
     }
 
-    resolveCriteriaFromRouteParams() {
+    resolveCriteriaFromRouteParams(): any {
         let fromUrl = {};
         this.criteriaNames.forEach((key) => {
             let value = key in this.activatedRoute.snapshot.params ? this.activatedRoute.snapshot.params[key] : null;
@@ -107,12 +108,6 @@ export default class MainComponent extends BaseResourceComponent {
         });
 
         return fromUrl;
-    }
-
-    resetCriteria() {
-        this.currentCriteria = Object.assign({}, this.defaultCriteria);
-
-        this.onCriteriaChanged();
     }
 
     resolveRequestingNoOfResult(netCriteria, includePage) {
@@ -167,7 +162,7 @@ export default class MainComponent extends BaseResourceComponent {
     }
 
     onRequestDone(data, includePage, num) {
-        let data = this.setupData(data);
+        data = this.setupData(data);
 
         this.data = includePage ? this.data.concat(data) : data;
         this.state.isInitialized = true;
@@ -179,7 +174,7 @@ export default class MainComponent extends BaseResourceComponent {
         return data;
     }
 
-    private generateRoute(name, config = null) {
+    protected generateRoute(name, config = null) {
         let returnArgs = false;
 
         if (typeof name === 'object') {
@@ -192,7 +187,7 @@ export default class MainComponent extends BaseResourceComponent {
         return returnArgs ? fromConfig : new NavItem(name, fromConfig);
     }
 
-    protected getNetCriteria(config = {}) {
+    protected getNetCriteria(config = {}): Array<string>|Object {
         let fromConfig = {};
 
         this.criteriaNames.forEach((key) => {

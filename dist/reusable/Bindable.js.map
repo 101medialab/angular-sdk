@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../reusable/Bindable.ts"],"names":[],"mappings":"AAAA;IACI,kBAAoB,MAAW;QAAX,WAAM,GAAN,MAAM,CAAK;IAAG,CAAC;IAEnC,sBAAI,2BAAK;aAAT;YACI,MAAM,CAAC,IAAI,CAAC,MAAM,CAAC;QACvB,CAAC;aAED,UAAU,KAAU;YAChB,IAAI,CAAC,MAAM,GAAG,KAAK,CAAC;QACxB,CAAC;;;OAJA;IAKL,eAAC;AAAD,CAVA,AAUC,IAAA","file":"Bindable.js","sourceRoot":""}

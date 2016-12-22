@@ -1,4 +1,4 @@
-export default class BaseClass {
+export class BaseClass {
     log() {
         console.log(arguments);
     }

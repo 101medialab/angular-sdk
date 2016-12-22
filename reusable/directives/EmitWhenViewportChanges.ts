@@ -1,16 +1,26 @@
 import {Directive, Input, ElementRef, Inject, OnChanges, OnDestroy} from '@angular/core';
-import Status from '../modules/status.svc';
-import BaseComponent from '../../HbComponent/BaseComponent';
+import {Status} from '../modules/status.svc';
+import {BaseComponent} from '../../HbComponent/BaseComponent';
 import * as RxDOM from 'rx-dom';
 
 @Directive({
     selector: '[emitWhenViewportChanges]'
 })
 
-export default class EmitWhenViewportChanges extends BaseComponent implements OnChanges {
+export class EmitWhenViewportChanges extends BaseComponent implements OnChanges {
     private $el;
     private isInitialized: boolean = false;
-    @Input('emitWhenViewportChanges') private config: {};
+    @Input('emitWhenViewportChanges') private config: {
+        refreshRate: number,
+        target: Element,
+        offsetViewport: {
+            top: number,
+            bottom: number,
+            left: number
+        },
+        appear: Array<any>,
+        disappear: Array<any>
+    };
 
     constructor(
         status: Status,
@@ -21,7 +31,9 @@ export default class EmitWhenViewportChanges extends BaseComponent implements On
         this.$el = $(this.el.nativeElement);
     }
 
-    ngOnChanges({config}) {
+    ngOnChanges({config}: {
+        config: any
+    }) {
         if (!this.isInitialized) {
             this.config = config.currentValue;
 
