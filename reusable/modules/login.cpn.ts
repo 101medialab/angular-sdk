@@ -4,6 +4,7 @@ import Status from "./status.svc";
 import ExtendedAuthHttp from 'ngSDK/reusable/ExtendedAuthHttp';
 import BaseComponent from 'ngSDK/HbComponent/BaseComponent';
 import MainStatus from 'ngSDK/reusable/modules/status.svc';
+import {Response} from "@angular/http";
 
 export default class LoginComponent extends BaseComponent implements OnInit {
     protected username: string = '';
@@ -30,16 +31,16 @@ export default class LoginComponent extends BaseComponent implements OnInit {
             this.resolveLoginPayload(),
             this.resolveLoginOptions()
         ).subscribe(
-            (res) => {
-                this.password = '';
+            (res: Response) => {
+                if (this.resolveIsLoggedIn(res)) {
+                    this.password = '';
 
-                this.authHttp.setToken(
-                    res.headers.get('authorization')
-                );
+                    this.status.setCurrentUser(this.username);
 
-                this.status.setCurrentUser(this.username);
-
-                this.onLoggedIn();
+                    this.onLoggedIn(res);
+                } else {
+                    this.onLoginFailed(res);
+                }
             }
         );
 
@@ -57,12 +58,20 @@ export default class LoginComponent extends BaseComponent implements OnInit {
         return null;
     }
 
-    onLoggedIn() {
+    resolveIsLoggedIn(res: Response) {
+        return true;
+    }
+
+    onLoggedIn(res: Response) {
         let url = this.status.redirectToOnceLoggedIn;
         url = url && url != '' ? url : this.status.redirectToOnceLoggedInDefault;
 
         if (url) this.router.navigateByUrl(url);
 
         this.emit('HB.user.LOGGED_IN');
+    }
+
+    onLoginFailed(res: Response) {
+        this.emit('HB.user.LOGIN_FAILED');
     }
 }
