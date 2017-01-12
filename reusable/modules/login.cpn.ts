@@ -27,7 +27,8 @@ export default class LoginComponent extends BaseComponent implements OnInit {
     login() {
         this.authHttp.post(
             this.loginBaseUrl,
-            this.resolveLoginPayload()
+            this.resolveLoginPayload(),
+            this.resolveLoginOptions()
         ).subscribe(
             (res) => {
                 this.password = '';
@@ -50,6 +51,10 @@ export default class LoginComponent extends BaseComponent implements OnInit {
             '_username': this.username,
             '_password': this.password
         };
+    }
+
+    resolveLoginOptions() {
+        return null;
     }
 
     onLoggedIn() {
