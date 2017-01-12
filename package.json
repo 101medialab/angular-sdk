@@ -1,14 +1,14 @@
 {
     "jspm": {
         "dependencies": {
-            "@angular/common": "npm:@angular/common@2.4.2",
-            "@angular/compiler": "npm:@angular/compiler@2.4.2",
-            "@angular/core": "npm:@angular/core@2.4.2",
-            "@angular/forms": "npm:@angular/forms@2.4.2",
-            "@angular/http": "npm:@angular/http@2.4.2",
-            "@angular/platform-browser": "npm:@angular/platform-browser@2.4.2",
-            "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.4.2",
-            "@angular/router": "npm:@angular/router@3.4.2",
+            "@angular/common": "npm:@angular/common@2.4.3",
+            "@angular/compiler": "npm:@angular/compiler@2.4.3",
+            "@angular/core": "npm:@angular/core@2.4.3",
+            "@angular/forms": "npm:@angular/forms@2.4.3",
+            "@angular/http": "npm:@angular/http@2.4.3",
+            "@angular/platform-browser": "npm:@angular/platform-browser@2.4.3",
+            "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.4.3",
+            "@angular/router": "npm:@angular/router@3.4.3",
             "angular2-jwt": "npm:angular2-jwt@0.1.25",
             "angulartics2": "npm:angulartics2@1.5.1",
             "bootstrap": "npm:bootstrap@3",
@@ -26,11 +26,11 @@
             "noraesae/perfect-scrollbar": "github:noraesae/perfect-scrollbar@0.6.12",
             "reflect-metadata": "npm:reflect-metadata@0.1.8",
             "rx-dom": "npm:rx-dom@7.0.3",
-            "rxjs": "npm:rxjs@5.0.0-beta.12",
+            "rxjs": "npm:rxjs@5.0.1",
             "selectize": "github:brianreavis/selectize.js@0.12.1",
             "text": "github:systemjs/plugin-text@0.0.9",
             "urijs": "npm:urijs@1.17.1",
-            "zone.js": "npm:zone.js@0.6.21"
+            "zone.js": "npm:zone.js@0.7.1"
         },
         "devDependencies": {
             "babel": "npm:babel-core@^5.8.24",
