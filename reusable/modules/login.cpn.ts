@@ -25,6 +25,17 @@ export default class LoginComponent extends BaseComponent implements OnInit {
         this.password = '';
     }
 
+    resolveLoginPayload():any {
+        return {
+            '_username': this.username,
+            '_password': this.password
+        };
+    }
+
+    resolveLoginOptions() {
+        return null;
+    }
+
     login() {
         this.authHttp.post(
             this.loginBaseUrl,
@@ -45,17 +56,6 @@ export default class LoginComponent extends BaseComponent implements OnInit {
         );
 
         return false;
-    }
-
-    resolveLoginPayload() {
-        return {
-            '_username': this.username,
-            '_password': this.password
-        };
-    }
-
-    resolveLoginOptions() {
-        return null;
     }
 
     resolveIsLoggedIn(res: Response) {
