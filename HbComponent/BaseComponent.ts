@@ -1,6 +1,6 @@
 import {OnDestroy} from '@angular/core';
-import Base from '../reusable/BaseClass';
-import Status from '../reusable/modules/status.svc';
+import {BaseClass as Base} from '../reusable/BaseClass';
+import {Status} from '../reusable/modules/status.svc';
 
 export class BaseComponent extends Base implements OnDestroy {
     protected state = {
