@@ -1,11 +1,9 @@
 import {Component} from "@angular/core";
 import BaseClass from '../BaseClass';
 
-import template from './templates/hb-form-widget.tpl.html!text';
-
 @Component({
     selector: 'hb-form-widget',
-    template,
+    templateUrl: './templates/hb-form-widget.tpl.html',
     inputs: ['id', 'data', 'key', 'parent']
 })
 export default class HbFormWidget extends BaseClass {

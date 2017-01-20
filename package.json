@@ -28,8 +28,7 @@
         "reflect-metadata": "0.1.8",
         "rx-dom": "7.0.3",
         "rxjs": "5.0.1",
-        "selectize": "0.12.1",
-        "text": "0.0.9",
+        "selectize": "git+https://github.com/brianreavis/selectize.js.git",
         "urijs": "1.17.1",
         "zone.js": "0.7.1"
     },
@@ -62,7 +61,6 @@
             "rx-dom": "npm:rx-dom@7.0.3",
             "rxjs": "npm:rxjs@5.0.1",
             "selectize": "github:brianreavis/selectize.js@0.12.1",
-            "text": "github:systemjs/plugin-text@0.0.9",
             "urijs": "npm:urijs@1.17.1",
             "zone.js": "npm:zone.js@0.7.1"
         },

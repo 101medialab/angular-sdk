@@ -40,6 +40,10 @@ import DummyDIContainer from './modules/DummyDIContainer';
 import Status from './modules/status.svc';
 import Config from './modules/Config';
 
+export function DummyDIContainerFactory (baseDIContainer, config, status) => {
+    return new DummyDIContainer(baseDIContainer, config, status);
+}
+
 let directivesAndPipes = [
     Angulartics2On,
 
@@ -84,9 +88,7 @@ let directivesAndPipes = [
         BaseDIContainer,
         {
             provide: DummyDIContainer,
-            useFactory: (baseDIContainer, config, status) => {
-                return new DummyDIContainer(baseDIContainer, config, status);
-            },
+            useFactory: DummyDIContainerFactory,
             deps: [BaseDIContainer, Config, Status]
         },
         [CanDeactivateGuard]
