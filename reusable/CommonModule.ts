@@ -40,48 +40,11 @@ import {DummyDIContainer} from './modules/DummyDIContainer';
 import {Status} from './modules/status.svc';
 import {Config} from './modules/Config';
 
-export function DummyDIContainerFactory(baseDIContainer, config, status) {
+export function DummyDIContainerFactory(baseDIContainer: BaseDIContainer, config: Config, status: Status) {
     return new DummyDIContainer(baseDIContainer, config, status);
 }
 
 let directivesAndPipes = [
-    FileSelectDirective,
-    FileDropDirective,
-
-    BackToTop,
-    EmitWhenViewportChanges,
-    HbClass,
-    HbHeightModifier,
-    HbPerfectScroll,
-    HbTooltip,
-    ProfileSelectize,
-    ScrollToWhen,
-    Selectize,
-
-    HbFormArray,
-    HbFormObject,
-    HbFormWidget,
-
-    Backdrop,
-    JSONEditorComponent,
-    UploaderComponent,
-
-    // Pipe
-    Default,
-    Asset,
-    Photon,
-    Values,
-    MapToIterable
-];
-
-let exports = [
-    BaseCommonModule,
-    RouterModule,
-    HttpModule,
-    FormsModule,
-    ReactiveFormsModule,
-    Angulartics2Module,
-
     FileSelectDirective,
     FileDropDirective,
 
@@ -130,6 +93,41 @@ let exports = [
         [CanDeactivateGuard]
     ],
     declarations: directivesAndPipes,
-    exports
+    exports: [
+        BaseCommonModule,
+        RouterModule,
+        HttpModule,
+        FormsModule,
+        ReactiveFormsModule,
+        Angulartics2Module,
+
+        FileSelectDirective,
+        FileDropDirective,
+
+        BackToTop,
+        EmitWhenViewportChanges,
+        HbClass,
+        HbHeightModifier,
+        HbPerfectScroll,
+        HbTooltip,
+        ProfileSelectize,
+        ScrollToWhen,
+        Selectize,
+
+        HbFormArray,
+        HbFormObject,
+        HbFormWidget,
+
+        Backdrop,
+        JSONEditorComponent,
+        UploaderComponent,
+
+        // Pipe
+        Default,
+        Asset,
+        Photon,
+        Values,
+        MapToIterable
+    ]
 })
 export class CommonModule {}
