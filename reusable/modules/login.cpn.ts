@@ -1,9 +1,9 @@
 import {OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import Status from "./status.svc";
-import ExtendedAuthHttp from 'ngSDK/reusable/ExtendedAuthHttp';
-import BaseComponent from 'ngSDK/HbComponent/BaseComponent';
-import MainStatus from 'ngSDK/reusable/modules/status.svc';
+import {Status} from "./status.svc";
+import {ExtendedAuthHttp} from 'ngSDK/reusable/ExtendedAuthHttp';
+import {BaseComponent} from 'ngSDK/HbComponent/BaseComponent';
+import {Status as MainStatus} from 'ngSDK/reusable/modules/status.svc';
 import {Response} from "@angular/http";
 
 export class LoginComponent extends BaseComponent implements OnInit {

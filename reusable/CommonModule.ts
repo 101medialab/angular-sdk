@@ -40,7 +40,7 @@ import {DummyDIContainer} from './modules/DummyDIContainer';
 import {Status} from './modules/status.svc';
 import {Config} from './modules/Config';
 
-export function DummyDIContainerFactory (baseDIContainer, config, status) => {
+export function DummyDIContainerFactory(baseDIContainer, config, status) {
     return new DummyDIContainer(baseDIContainer, config, status);
 }
 
@@ -80,6 +80,7 @@ let exports = [
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
+    Angulartics2Module,
 
     FileSelectDirective,
     FileDropDirective,
