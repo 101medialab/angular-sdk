@@ -1,4 +1,6 @@
 {
+    "name": "ngSDK",
+    "version": "0.0.1",
     "jspm": {
         "dependencies": {
             "@angular/common": "npm:@angular/common@2.4.3",
