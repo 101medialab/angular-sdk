@@ -1,4 +1,4 @@
-export default class Config {
+export class Config {
     private _API_BASE_URL: string = '';
     private _API_DOMAIN_URL: string = '';
     public route;

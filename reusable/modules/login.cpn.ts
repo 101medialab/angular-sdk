@@ -6,7 +6,7 @@ import BaseComponent from 'ngSDK/HbComponent/BaseComponent';
 import MainStatus from 'ngSDK/reusable/modules/status.svc';
 import {Response} from "@angular/http";
 
-export default class LoginComponent extends BaseComponent implements OnInit {
+export class LoginComponent extends BaseComponent implements OnInit {
     protected username: string = '';
     protected password: string = '';
     protected loginBaseUrl = this.status.resource.baseUrl + '/auth/';

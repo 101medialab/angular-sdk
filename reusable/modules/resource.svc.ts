@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import ExtendedAuthHttp from '../ExtendedAuthHttp';
-import EventDispatcher from '../../HbComponent/EventDispatcher';
-import BaseResource from '../../HbComponent/BaseResource';
-import HttpHeader from '../../HbComponent/HttpHeader';
-import Config from './Config';
+import {ExtendedAuthHttp} from '../ExtendedAuthHttp';
+import {EventDispatcher} from '../../HbComponent/EventDispatcher';
+import {BaseResource} from '../../HbComponent/BaseResource';
+import {HttpHeader} from '../../HbComponent/HttpHeader';
+import {Config} from './Config';
 
 @Injectable()
-export default class Resource extends BaseResource {
+export class Resource extends BaseResource {
     constructor(
         http: ExtendedAuthHttp,
         private config: Config,

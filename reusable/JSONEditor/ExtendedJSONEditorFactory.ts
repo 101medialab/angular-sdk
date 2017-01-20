@@ -1,7 +1,7 @@
-import JSONEditorFactory from './JSONEditorFactory';
+import {JSONEditorFactory} from './JSONEditorFactory';
 import "jdorn/json-editor";
 
-export default class ExtendedJSONEditorFactory extends JSONEditorFactory {
+export class ExtendedJSONEditorFactory extends JSONEditorFactory {
     constructor({config, schema, data}) {
         super({config, schema, data});
         this.setupExtendFields();

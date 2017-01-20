@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import EventDispatcher from './EventDispatcher';
-import BaseResource from './BaseResource';
+import {EventDispatcher} from './EventDispatcher';
+import {BaseResource} from './BaseResource';
 
 @Injectable()
-export default class BaseStatus {
+export class BaseStatus {
     protected _redirectToOnceLoggedIn = '';
     protected _current = {
         username: null,

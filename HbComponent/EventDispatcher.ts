@@ -1,7 +1,7 @@
 import {Injectable, EventEmitter} from '@angular/core';
 
 @Injectable()
-export default class EventDispatcher {
+export class EventDispatcher {
     private emitters: Map = new Map();
 
     constructor() {}

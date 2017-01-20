@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import BaseConfig from '../../reusable/Config';
-import NavItem from '../../HbComponent/NavItem';
+import {Config as BaseConfig} from '../Config';
+import {NavItem} from '../../HbComponent/NavItem';
 
 @Injectable()
-export default class Config extends BaseConfig {
+export class Config extends BaseConfig {
     public route = {};
     private routeTypes: Array = [
         this.ROUTE_TYPE_MAIN,

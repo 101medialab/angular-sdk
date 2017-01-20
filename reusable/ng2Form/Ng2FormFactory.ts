@@ -5,9 +5,9 @@ import {
     FormArray,
     Validators,
 } from '@angular/forms';
-import ObjectAttributeTypeExtractor from '../ObjectAttributeTypeExtractor';
+import {ObjectAttributeTypeExtractor} from '../ObjectAttributeTypeExtractor';
 
-export default class Ng2FormFactory {
+export class Ng2FormFactory {
     static generateFormGroupByObject(formBulider: FormBuilder, obj: {}, resolveTypeAny: () => {ngForm: any, template: any} = null, options: {} = {}) {
         return Ng2FormFactory.generateFormGroupByAttributeTypeObject(
             formBulider, new ObjectAttributeTypeExtractor(obj, options), resolveTypeAny

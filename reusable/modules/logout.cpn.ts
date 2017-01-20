@@ -8,7 +8,7 @@ import Status from "./status.svc";
         <a class="btn btn-warning" href="javascript: void(0);" (click)="logout()">Logout</a>
     `
 })
-export default class LogoutComponent  {
+export class LogoutComponent  {
     constructor(private status: Status, private router: Router) {}
 
     logout() {

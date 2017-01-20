@@ -1,11 +1,11 @@
 import {Directive, Input, ElementRef, OnChanges} from '@angular/core';
-import Status from '../modules/status.svc';
-import BaseComponent from '../../HbComponent/BaseComponent';
+import {Status} from '../modules/status.svc';
+import {BaseComponent} from '../../HbComponent/BaseComponent';
 
 @Directive({
     selector: '[scrollToWhen]'
 })
-export default class ScrollToWhen extends BaseComponent implements OnChanges {
+export class ScrollToWhen extends BaseComponent implements OnChanges {
     private $el;
     private isInitialize: boolean = false;
     @Input('scrollToWhen') private data: {};

@@ -1,10 +1,10 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import Status from '../modules/status.svc';
+import {Status} from '../modules/status.svc';
 
 @Pipe({
     name: 'photon'
 })
-export default class Photon implements PipeTransform {
+export class Photon implements PipeTransform {
     transform(path: any, args: any[] = null): any {
         if (!path) {
             return '';

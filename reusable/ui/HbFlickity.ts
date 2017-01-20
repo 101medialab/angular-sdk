@@ -1,8 +1,8 @@
 import {NgFor} from '@angular/common';
 import {Component, ViewChild, Input, ElementRef, OnChanges, Inject}  from '@angular/core';
-import Asset from '../pipe/Asset';
-import Photon from '../pipe/Photon';
-import EventDispatcher from '../../HbComponent/EventDispatcher';
+import {Asset} from '../pipe/Asset';
+import {Photon} from '../pipe/Photon';
+import {EventDispatcher} from '../../HbComponent/EventDispatcher';
 
 @Component({
     selector: 'hb-flickity',
@@ -14,7 +14,7 @@ import EventDispatcher from '../../HbComponent/EventDispatcher';
     directives: [NgFor],
     pipes: [Asset, Photon]
 })
-export default class HbFlickity implements OnChanges {
+export class HbFlickity implements OnChanges {
     protected viewInitialized: boolean = false;
     @ViewChild('container') protected container: ElementRef = null;
     @Input('options') protected options: {} = null;

@@ -2,7 +2,7 @@ import {OnDestroy} from '@angular/core';
 import Base from '../reusable/BaseClass';
 import Status from '../reusable/modules/status.svc';
 
-export default class BaseComponent extends Base implements OnDestroy {
+export class BaseComponent extends Base implements OnDestroy {
     protected state = {
         isViewInitialized: false,
         isInitialized: false,

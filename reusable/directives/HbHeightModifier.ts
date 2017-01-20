@@ -1,10 +1,10 @@
 import {Directive, Input, OnChange, ElementRef, OnDestroy} from '@angular/core';
-import EventDispatcher from '../../HbComponent/EventDispatcher';
+import {EventDispatcher} from '../../HbComponent/EventDispatcher';
 
 @Directive({
     selector: '[hbHeightModifier]',
 })
-export default class HbHeightModifier implements OnChange, OnDestroy {
+export class HbHeightModifier implements OnChange, OnDestroy {
     private $el;
     @Input('hbHeightModifier') private config;
     private isExpanded = false;

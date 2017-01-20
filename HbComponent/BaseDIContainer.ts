@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
-import MainStatus from '../reusable/modules/status.svc';
+import {Status as MainStatus} from '../reusable/modules/status.svc';
 import {Angulartics2GoogleAnalytics} from 'angulartics2/dist/providers/ga/angulartics2-ga';
 
 @Injectable()
-export default class BaseDIContainer {
+export class BaseDIContainer {
     private _router: Router;
     private _titleService: Title;
     private _mainStatus: MainStatus;

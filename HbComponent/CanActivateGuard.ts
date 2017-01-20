@@ -4,7 +4,7 @@ import {Observable}    from 'rxjs/Observable';
 import Status from '../reusable/modules/status.svc';
 
 @Injectable()
-export default class CanActivateGuard implements CanActivate {
+export class CanActivateGuard implements CanActivate {
     protected defaultLoginUrl = 'login';
     constructor(
         protected router: Router,

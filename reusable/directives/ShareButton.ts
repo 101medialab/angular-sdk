@@ -6,7 +6,7 @@ import {Directive, Input, ElementRef} from '@angular/core';
         '(click)': 'onClick($event)',
     }
 })
-export default class ShareButton {
+export class ShareButton {
     @Input('share-button') data: { name: string, href: string };
 
     constructor(private el: ElementRef) {}

@@ -4,49 +4,47 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HttpModule} from '@angular/http';
 
-import CanDeactivateGuard from '../HbComponent/CanDeactivateGuard';
+import {CanDeactivateGuard} from '../HbComponent/CanDeactivateGuard';
 
 import {FileDropDirective} from 'ng2-file-upload/file-upload/file-drop.directive';
 import {FileSelectDirective} from 'ng2-file-upload/file-upload/file-select.directive';
 
-import {Angulartics2, Angulartics2On} from 'angulartics2';
+import {Angulartics2, Angulartics2Module} from 'angulartics2';
 
-import BackToTop from './directives/BackToTop';
-import EmitWhenViewportChanges from './directives/EmitWhenViewportChanges';
-import HbClass from './directives/HbClass';
-import HbHeightModifier from './directives/HbHeightModifier';
-import HbPerfectScroll from './directives/HbPerfectScroll';
-import HbTooltip from './directives/HbTooltip';
-import ProfileSelectize from './directives/ProfileSelectize';
-import ScrollToWhen from './directives/ScrollToWhen';
-import Selectize from './directives/Selectize';
+import {BackToTop} from './directives/BackToTop';
+import {EmitWhenViewportChanges} from './directives/EmitWhenViewportChanges';
+import {HbClass} from './directives/HbClass';
+import {HbHeightModifier} from './directives/HbHeightModifier';
+import {HbPerfectScroll} from './directives/HbPerfectScroll';
+import {HbTooltip} from './directives/HbTooltip';
+import {ProfileSelectize} from './directives/ProfileSelectize';
+import {ScrollToWhen} from './directives/ScrollToWhen';
+import {Selectize} from './directives/Selectize';
 
-import HbFormArray from './directives/HbFormArray';
-import HbFormObject from './directives/HbFormObject';
-import HbFormWidget from './directives/HbFormWidget';
+import {HbFormArray} from './directives/HbFormArray';
+import {HbFormObject} from './directives/HbFormObject';
+import {HbFormWidget} from './directives/HbFormWidget';
 
-import Backdrop from './ui/Backdrop.cpn';
-import JSONEditorComponent from './ui/JSONEditor.cpn';
-import UploaderComponent from './ui/Uploader.cpn';
+import {Backdrop} from './ui/Backdrop.cpn';
+import {JSONEditorComponent} from './ui/JSONEditor.cpn';
+import {UploaderComponent} from './ui/Uploader.cpn';
 
-import Default from './pipe/Default';
-import Asset from './pipe/Asset';
-import Photon from './pipe/Photon';
-import Values from './pipe/Values';
-import MapToIterable from './pipe/MapToIterable';
-import BaseDIContainer from '../HbComponent/BaseDIContainer';
+import {Default} from './pipe/Default';
+import {Asset} from './pipe/Asset';
+import {Photon} from './pipe/Photon';
+import {Values} from './pipe/Values';
+import {MapToIterable} from './pipe/MapToIterable';
+import {BaseDIContainer} from '../HbComponent/BaseDIContainer';
 
-import DummyDIContainer from './modules/DummyDIContainer';
-import Status from './modules/status.svc';
-import Config from './modules/Config';
+import {DummyDIContainer} from './modules/DummyDIContainer';
+import {Status} from './modules/status.svc';
+import {Config} from './modules/Config';
 
 export function DummyDIContainerFactory (baseDIContainer, config, status) => {
     return new DummyDIContainer(baseDIContainer, config, status);
 }
 
 let directivesAndPipes = [
-    Angulartics2On,
-
     FileSelectDirective,
     FileDropDirective,
 
@@ -82,7 +80,8 @@ let directivesAndPipes = [
         RouterModule,
         HttpModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        Angulartics2Module
     ],
     providers: [
         BaseDIContainer,
@@ -102,4 +101,4 @@ let directivesAndPipes = [
         ReactiveFormsModule
     ])
 })
-export default class CommonModule {}
+export class CommonModule {}

@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import BaseStatus from '../../HbComponent/BaseStatus';
-import EventDispatcher from '../../HbComponent/EventDispatcher';
-import Resource from './resource.svc';
-import Bindable from '../Bindable';
-import * as RxDOM from 'rx-dom';
+import {BaseStatus} from '../../HbComponent/BaseStatus';
+import {EventDispatcher} from '../../HbComponent/EventDispatcher';
+import {Resource} from './resource.svc';
+import {Bindable} from '../Bindable';
+import RxDOM from 'rx-dom';
 
 @Injectable()
-export default class Status extends BaseStatus {
+export class Status extends BaseStatus {
     private static appEnv = $('body').hasClass('env-prod');
     private deviceType = new Bindable('');
     private deviceHeight = new Bindable('');

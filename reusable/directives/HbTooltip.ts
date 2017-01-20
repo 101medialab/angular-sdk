@@ -4,7 +4,7 @@ import 'bootstrap/js/tooltip.js'
 @Directive({
     selector: '[hb-tooltip]',
 })
-export default class HbTooltip implements OnChange {
+export class HbTooltip implements OnChange {
     private $el;
     @Input('hb-tooltip') private config;
 

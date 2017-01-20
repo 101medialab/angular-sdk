@@ -1,9 +1,9 @@
 import {ActivatedRoute} from '@angular/router';
 
-import IdvComponent from './idv.cpn';
-import DummyDIContainer from './DummyDIContainer';
+import {IdvComponent} from './idv.cpn';
+import {DummyDIContainer} from './DummyDIContainer';
 
-export default class EditComponent extends IdvComponent {
+export class EditComponent extends IdvComponent {
     private JSONEditorName: string = 'json-edit';
     private schemaData;
     protected objectAttributeTypeExtractorOptions = {

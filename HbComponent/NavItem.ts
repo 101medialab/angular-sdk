@@ -1,4 +1,4 @@
-export default class NavItem {
+export class NavItem {
     constructor(
         private name: string,
         private args: (string | Array),

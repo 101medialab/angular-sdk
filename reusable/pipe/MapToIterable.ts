@@ -3,7 +3,7 @@ import {Pipe} from "@angular/core";
 @Pipe({
     name: 'mapToIterable'
 })
-export default class MapToIterable {
+export class MapToIterable {
     transform(object: Object): Array {
         var result = [];
 

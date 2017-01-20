@@ -2,7 +2,7 @@ import Bindable from '../reusable/Bindable';
 import Status from '../reusable/modules/status.svc';
 import BaseComponent from '../HbComponent/BaseComponent';
 
-export default class SlideMenuComponent extends BaseComponent {
+export class SlideMenuComponent extends BaseComponent {
     constructor(status: Status) {
         super(status);
 

@@ -1,8 +1,8 @@
-import ObjectAttributeTypeExtractor from '../ObjectAttributeTypeExtractor';
+import {ObjectAttributeTypeExtractor} from '../ObjectAttributeTypeExtractor';
 import * as JSONEditorTypes from './JSONEditorType';
 import * as JSONEditor from 'jdorn/json-editor';
 
-export default class JSONEditorFactory {
+export class JSONEditorFactory {
     private config: {} = {
         disable_collapse: true,
         disable_edit_json: true,

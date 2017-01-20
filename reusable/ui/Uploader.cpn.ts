@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges}  from '@angular/core';
 import {FileUploader} from 'ng2-file-upload/file-upload/file-uploader.class';
-import ExtendedAuthHttp from '../ExtendedAuthHttp';
+import {ExtendedAuthHttp} from '../ExtendedAuthHttp';
 
 @Component({
     selector: 'uploader',
@@ -87,7 +87,7 @@ import ExtendedAuthHttp from '../ExtendedAuthHttp';
         </div>
     `
 })
-export default class UploaderComponent implements OnChanges {
+export class UploaderComponent implements OnChanges {
     @Input('isInitializable') private isInitializable;
     @Input('baseUrl') private baseUrl;
     @Input('title') private title;

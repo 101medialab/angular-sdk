@@ -1,4 +1,4 @@
-import BaseResource from '../../HbComponent/BaseResource';
+import {BaseResource} from '../../HbComponent/BaseResource';
 
 export default function setupProfileSelectizeField(
     options: {

@@ -3,7 +3,7 @@ import {Directive, Input, OnInit, OnChanges, ElementRef} from '@angular/core';
 @Directive({
     selector: '.hb-back-to-top',
 })
-export default class BackToTop implements OnInit, OnChanges {
+export class BackToTop implements OnInit, OnChanges {
     private $el;
     @Input('target') private target;
     private $target;

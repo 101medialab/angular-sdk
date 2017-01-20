@@ -4,7 +4,7 @@ import {AuthHttp, AuthConfig, JwtHelper} from 'angular2-jwt';
 import HttpHeader from 'ngSDK/HbComponent/HttpHeader';
 
 @Injectable()
-export default class ExtendedAuthHttp extends AuthHttp {
+export class ExtendedAuthHttp extends AuthHttp {
     private jwtHelper: JwtHelper;
     private externalConfig;
     private token: string;

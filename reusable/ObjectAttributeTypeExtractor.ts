@@ -1,4 +1,4 @@
-export default class ObjectAttributeTypeExtractor {
+export class ObjectAttributeTypeExtractor {
     private _mapping: {};
 
     constructor(obj: {} = null, options: {} = {}) {

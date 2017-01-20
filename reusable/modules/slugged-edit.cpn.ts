@@ -1,9 +1,9 @@
-import ProfileSearchMixin from '../mixin/ProfileSearchMixin';
-import applyMixins from '../Mixin';
-import SluggedIdvComponent from './slugged-idv.cpn';
-import EditComponent from './edit.cpn';
+import {ProfileSearchMixin} from '../mixin/ProfileSearchMixin';
+import {applyMixins} from '../Mixins';
+import {SluggedIdvComponent} from './slugged-idv.cpn';
+import {EditComponent} from './edit.cpn';
 
-export default class SluggedEditComponent extends SluggedIdvComponent implements ProfileSearchMixin, EditComponent {
+export class SluggedEditComponent extends SluggedIdvComponent implements ProfileSearchMixin, EditComponent {
     private JSONEditorName: string = 'json-edit';
     private schemaData = this.resolveSchemaData();
     protected objectAttributeTypeExtractorOptions = {

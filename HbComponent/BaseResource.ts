@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Headers} from '@angular/http';
-import HttpHeader from './HttpHeader';
+import {HttpHeader} from './HttpHeader';
 import ExtendedAuthHttp from '../reusable/ExtendedAuthHttp';
-import EventDispatcher from './EventDispatcher';
+import {EventDispatcher} from './EventDispatcher';
 
 @Injectable()
-export default class BaseResource {
+export class BaseResource {
     private isLoading: boolean = false;
     private _isCancelIfLoading: boolean = true;
     private headers = new Headers();

@@ -1,8 +1,8 @@
 import {ActivatedRoute} from '@angular/router';
-import IdvComponent from './idv.cpn';
-import DummyDIContainer from './DummyDIContainer';
+import {IdvComponent} from './idv.cpn';
+import {DummyDIContainer} from './DummyDIContainer';
 
-export default class SluggedIdvComponent extends IdvComponent {
+export class SluggedIdvComponent extends IdvComponent {
     constructor(
         diContainer: DummyDIContainer,
         activatedRoute: ActivatedRoute
