@@ -74,6 +74,42 @@ let directivesAndPipes = [
     MapToIterable
 ];
 
+let exports = [
+    BaseCommonModule,
+    RouterModule,
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule,
+
+    FileSelectDirective,
+    FileDropDirective,
+
+    BackToTop,
+    EmitWhenViewportChanges,
+    HbClass,
+    HbHeightModifier,
+    HbPerfectScroll,
+    HbTooltip,
+    ProfileSelectize,
+    ScrollToWhen,
+    Selectize,
+
+    HbFormArray,
+    HbFormObject,
+    HbFormWidget,
+
+    Backdrop,
+    JSONEditorComponent,
+    UploaderComponent,
+
+    // Pipe
+    Default,
+    Asset,
+    Photon,
+    Values,
+    MapToIterable
+];
+
 @NgModule({
     imports: [
         BaseCommonModule,
@@ -93,12 +129,6 @@ let directivesAndPipes = [
         [CanDeactivateGuard]
     ],
     declarations: directivesAndPipes,
-    exports: directivesAndPipes.concat([
-        BaseCommonModule,
-        RouterModule,
-        HttpModule,
-        FormsModule,
-        ReactiveFormsModule
-    ])
+    exports
 })
 export class CommonModule {}

@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
-import Status from "./status.svc";
+import {Status} from "./status.svc";
 
 @Component({
     selector: 'hb-logout',

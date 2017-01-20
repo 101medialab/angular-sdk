@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import {AuthHttp, AuthConfig, JwtHelper} from 'angular2-jwt';
-import HttpHeader from 'ngSDK/HbComponent/HttpHeader';
+import {HttpHeader} from 'ngSDK/HbComponent/HttpHeader';
 
 @Injectable()
 export class ExtendedAuthHttp extends AuthHttp {
@@ -10,7 +10,7 @@ export class ExtendedAuthHttp extends AuthHttp {
     private token: string;
     private refreshTimeoutId;
 
-    constructor(config, private http: Http) {
+    constructor(config: any, private http: Http) {
         this.jwtHelper = new JwtHelper();
 
         this.externalConfig = $.extend({

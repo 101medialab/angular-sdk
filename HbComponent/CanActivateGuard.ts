@@ -1,7 +1,7 @@
 import {Injectable}    from '@angular/core';
 import {Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {Observable}    from 'rxjs/Observable';
-import Status from '../reusable/modules/status.svc';
+import {Status} from '../reusable/modules/status.svc';
 
 @Injectable()
 export class CanActivateGuard implements CanActivate {

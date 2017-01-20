@@ -36,8 +36,8 @@ export class Config extends BaseConfig {
     constructor(
         resourceName: string = '',
         pluralResourceName: string = '',
-        ResourceClass,
-        apiBaseUrl = '/api'
+        ResourceClass: any,
+        apiBaseUrl:string = '/api'
     ) {
         super({
             resourceName,

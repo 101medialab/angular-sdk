@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Headers} from '@angular/http';
 import {HttpHeader} from './HttpHeader';
-import ExtendedAuthHttp from '../reusable/ExtendedAuthHttp';
+import {ExtendedAuthHttp} from '../reusable/ExtendedAuthHttp';
 import {EventDispatcher} from './EventDispatcher';
 
 @Injectable()
