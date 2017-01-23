@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import {AuthHttp, AuthConfig, JwtHelper} from 'angular2-jwt';
-import {HttpHeader} from 'ngSDK/HbComponent/HttpHeader';
+import {HttpHeader} from '../HbComponent/HttpHeader';
 
 @Injectable()
 export class ExtendedAuthHttp extends AuthHttp {

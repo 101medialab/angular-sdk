@@ -1,4 +1,4 @@
-import {JsExtend} from 'ngSDK/reusable/JsExtend';
+import {JsExtend} from './JsExtend';
 
 new JsExtend({
     Array: {
