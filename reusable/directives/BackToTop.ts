@@ -18,7 +18,7 @@ export class BackToTop implements OnInit, OnChanges {
         });
     }
 
-    ngOnChanges({target}) {
+    ngOnChanges({target}: {target}) {
         if (target.currentValue) {
             this.$target = $(target.currentValue);
         }

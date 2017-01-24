@@ -17,13 +17,12 @@ import {Bindable} from '../Bindable';
                 <span class="sprite thin-arrow-down"></span>
             </div>
         </div>
-    `,
-    directives: [HbPerfectScroll]
+    `
 })
 export class HbFlickityNav implements OnChanges {
     protected viewInitialized: boolean = false;
     @ViewChild('container') protected container: ElementRef = null;
-    @Input('options') protected options: {} = null;
+    @Input('options') protected options: any = null;
     protected $el = null;
     protected instance = null;
     protected dimensions = null;

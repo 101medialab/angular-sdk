@@ -3,14 +3,14 @@ import * as JSONEditorTypes from './JSONEditorType';
 import * as JSONEditor from 'jdorn/json-editor';
 
 export class JSONEditorFactory {
-    private config: {} = {
+    private config: any = {
         disable_collapse: true,
         disable_edit_json: true,
         disable_properties: true,
         required_by_default: true
     };
-    private schema: {};
-    private data: {};
+    private schema: any;
+    private data: any;
     private elem;
     private _instance: JSONEditor = null;
 
@@ -20,7 +20,7 @@ export class JSONEditorFactory {
         this.data = data;
     }
 
-    static generateSchemaByObject(obj: {}, resolveTypeAny: () => void = null, options: {} = {}) {
+    static generateSchemaByObject(obj: any, resolveTypeAny: () => void = null, options: any = {}) {
         return this.generateSchemaByAttributeTypeObject(new ObjectAttributeTypeExtractor(obj, options), resolveTypeAny);
     }
 

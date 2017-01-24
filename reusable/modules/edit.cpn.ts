@@ -4,8 +4,8 @@ import {IdvComponent} from './idv.cpn';
 import {DummyDIContainer} from './DummyDIContainer';
 
 export class EditComponent extends IdvComponent {
-    private JSONEditorName: string = 'json-edit';
-    private schemaData;
+    protected JSONEditorName: string = 'json-edit';
+    protected schemaData;
     protected objectAttributeTypeExtractorOptions = {
         keyNamingStrategy: 'snake_case',
         stripUnderscore: true

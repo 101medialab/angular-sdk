@@ -109,12 +109,6 @@ export class MainComponent extends BaseResourceComponent {
         return fromUrl;
     }
 
-    resetCriteria() {
-        this.currentCriteria = Object.assign({}, this.defaultCriteria);
-
-        this.onCriteriaChanged();
-    }
-
     resolveRequestingNoOfResult(netCriteria, includePage) {
         this.state.isUsingDefaultCriteria = Object.keys(netCriteria).length === 0;
 
@@ -167,7 +161,7 @@ export class MainComponent extends BaseResourceComponent {
     }
 
     onRequestDone(data, includePage, num) {
-        let data = this.setupData(data);
+        data = this.setupData(data);
 
         this.data = includePage ? this.data.concat(data) : data;
         this.state.isInitialized = true;
@@ -192,7 +186,7 @@ export class MainComponent extends BaseResourceComponent {
         return returnArgs ? fromConfig : new NavItem(name, fromConfig);
     }
 
-    protected getNetCriteria(config = {}) {
+    protected getNetCriteria(config = {}): Array<string>|Object {
         let fromConfig = {};
 
         this.criteriaNames.forEach((key) => {

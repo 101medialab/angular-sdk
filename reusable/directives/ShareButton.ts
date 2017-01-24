@@ -22,7 +22,7 @@ export class ShareButton {
 
             case 'link':
                 let $linkContainer = $(this.el.nativeElement).parent().find('.link-container'),
-                    input = $linkContainer.find('input')[0];
+                    input =  (<HTMLInputElement>$linkContainer.find('input')[0]);
                 input.selectionStart = 0;
                 input.selectionEnd = input.value.length;
 

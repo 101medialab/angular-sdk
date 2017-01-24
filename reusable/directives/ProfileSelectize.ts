@@ -1,4 +1,4 @@
-import {Directive, Input, Output, EventEmitter, OnChanges, ElementRef} from '@angular/core';
+import {Directive, Input, Output, EventEmitter, ElementRef} from '@angular/core';
 import {setupProfileSelectize} from '../JSONEditor/plugin';
 import {Selectize} from './Selectize';
 
@@ -8,7 +8,7 @@ import {Selectize} from './Selectize';
 export class ProfileSelectize extends Selectize {
     // Pathetically you cannot inherit EventEmitter, add it manually
     @Output('onChange') onChange = new EventEmitter();
-    @Input('profileSelectize') private options;
+    @Input('profileSelectize') protected options;
     private instance = null;
 
     constructor(el: ElementRef) {

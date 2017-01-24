@@ -2,6 +2,14 @@ import {Directive, Input, OnChanges, ElementRef} from '@angular/core';
 import {BaseComponent} from '../../HbComponent/BaseComponent';
 import {Status} from '../modules/status.svc';
 
+export class HbClassConfig {
+    event = '';
+    action = '';
+    class = '';
+    delay = 0;
+    emitWhenDone = null;
+}
+
 // TODO: isInitialized has not checked
 @Directive({
     selector: '[hbClass]',
@@ -14,7 +22,7 @@ export class HbClass implements OnChanges {
         this.$el = $(this.el.nativeElement);
     }
 
-    ngOnChanges({config}) {
+    ngOnChanges({config}: {config: any}) {
         if (config.currentValue) {
             this.config = config.currentValue;
 
@@ -129,12 +137,4 @@ export class HbClass implements OnChanges {
             }]
         );
     }
-}
-
-class HbClassConfig {
-    event = '';
-    action = '';
-    class = '';
-    delay = 0;
-    emitWhenDone = null;
 }

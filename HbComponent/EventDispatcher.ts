@@ -2,11 +2,11 @@ import {Injectable, EventEmitter} from '@angular/core';
 
 @Injectable()
 export class EventDispatcher {
-    private emitters: Map = new Map();
+    private emitters: Map<string, EventEmitter<() => {}>> = new Map();
 
     constructor() {}
 
-    get(name: string, createIfNotExist?: boolean = false) {
+    get(name: string, createIfNotExist: boolean = false) {
         if (createIfNotExist && !this.emitters.has(name)) {
             this.create(name);
         }
@@ -14,15 +14,15 @@ export class EventDispatcher {
         return this.emitters.get(name);
     }
 
-    listen(name: string, args: Array, createIfNotExist?: boolean = true) {
+    listen(name: string, args: Array<(args:any) => void>, createIfNotExist: boolean = true) {
         return EventEmitter.prototype.subscribe.apply(this.get(name, createIfNotExist), args);
     }
 
-    emit(name: string, args: Array = [], createIfNotExist?: boolean = true) {
+    emit(name: string, args: Array<(args:any) => void> = [], createIfNotExist: boolean = true) {
         EventEmitter.prototype.emit.apply(this.get(name, createIfNotExist), args);
     }
 
-    create(name: string, force?: boolean = false) {
+    create(name: string, force: boolean = false) {
         if (force && this.emitters.has(name)) {
             return false;
         }

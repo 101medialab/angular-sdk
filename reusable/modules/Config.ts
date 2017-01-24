@@ -4,8 +4,11 @@ import {NavItem} from '../../HbComponent/NavItem';
 
 @Injectable()
 export class Config extends BaseConfig {
-    public route = {};
-    private routeTypes: Array = [
+    public route: {
+        base: string,
+        main: string
+    } = {base: '', main: ''};
+    private routeTypes: Array<string> = [
         this.ROUTE_TYPE_MAIN,
         this.ROUTE_TYPE_CREATE,
         this.ROUTE_TYPE_LIST,

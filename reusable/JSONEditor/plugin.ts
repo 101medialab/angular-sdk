@@ -4,9 +4,9 @@ export function setupProfileSelectizeField(
     options: {
         field,
         resource: BaseResource,
-        list: Array,
+        list: Array<any>,
         onSetupDone?: (cpn) => {},
-        selectizeOptions?: {},
+        selectizeOptions?: any,
         apiEndPoint?: string,
         resolveResponse?: (resp, callWhenDone) => {}
         manuallySetValue?: boolean
@@ -55,8 +55,8 @@ export function setupProfileSelectize(
     input,
     options: {
         resource: BaseResource,
-        list: Array,
-        selectizeOptions?: {},
+        list: Array<any>,
+        selectizeOptions?: any,
         apiEndPoint?: string,
         resolveResponse?: (resp, callWhenDone, instance) => {}
     }

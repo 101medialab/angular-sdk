@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import {AuthHttp, AuthConfig, JwtHelper} from 'angular2-jwt';
-import {HttpHeader} from '../HbComponent/HttpHeader';
 
 @Injectable()
 export class ExtendedAuthHttp extends AuthHttp {
@@ -9,24 +8,26 @@ export class ExtendedAuthHttp extends AuthHttp {
     private externalConfig;
     private token: string;
     private refreshTimeoutId;
+    private httpClient;
 
-    constructor(config: any, private http: Http) {
-        this.jwtHelper = new JwtHelper();
-
-        this.externalConfig = $.extend({
+    constructor(config: any, http: Http) {
+        let externalConfig = Object.assign({
             JWToken: null,
             refreshBeforeExpire: 60,
             authHttpConfig: {}
         }, config);
 
-        this.setToken(this.externalConfig.JWToken || '');
         super(new AuthConfig(
-            $.extend(
-                this.externalConfig.authHttpConfig, {
-                    tokenGetter: () => this.getToken(),
-                    noJwtError: true
-                }
-            )), http);
+            Object.assign(externalConfig.authHttpConfig, {
+                tokenGetter: () => this.getToken(),
+                noJwtError: true
+            })
+        ), http);
+
+        this.httpClient = http;
+        this.jwtHelper = new JwtHelper();
+        this.setToken(externalConfig.JWToken || '');
+        this.externalConfig = externalConfig;
     }
 
     private isTokenNeedToRefresh() {
@@ -68,7 +69,7 @@ export class ExtendedAuthHttp extends AuthHttp {
     }
 
     private refreshToken() {
-        this.http.get(
+        this.httpClient.get(
             this.externalConfig.refreshTokenAPI, {
                 headers: new Headers({
                     "Authorization": "Bearer " + this.getToken()

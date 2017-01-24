@@ -1,8 +1,7 @@
-import {NgFor} from '@angular/common';
 import {Component, ViewChild, Input, ElementRef, OnChanges, Inject}  from '@angular/core';
-import {Asset} from '../pipe/Asset';
-import {Photon} from '../pipe/Photon';
 import {EventDispatcher} from '../../HbComponent/EventDispatcher';
+import Flickity from 'flickity/js/flickity.js';
+import 'flickity-bg-lazyload';
 
 @Component({
     selector: 'hb-flickity',
@@ -10,14 +9,12 @@ import {EventDispatcher} from '../../HbComponent/EventDispatcher';
         <div #container>
             <ng-content></ng-content>
         </div>
-    `,
-    directives: [NgFor],
-    pipes: [Asset, Photon]
+    `
 })
 export class HbFlickity implements OnChanges {
     protected viewInitialized: boolean = false;
     @ViewChild('container') protected container: ElementRef = null;
-    @Input('options') protected options: {} = null;
+    @Input('options') protected options: any = null;
     protected $el = null;
     protected $slider = null;
     protected Flickity = null;
@@ -30,13 +27,9 @@ export class HbFlickity implements OnChanges {
 
         this.$el = $(this.container.nativeElement);
 
-        System.import('flickity/js/flickity.js').then(() => {
-            System.import('flickity-bg-lazyload').then((Flickity) => {
-                this.Flickity = Flickity;
+        this.Flickity = Flickity;
 
-                this.onReadyToInitialize();
-            })
-        });
+        this.onReadyToInitialize();
     }
 
     ngOnChanges(change) {

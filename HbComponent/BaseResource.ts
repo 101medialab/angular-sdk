@@ -6,19 +6,20 @@ import {EventDispatcher} from './EventDispatcher';
 
 @Injectable()
 export class BaseResource {
-    private isLoading: boolean = false;
     private _isCancelIfLoading: boolean = true;
     private headers = new Headers();
-    private cache: Map = new Map();
-    private currentLoading: Map = new Map();
+    private cache: Map<string, any> = new Map();
+    private currentLoading: Map<string, any> = new Map();
 
     constructor(
         protected http: ExtendedAuthHttp,
         private _baseUrl: string = '',
-        private headers: HttpHeader[] = [],
+        headers: HttpHeader[] = null,
         private eventDispatcher: EventDispatcher
     ) {
         this.addDefaultHeaders(headers);
+
+        this.headers = new Headers(headers);
     }
 
     createOne() {
@@ -69,7 +70,7 @@ export class BaseResource {
     }
 
     cancelIfLoading(url: string) {
-        if (this.isLoading && this.currentLoading.has(url)) {
+        if (this.isLoading() && this.currentLoading.has(url)) {
             this.cancelCurrentLoading(url);
         }
     }
@@ -101,16 +102,17 @@ export class BaseResource {
                 request = this.http.get(
                     requestUrl + (
                         forceReload ? (
-                                containQuestionMark ? '&' : '?'
-                            ) + 'force=1&_cache_busting=' + Date.now() : ''
+                            containQuestionMark ? '&' : '?'
+                        ) + 'force=1&_cache_busting=' + Date.now() : ''
                     ),
                     {headers: reqHeaders}
                 );
 
             request
-                .map((res) => res.json())
                 .subscribe(
                     (res) => {
+                        res.json()
+
                         let notCancelYet = this.currentLoading.has(requestUrl);
 
                         this.currentLoading.delete(requestUrl);
@@ -130,11 +132,11 @@ export class BaseResource {
         });
     }
 
-    post(url: string, body: {} | '', headers: Array<HttpHeader> = []) {
+    post(url: string, body: any | '', headers: Array<HttpHeader> = []) {
         return this.send('post', url, body, headers);
     }
 
-    send(action: string, url: string, body: {} | '', headers: Array<HttpHeader> = [], skipJSONConverting = false) {
+    send(action: string, url: string, body: any | '', headers: Array<HttpHeader> = [], skipJSONConverting = false) {
         let reqHeaders = this.extendBaseHeader(headers),
             reqBody = typeof body === 'object' ? JSON.stringify(body) : body;
 
@@ -179,7 +181,7 @@ export class BaseResource {
 
     private extendBaseHeader(headers): Headers {
         let reqHeaders = new Headers(this.headers);
-        reqHeaders._headersMap = new Map(this.headers._headersMap);
+        // reqHeaders._headersMap = new Map(this.headers._headersMap);
         headers.forEach((header: HttpHeader) => reqHeaders.append(header.name, header.value));
 
         return reqHeaders;

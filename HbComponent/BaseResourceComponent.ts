@@ -10,6 +10,7 @@ import {Config} from '../reusable/modules/Config';
 import {CanComponentDeactivate} from './CanDeactivateGuard';
 import {DummyDIContainer} from '../reusable/modules/DummyDIContainer';
 import {BaseDIContainer} from './BaseDIContainer';
+import {Observable} from "rxjs";
 
 export class BaseResourceComponent extends BaseComponent implements OnInit, OnDestroy, CanComponentDeactivate {
     protected routeType = '';
@@ -77,7 +78,7 @@ export class BaseResourceComponent extends BaseComponent implements OnInit, OnDe
         super.ngOnDestroy();
     }
 
-    canDeactivate() {
+    canDeactivate(component: CanComponentDeactivate): Observable<boolean> | Promise<boolean> | boolean {
         this.state.isInitialized = false;
         this.emit('HB.page.on.DEACTIVATE');
 

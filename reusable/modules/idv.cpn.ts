@@ -3,7 +3,7 @@ import {BaseResourceComponent} from '../../HbComponent/BaseResourceComponent';
 import {DummyDIContainer} from './DummyDIContainer';
 
 export class IdvComponent extends BaseResourceComponent {
-    protected data: {} = {};
+    protected data: any = {};
 
     constructor(diContainer: DummyDIContainer, activatedRoute: ActivatedRoute) {
         super(diContainer, activatedRoute);

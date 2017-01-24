@@ -9,7 +9,7 @@ export class BaseStatus {
         username: null,
     };
 
-    constructor(protected _evtDispatcher: EventDispatcher, private _resource?: BaseResource = null) {}
+    constructor(protected _evtDispatcher: EventDispatcher, private _resource: BaseResource = null) {}
 
     reset() {
         this._current.username = null;

@@ -11,7 +11,7 @@ import {HbFlickity} from './HbFlickity';
     `
 })
 export class HbCollectionFlickity extends HbFlickity implements OnChanges {
-    @Input('options') protected options: {} = null;
+    @Input('options') protected options: any = null;
     @ViewChild('container') protected container: ElementRef = null;
 
     constructor(@Inject(EventDispatcher) eventDispatcher: EventDispatcher) {

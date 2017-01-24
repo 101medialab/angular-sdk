@@ -10,7 +10,17 @@ import * as RxDOM from 'rx-dom';
 export class EmitWhenViewportChanges extends BaseComponent implements OnChanges {
     private $el;
     private isInitialized: boolean = false;
-    @Input('emitWhenViewportChanges') private config: {};
+    @Input('emitWhenViewportChanges') private config: {
+        refreshRate: number,
+        target: Element,
+        offsetViewport: {
+            top: number,
+            bottom: number,
+            left: number
+        },
+        appear: Array<any>,
+        disappear: Array<any>
+    };
 
     constructor(
         status: Status,
@@ -21,7 +31,9 @@ export class EmitWhenViewportChanges extends BaseComponent implements OnChanges 
         this.$el = $(this.el.nativeElement);
     }
 
-    ngOnChanges({config}) {
+    ngOnChanges({config}: {
+        config: any
+    }) {
         if (!this.isInitialized) {
             this.config = config.currentValue;
 

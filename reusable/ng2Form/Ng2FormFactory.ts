@@ -8,7 +8,7 @@ import {
 import {ObjectAttributeTypeExtractor} from '../ObjectAttributeTypeExtractor';
 
 export class Ng2FormFactory {
-    static generateFormGroupByObject(formBulider: FormBuilder, obj: {}, resolveTypeAny: () => {ngForm: any, template: any} = null, options: {} = {}) {
+    static generateFormGroupByObject(formBulider: FormBuilder, obj: any, resolveTypeAny: () => {ngForm: any, template: any} = null, options: any = {}) {
         return Ng2FormFactory.generateFormGroupByAttributeTypeObject(
             formBulider, new ObjectAttributeTypeExtractor(obj, options), resolveTypeAny
         );
@@ -156,7 +156,7 @@ export class Ng2FormFactory {
         return form;
     }
 
-    private static setupDefaultFormControl(form: {template: {}; ngForm: {}}, key, titleCase: any) {
+    private static setupDefaultFormControl(form: {template: any; ngForm: any}, key, titleCase: any) {
         form.ngForm[key] = new FormControl('');
         form.template[key] = {
             label: titleCase,
@@ -165,7 +165,7 @@ export class Ng2FormFactory {
         };
     }
 
-    private static handleResolvedResult(form: {template: {}; ngForm: {}}, key, resolved: {ngForm: any; template: any}) {
+    private static handleResolvedResult(form: {template: any; ngForm: any}, key, resolved: {ngForm: any; template: any}) {
         form.ngForm[key] = resolved.ngForm;
         form.template[key] = resolved.template;
         form.template[key].control = form.ngForm[key];

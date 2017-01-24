@@ -6,7 +6,7 @@ import {Bindable} from '../Bindable';
     selector: '[hb-perfect-scroll]'
 })
 export class HbPerfectScroll implements OnChanges, OnDestroy {
-    @Input('hb-perfect-scroll') options: {} = {};
+    @Input('hb-perfect-scroll') options: any = {};
     private $el;
 
     constructor(elemRef: ElementRef) {
