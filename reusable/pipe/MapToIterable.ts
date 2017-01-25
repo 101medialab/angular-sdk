@@ -4,10 +4,10 @@ import {Pipe} from "@angular/core";
     name: 'mapToIterable'
 })
 export class MapToIterable {
-    transform(object: Object): Array {
-        var result = [];
+    transform(object: Object): Array<any> {
+        let result = [];
 
-        for (var key in object) {
+        for (let key in object) {
             if (object.hasOwnProperty(key)) {
                 result.push({key, val: object[key]});
             }

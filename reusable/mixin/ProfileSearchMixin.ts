@@ -3,7 +3,7 @@ export class ProfileSearchMixin {
         return '__type__';
     }
 
-    protected handleProfileSearchResponse(resp: Array, callWhenDone) {
+    handleProfileSearchResponse(resp: Array<any>, callWhenDone) {
         resp.forEach((profile) => {
             profile.slug = profile.slug + ProfileSearchMixin.fromSeparator + profile.type;
         });
@@ -11,7 +11,7 @@ export class ProfileSearchMixin {
         callWhenDone(resp);
     }
 
-    protected fixProfileSelectizeValue(slug) {
+    fixProfileSelectizeValue(slug) {
         let indexOf = slug.indexOf(ProfileSearchMixin.fromSeparator),
             type = slug.substring(indexOf + ProfileSearchMixin.fromSeparator.length, slug.length);
 
@@ -31,7 +31,7 @@ export class ProfileSearchMixin {
         return {slug}
     }
 
-    protected convertToProfileNameAndSlug(data, key) {
+    convertToProfileNameAndSlug(data, key) {
         if (data[key].indexOf(',') > -1) {
             let eachSlug = data[key].split(',');
             data[key] = [];

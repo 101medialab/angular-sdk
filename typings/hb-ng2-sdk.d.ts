@@ -13,6 +13,12 @@ interface String {
     slugify(): string;
 }
 
+interface Array {
+    prepend(): void;
+    contains(any): boolean;
+    unique(): Array;
+}
+
 interface JQuery {
     selectize(args: any): void;
 }
@@ -20,5 +26,7 @@ interface JQuery {
 interface HTMLElement {
     selectize: any;
 }
+
+declare var Exception: any;
 
 declare var ga: any;

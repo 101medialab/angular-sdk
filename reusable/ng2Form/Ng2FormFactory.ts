@@ -20,7 +20,7 @@ export class Ng2FormFactory {
         resolveTypeAny: (attrMapping, key: string) => {ngForm: any, template: any} = null,
         resolveTypeUndefined: (attrMapping, key: string) => {ngForm: any, template: any} = null
     ) {
-        let form = {
+        let form: any = {
                 template: {},
                 ngForm: {},
             },
@@ -173,7 +173,7 @@ export class Ng2FormFactory {
 
     static setValueToTemplate(value) {
         for (var key in value) {
-            let target = this.groupType ? this.children : this;
+            let target = (this as any).groupType ? (this as any).children : this;
 
             if (key in target) {
                 if (target[key].type) {

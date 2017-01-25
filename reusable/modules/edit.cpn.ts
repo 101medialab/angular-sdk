@@ -4,13 +4,13 @@ import {IdvComponent} from './idv.cpn';
 import {DummyDIContainer} from './DummyDIContainer';
 
 export class EditComponent extends IdvComponent {
-    protected JSONEditorName: string = 'json-edit';
-    protected schemaData;
-    protected objectAttributeTypeExtractorOptions = {
+    public JSONEditorName: string = 'json-edit';
+    public schemaData;
+    public objectAttributeTypeExtractorOptions = {
         keyNamingStrategy: 'snake_case',
         stripUnderscore: true
     };
-    private uploaderBaseUrl = '';
+    public uploaderBaseUrl = '';
 
     constructor(
         diContainer: DummyDIContainer, activatedRoute: ActivatedRoute

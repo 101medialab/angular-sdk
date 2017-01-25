@@ -1,6 +1,6 @@
 import {ObjectAttributeTypeExtractor} from '../ObjectAttributeTypeExtractor';
 import * as JSONEditorTypes from './JSONEditorType';
-import * as JSONEditor from 'jdorn/json-editor';
+import * as JSONEditor from 'json-editor';
 
 export class JSONEditorFactory {
     private config: any = {
@@ -28,7 +28,7 @@ export class JSONEditorFactory {
         attrMappingObj: ObjectAttributeTypeExtractor,
         resolveTypeAny: (JSONEditorTypes) => void = null,
         resolveTypeUndefined: (attrMapping, key) => void = null
-    ) {
+    ): any {
         let schema = {},
             attrMapping = attrMappingObj instanceof ObjectAttributeTypeExtractor ? attrMappingObj.mapping : attrMappingObj,
             defaultValue = {},

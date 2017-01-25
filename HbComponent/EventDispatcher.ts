@@ -18,7 +18,7 @@ export class EventDispatcher {
         return EventEmitter.prototype.subscribe.apply(this.get(name, createIfNotExist), args);
     }
 
-    emit(name: string, args: Array<(args:any) => void> = [], createIfNotExist: boolean = true) {
+    emit(name: string, args: Array<any> = [], createIfNotExist: boolean = true) {
         EventEmitter.prototype.emit.apply(this.get(name, createIfNotExist), args);
     }
 

@@ -26,6 +26,7 @@ export class JSONEditorComponent implements OnChanges {
     private viewInitialized: boolean = false;
     private attrMapping: ObjectAttributeTypeExtractor = null;
     private factoryInstance: JSONEditorFactory = null;
+    private context: any;
 
     constructor() {}
 

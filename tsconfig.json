@@ -28,9 +28,6 @@
     "compileOnSave": false,
     "buildOnSave": false,
     "files": [
-        "./index.ts",
-        "./node_modules/@types/jquery/index.d.ts",
-        "./typings/index.d.ts",
         "./typings/hb-ng2-sdk.d.ts"
     ],
     "exclude": [

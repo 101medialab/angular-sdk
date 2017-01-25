@@ -34,7 +34,7 @@ export class ExtendedAuthHttp extends AuthHttp {
         return !this.token || this.jwtHelper.isTokenExpired(this.token, this.externalConfig.refreshBeforeExpire);
     }
 
-    private getToken() {
+    public getToken() {
         return this.token;
     }
 

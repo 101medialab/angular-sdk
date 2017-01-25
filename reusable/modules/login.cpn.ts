@@ -1,7 +1,7 @@
 import {OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {Status} from "./status.svc";
-import {ExtendedAuthHttp} from './ExtendedAuthHttp';
+import {ExtendedAuthHttp} from '../ExtendedAuthHttp';
 import {BaseComponent} from '../../HbComponent/BaseComponent';
 import {Status as MainStatus} from './status.svc';
 import {Response} from "@angular/http";
@@ -64,7 +64,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     onLoggedIn(res: Response) {
         let url = this.status.redirectToOnceLoggedIn;
-        url = url && url != '' ? url : this.status.redirectToOnceLoggedInDefault;
+        url = url && url != '' ? url : (<any>this.status).redirectToOnceLoggedInDefault;
 
         if (url) this.router.navigateByUrl(url);
 
