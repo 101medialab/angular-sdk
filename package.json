@@ -7,7 +7,7 @@
     "ngc": "ngc -p tsconfig.json",
     "start": "npm run cleanup && npm run ngc",
     "start-prod": "npm run ngc && npm run build",
-    "build": "npm run cleanup && npm run install-types && npm run ngc && webpack --config webpack.aot.config.js -p",
+    "build": "npm run cleanup && npm run ngc && webpack --config webpack.config.js -p",
     "deploy": "gh-pages -d dist",
     "aot": "npm run cleanup && npm run ngc",
     "jit": "npm run cleanup"

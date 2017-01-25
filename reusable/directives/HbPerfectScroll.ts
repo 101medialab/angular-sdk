@@ -1,5 +1,5 @@
 import {Directive, Input, ElementRef, OnChanges, OnDestroy} from '@angular/core';
-import 'noraesae/perfect-scrollbar/js/perfect-scrollbar.jquery.min';
+import 'perfect-scrollbar';
 import {Bindable} from '../Bindable';
 
 @Directive({

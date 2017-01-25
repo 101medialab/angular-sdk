@@ -1,11 +1,12 @@
 'use strict';
 let path = require('path'),
-    webpack = require('webpack'),
-    CopyWebpackPlugin = require('copy-webpack-plugin'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin');
+    webpack = require('webpack');
 
 module.exports = {
-    context: path.join(process.cwd(), 'src'),
+    entry: {
+        'main': './reusable/CommonModule.ts'
+    },
+    context: path.join(process.cwd(), '.'),
     output: {
         path: path.join(process.cwd(), 'dist'),
         filename: '[name].bundle.js'
@@ -24,18 +25,13 @@ module.exports = {
         new webpack.ContextReplacementPlugin(
             // The (\\|\/) piece accounts for path separators in *nix and Windows
             /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-            path.join(process.cwd(), 'src')
-        ),
-        new CopyWebpackPlugin([
-            {from: 'index.html'},
-            {from: 'favicon.ico'}
-        ]),
-        new ExtractTextPlugin('style.bundle.css')
+            path.join(process.cwd(), '.')
+        )
     ],
     resolve: {
         modules: [
             'node_modules',
-            path.resolve(process.cwd(), 'src')
+            path.resolve(process.cwd(), '.')
         ],
         extensions: ['.ts', '.js']
     },

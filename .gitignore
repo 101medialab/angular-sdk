@@ -4,3 +4,5 @@ typings/index.d.ts
 
 *.ngsummary.json
 *.ngfactory.ts
+
+dist

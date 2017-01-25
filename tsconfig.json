@@ -18,7 +18,8 @@
             "./typings"
         ],
         "types": [
-            "node"
+            "node",
+            "jquery"
         ],
         "lib": [
             "dom",
