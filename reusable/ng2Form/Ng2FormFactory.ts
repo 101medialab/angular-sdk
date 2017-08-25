@@ -6,176 +6,187 @@ import {
     Validators,
 } from '@angular/forms';
 import {
-    ExtractorResultType,
     NonPrimitiveTypeMeta,
-    PrimitiveTypeMeta,
     ObjectAttributeTypeExtractor as Extractor
 } from '../ObjectAttributeTypeExtractor';
 
 export class Ng2FormFactory {
     static generateFormGroupByObject(
-        formBuilder: FormBuilder, object: any, resolveTypeAny: () => { ngForm: any, template: any } = null, options: any = {}) {
-        return Ng2FormFactory.generateFormGroupByAttributeTypeObject(
+        formBuilder: FormBuilder,
+        object: any,
+        resolveTypeAny: () => {
+            ngFormControl: any,
+            templateConfig: any
+        } = null,
+        options: any = {}
+    ) {
+        return Ng2FormFactory.generateFormGroupByOATMapping(
             formBuilder, Extractor.generateMapping(object, options), resolveTypeAny
         );
     }
 
-    static generateFormGroupByAttributeTypeObject(
+    static generateLabel(key) {
+        return key.replace(/([A-Z]+)/g, " $1").replace(/_/g, ' ').capitalize();
+    }
+
+    static generateFormGroupByOATMapping(
         formBuilder: FormBuilder,
         attributeMappingObject: any, // Yet all attributes inside should be typeof ExtractorResultType
-        resolveTypeAny: (attrMapping, key: string) => {ngForm: any, template: any} = null,
-        resolveTypeUndefined: (attrMapping, key: string) => {ngForm: any, template: any} = null
+        resolveTypeAny: (attrMapping, key: string) => { ngFormControl: any, templateConfig: any } = null,
+        resolveTypeUndefined: (attrMapping, key: string) => { ngFormControl: any, templateConfig: any } = null
     ) {
-        let form: any = {
-                template: {},
-                ngForm: {},
-            },
-            attrMapping = attributeMappingObject instanceof NonPrimitiveTypeMeta ? attributeMappingObject.mapping : attributeMappingObject;
+        let result: any = {
+            ngFormControl: {},
+            templateConfig: {},
+        };
+        let attrMapping = attributeMappingObject instanceof NonPrimitiveTypeMeta ? attributeMappingObject.mapping : attributeMappingObject;
 
         for (let key in attrMapping) {
-            if (['id'].indexOf(key) === -1) {
-                let titleCase = key.replace(/([A-Z]+)/g, " $1").replace(/_/g, ' ').capitalize();
+            // TODO: Skip attributes should be configurable
+            if (['id'].indexOf(key) > -1) continue;
 
-                if (['object', 'array'].indexOf(attrMapping[key].type) > -1) {
-                    let type = attrMapping[key].type,
-                        arrayType = 'type' in attrMapping[key].mapping ?
-                            ('arrayType' in attrMapping[key] ? attrMapping[key].arrayType : 'primitive') : 'object',
-                        init = () => {
-                            let schemaTemp = null;
+            let resolved = null;
+            let currentTemplateConfig = null;
+            let current = attrMapping[key];
 
-                            if ('type' in attrMapping[key].mapping) {
-                                // For primitive type array
-                                let control = new FormControl(
-                                    'value' in attrMapping[key].mapping ? attrMapping[key].mapping.value : '',
-                                    [Validators.required]
-                                ), template = {};
-
-                                template[key] = {
-                                    label: titleCase,
-                                    type: attrMapping[key].mapping.type,
-                                    control,
-                                };
-
-                                schemaTemp = {
-                                    ngForm: control,
-                                    template
-                                };
-
-                                Ng2FormFactory.resolveTemplateConfigByType(
-                                    attrMapping[key].mapping, template[key]
-                                );
-                            } else {
-                                // For reference type array or object
-                                schemaTemp = Ng2FormFactory.generateFormGroupByAttributeTypeObject(formBuilder, attrMapping[key].mapping);
-                            }
-
-                            schemaTemp.template.setValue = Ng2FormFactory.setValueToTemplate.bind(schemaTemp.template);
-
-                            return {
-                                ngForm: schemaTemp.ngForm instanceof FormControl || type === 'object' ?
-                                    schemaTemp.ngForm :
-
-                                    // For reference type array
-                                    new FormGroup(schemaTemp.ngForm),
-                                template: schemaTemp.template
-                            };
-                        };
-
-                    if (type === 'array') {
-                        form.ngForm[key] = new FormArray([]);
-
-                        let children = [],
-                            add = () => {
-                                let {ngForm, template} = init();
-
-                                const control = <FormArray>form.ngForm[key];
-                                control.push(ngForm);
-                                children.push(template);
-                            },
-                            remove = (i: number) => {
-                                const control = <FormArray>form.ngForm[key];
-                                control.removeAt(i);
-                                children.splice(i, 1);
-                            };
-
-                        add();
-
-                        form.template[key] = {
-                            groupType: 'array',
-                            arrayType,
-                            label: titleCase,
-                            add,
-                            remove,
-                            control: form.ngForm[key],
-                            children
-                        };
-
-                        Ng2FormFactory.setTemplatePreset(attrMapping[key], form.template[key]);
-                    } else {
-                        let {ngForm, template} = init();
-
-                        form.ngForm[key] = new FormGroup(ngForm);
-                        form.template[key] = {
-                            label: titleCase,
-                            groupType: 'object',
-                            control: form.ngForm[key],
-                            children: template
-                        };
-                    }
-                } else if (attrMapping[key].type !== 'any') {
-                    if (attrMapping[key] !== 'undefined' && typeof attrMapping[key].type != 'undefined') {
-                        let validator = attrMapping[key].validator ? attrMapping[key].validator : [],
-                            valueNotEmpty = attrMapping[key].value !== undefined;
-
-                        if (valueNotEmpty) validator.push(Validators.required);
-
-                        form.ngForm[key] = new FormControl(valueNotEmpty ? attrMapping[key].value : '', validator);
-                        form.template[key] = {
-                            label: titleCase,
-                            type: attrMapping[key].type,
-                            control: form.ngForm[key]
-                        };
-                    } else {
-                        resolveTypeUndefined ?
-                            Ng2FormFactory.handleResolvedResult(form, key, resolveTypeUndefined(attrMapping, key)) :
-                            Ng2FormFactory.setupDefaultFormControl(form, key, titleCase);
-                    }
-
-                    Ng2FormFactory.resolveTemplateConfigByType(
-                        attrMapping[key], form.template[key]
-                    );
-                } else {
-                    resolveTypeAny ?
-                        Ng2FormFactory.handleResolvedResult(form, key, resolveTypeAny(attrMapping, key)) :
-                        Ng2FormFactory.setupDefaultFormControl(form, key, titleCase);
-
-                    Ng2FormFactory.resolveTemplateConfigByType(
-                        attrMapping[key], form.template[key]
-                    );
-                }
-
-                form.template[key].setValue = Ng2FormFactory.setValueToTemplate.bind(form.template[key]);
+            if (['object', 'array'].indexOf(current._type) > -1) {
+                resolved = Ng2FormFactory.handleArrayAndObject(current, key, formBuilder);
             }
+            // Primitive type and date
+            else if (current._type !== 'any') {
+                if (current !== 'undefined' && typeof current._type != 'undefined') {
+                    let validator = current.validator ? current.validator : [],
+                        valueNotEmpty = current._value !== undefined;
+
+                    if (valueNotEmpty) validator.push(Validators.required);
+
+                    currentTemplateConfig = {
+                        type: current._type,
+                        control: new FormControl(valueNotEmpty ? current._value : '', validator)
+                    };
+                } else {
+                    resolved = resolveTypeUndefined ? resolveTypeUndefined(current, key) : null;
+                }
+            }
+            // Last case: Null value => any
+            else {
+                resolved = resolveTypeAny ? resolveTypeAny(current, key) : null;
+            }
+
+            if (!currentTemplateConfig && !resolved) {
+                resolved = {
+                    type: 'string',
+                    renderType: 'text',
+                    control: new FormControl('')
+                };
+            }
+
+            if (resolved) {
+                currentTemplateConfig = resolved;
+            }
+
+            currentTemplateConfig.label = Ng2FormFactory.generateLabel(key);
+            currentTemplateConfig.setValue = Ng2FormFactory.setValueToTemplate.bind(currentTemplateConfig);
+            Ng2FormFactory.resolveTemplateConfigByType(
+                current, currentTemplateConfig
+            );
+
+            result.ngFormControl[key] = currentTemplateConfig.control;
+            result.templateConfig[key] = currentTemplateConfig;
         }
 
-        form.template.setValue = Ng2FormFactory.setValueToTemplate.bind(form.template);
+        result.templateConfig.setValue = Ng2FormFactory.setValueToTemplate.bind(result.templateConfig);
 
-        return form;
+        return result;
     }
 
-    private static setupDefaultFormControl(form: {template: any; ngForm: any}, key, titleCase: any) {
-        form.ngForm[key] = new FormControl('');
-        form.template[key] = {
-            label: titleCase,
-            type: 'text',
-            control: form.ngForm[key]
-        };
-    }
+    static handleArrayAndObject(current: any, key: string, formBuilder: FormBuilder) {
+        let templateConfig = null;
 
-    private static handleResolvedResult(form: {template: any; ngForm: any}, key, resolved: {ngForm: any; template: any}) {
-        form.ngForm[key] = resolved.ngForm;
-        form.template[key] = resolved.template;
-        form.template[key].control = form.ngForm[key];
+        let { type } = current,
+            arrayType = 'type' in current._mapping ?
+                ('arrayType' in current ? current.arrayType : 'primitive') : 'object',
+            init = () => {
+                let schemaTemp = null;
+
+                if ('type' in current._mapping) {
+                    // For primitive type array
+                    let control = new FormControl(
+                        'value' in current._mapping ? current._mapping.value : '',
+                        [Validators.required]
+                    ), templateConfig = {};
+
+                    templateConfig[key] = {
+                        label: Ng2FormFactory.generateLabel(key),
+                        type: current._mapping.type,
+                        control,
+                    };
+
+                    schemaTemp = {
+                        ngFormControl: control,
+                        templateConfig
+                    };
+
+                    Ng2FormFactory.resolveTemplateConfigByType(
+                        current._mapping, templateConfig[key]
+                    );
+                } else {
+                    // For reference type array or object
+                    schemaTemp = Ng2FormFactory.generateFormGroupByOATMapping(formBuilder, current._mapping);
+                }
+
+                schemaTemp.templateConfig.setValue = Ng2FormFactory.setValueToTemplate.bind(schemaTemp.templateConfig);
+
+                return {
+                    ngFormControl:
+                        schemaTemp.ngFormControl instanceof FormControl || type === 'object' ?
+                            schemaTemp.ngFormControl :
+                            // For reference type array
+                            new FormGroup(schemaTemp.ngFormControl),
+                    templateConfig: schemaTemp.templateConfig
+                };
+            };
+
+        if (type === 'array') {
+            let ngFormArrayControl = new FormArray([]);
+
+            let children = [],
+                add = () => {
+                    let { ngFormControl, templateConfig } = init();
+
+                    const control = <FormArray>ngFormArrayControl;
+                    control.push(ngFormControl);
+                    children.push(templateConfig);
+                },
+                remove = (i: number) => {
+                    const control = <FormArray>ngFormArrayControl;
+                    control.removeAt(i);
+                    children.splice(i, 1);
+                };
+
+            add();
+
+            templateConfig = {
+                groupType: 'array',
+                arrayType,
+                add,
+                remove,
+                control: ngFormArrayControl,
+                children
+            };
+
+            Ng2FormFactory.setTemplatePreset(current, templateConfig);
+        } else {
+            let child = init();
+
+            templateConfig = {
+                groupType: 'object',
+                control: child.ngFormControl,
+                children: child.templateConfig
+            };
+        }
+
+        return templateConfig;
     }
 
     static setValueToTemplate(value) {
@@ -224,22 +235,30 @@ export class Ng2FormFactory {
         } else if (attrMapping.options) {
             if (attrMapping.options.length > 2 && attrMapping.maxChoices) {
                 templateObj.renderType = attrMapping.expandOptions ? (
-                        attrMapping.maxChoices == 1 ?
-                            'radio' : 'checkbox'
-                    ) : 'select';
+                    attrMapping.maxChoices == 1 ?
+                        'radio' : 'checkbox'
+                ) : 'select';
             } else {
                 templateObj.renderType = attrMapping.expandOptions ? 'radio' : 'checkbox';
             }
         } else {
             templateObj.renderType = attrMapping.type;
-            if (templateObj.renderType === 'string') templateObj.renderType = 'text';
+            if (templateObj.type === 'string') templateObj.renderType = 'text';
         }
 
         Ng2FormFactory.setTemplatePreset(attrMapping, templateObj);
     }
 
+    // Copy setting from OAT to templateConfig object
     static setTemplatePreset(attrMapping, templateObj) {
-        ['maxChoices', 'expandOptions', 'options', 'option', 'renderType', 'optionsTemplate'].forEach(function (each) {
+        [
+            'maxChoices',
+            'expandOptions',
+            'options',
+            'option',
+            'renderType',
+            'optionsTemplate'
+        ].forEach(function (each) {
             if (attrMapping[each]) {
                 templateObj[each] = attrMapping[each];
             }
