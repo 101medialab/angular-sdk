@@ -15,9 +15,9 @@ import {HbFormWidget} from './HbFormWidget';
                  *ngFor="let cell of (data.arrayType != 'enum' ? data.children : data.optionsTemplate); let i=index">
                 <hb-form-widget *ngIf="data.arrayType == 'enum' && cell.groupType == undefined"
                                 [data]="cell" [key]="i" [parent]="data"></hb-form-widget>
-
+                
                 <button *ngIf="data.arrayType != 'enum'" type="button" (click)="data.remove(i)">Remove</button>
-
+                
                 <div *ngIf="data.arrayType != 'enum'">
                     <div *ngFor="let each of cell | mapToIterable;" class="panel panel-default">
                         <hb-form-widget *ngIf="each.val.groupType == undefined"

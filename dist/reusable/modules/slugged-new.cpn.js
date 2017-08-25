@@ -20,7 +20,7 @@ var SluggedNewComponent = (function (_super) {
         _super.prototype.ngOnInit.call(this);
     };
     SluggedNewComponent.prototype.iOnInit = function () {
-        this.data = ObjectAttributeTypeExtractor.fixObjectAttrs(this.status.resource.createOne(), this.objectAttributeTypeExtractorOptions);
+        this.data = ObjectAttributeTypeExtractor.fixObjectAttributesNamingConvention(this.status.resource.createOne(), this.objectAttributeTypeExtractorOptions);
     };
     SluggedNewComponent.prototype.onInitialized = function () {
         this.emit('HB.resource.LOAD_DONE');

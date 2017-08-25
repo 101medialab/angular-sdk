@@ -1,97 +1,164 @@
-var ObjectAttributeTypeExtractor = (function () {
-    function ObjectAttributeTypeExtractor(obj, options) {
-        if (obj === void 0) { obj = null; }
-        if (options === void 0) { options = {}; }
-        this._mapping = null;
-        if (obj) {
-            this._mapping = ObjectAttributeTypeExtractor.generateMapping(obj, options);
-        }
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+import 'core-js/es7/reflect';
+var TypeMeta = (function () {
+    function TypeMeta(_type) {
+        this._type = _type;
     }
-    Object.defineProperty(ObjectAttributeTypeExtractor.prototype, "mapping", {
+    Object.defineProperty(TypeMeta.prototype, "type", {
+        get: function () {
+            return this._type;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TypeMeta;
+}());
+export { TypeMeta };
+var PrimitiveTypeMeta = (function (_super) {
+    __extends(PrimitiveTypeMeta, _super);
+    function PrimitiveTypeMeta(_value) {
+        var _this = _super.call(this, ([
+            'string',
+            'number',
+            'boolean'
+        ].indexOf(typeof _value) > -1 ? typeof _value : 'any')) || this;
+        _this._value = _value;
+        return _this;
+    }
+    Object.defineProperty(PrimitiveTypeMeta.prototype, "value", {
+        get: function () {
+            return this._value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return PrimitiveTypeMeta;
+}(TypeMeta));
+export { PrimitiveTypeMeta };
+var NonPrimitiveTypeMeta = (function (_super) {
+    __extends(NonPrimitiveTypeMeta, _super);
+    function NonPrimitiveTypeMeta(type, _mapping, _value) {
+        if (_mapping === void 0) { _mapping = null; }
+        if (_value === void 0) { _value = null; }
+        var _this = _super.call(this, type) || this;
+        _this._mapping = _mapping;
+        _this._value = _value;
+        return _this;
+    }
+    Object.defineProperty(NonPrimitiveTypeMeta.prototype, "mapping", {
         get: function () {
             return this._mapping;
         },
         enumerable: true,
         configurable: true
     });
-    ObjectAttributeTypeExtractor.generateMapping = function (obj, options) {
+    Object.defineProperty(NonPrimitiveTypeMeta.prototype, "value", {
+        get: function () {
+            return this._value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return NonPrimitiveTypeMeta;
+}(TypeMeta));
+export { NonPrimitiveTypeMeta };
+var ObjectAttributeTypeExtractor = (function () {
+    function ObjectAttributeTypeExtractor() {
+    }
+    ObjectAttributeTypeExtractor.generateMapping = function (input, options) {
         if (options === void 0) { options = {}; }
-        var types = {};
-        options = $.extend({
+        options = Object.assign({
             keyNamingStrategy: 'camelCase',
             stripUnderscore: false
         }, options);
-        if (obj instanceof Array) {
-            return new ObjectAttributeTypeExtractor(obj[0], options);
+        var result = {};
+        // input is an array already, analyze the first one
+        if (input instanceof Array) {
+            return Extractor.generateMapping(input[0], options);
         }
         else {
-            for (var key in obj) {
-                if (typeof obj[key] !== 'function') {
-                    var type = {};
-                    if (typeof obj[key] === 'object') {
-                        if (obj[key] === null) {
-                            type = 'any';
-                        }
-                        else if (obj[key] instanceof Array) {
-                            var target = obj[key];
-                            if (typeof target[0] !== 'object') {
-                                target = target[0];
-                                type = {
-                                    _mapping: {
-                                        _type: typeof target,
-                                        _value: target
-                                    }
-                                };
-                            }
-                            else {
-                                type = (new ObjectAttributeTypeExtractor(target, options))._mapping;
-                            }
-                            type['_type'] = 'array';
-                        }
-                        else if (obj[key] instanceof Date) {
-                            type = {
-                                _type: 'date',
-                                _value: obj[key]
-                            };
-                        }
-                        else {
-                            type = (new ObjectAttributeTypeExtractor(obj[key], options));
-                            type['_type'] = 'object';
-                        }
+            // Analyze attributes inside input object
+            for (var key in input) {
+                if (typeof input[key] !== 'function') {
+                    var resolvedMeta = {};
+                    // Array or Object
+                    if (typeof input[key] === 'object') {
+                        resolvedMeta = Extractor.generateObjectTypeMapping(input, key, options);
+                        // Any primitive type
                     }
-                    else if (typeof obj[key] !== 'function') {
-                        type = {
-                            _type: typeof obj[key],
-                            _value: obj[key]
-                        };
+                    else if (typeof input[key] !== 'function') {
+                        resolvedMeta = new PrimitiveTypeMeta(input[key]);
                     }
-                    // if set function exists, rename _attr to attr
-                    if (options.stripUnderscore && key.charAt(0) === '_') {
-                        var setterKey = key.substr(1, key.length);
-                        if (setterKey in obj) {
-                            key = setterKey;
-                        }
-                    }
-                    // JMSSerializer serializes data with snake_case but JS Entity Classes name attributes with camelCase
-                    if (options.keyNamingStrategy === 'snake_case') {
-                        key = key.toSnakecase();
-                    }
-                    types[key] = type;
+                    // Finished, set resolved attribute metadata to result
+                    result[Extractor.resolveAttributeKey(options, key, input)] = resolvedMeta;
                 }
             }
         }
-        return types;
+        return result;
     };
-    ObjectAttributeTypeExtractor.fixObjectAttrs = function (data, options) {
+    ObjectAttributeTypeExtractor.generateObjectTypeMapping = function (object, key, options) {
+        var resolvedMeta = null;
+        // Mark type as any if value is null
+        if (object[key] === null) {
+            resolvedMeta = 'any';
+            // For Array
+        }
+        else if (object[key] instanceof Array) {
+            var target = object[key];
+            // For Primitive Array
+            if (typeof target[0] !== 'object') {
+                resolvedMeta = new NonPrimitiveTypeMeta('array', new PrimitiveTypeMeta(target[0]));
+                // For Object Array
+            }
+            else {
+                resolvedMeta = new NonPrimitiveTypeMeta('array', Extractor.generateMapping(target, options));
+            }
+            // For Date
+        }
+        else if (object[key] instanceof Date) {
+            resolvedMeta = new NonPrimitiveTypeMeta('date', null, object[key]);
+            // For Object
+        }
+        else {
+            resolvedMeta = new NonPrimitiveTypeMeta('object', Extractor.generateMapping(object[key], options));
+        }
+        return resolvedMeta;
+    };
+    ObjectAttributeTypeExtractor.resolveAttributeKey = function (options, key, object) {
+        var setterKey = key;
+        // if set function exists, rename _attr to attr
+        if (options.stripUnderscore && key.charAt(0) === '_') {
+            var trimmedKey = key.substr(1, key.length);
+            if (trimmedKey in object) {
+                setterKey = trimmedKey;
+            }
+        }
+        // Some serializer serialize data with snake_case but JS Entity Classes name attributes with camelCase
+        if (options.keyNamingStrategy === 'snake_case') {
+            setterKey = setterKey.toSnakecase();
+        }
+        return setterKey;
+    };
+    // For naming convention changing. Not really related to this extractor
+    ObjectAttributeTypeExtractor.fixObjectAttributesNamingConvention = function (data, options) {
         var result = null;
-        options = $.extend({
+        options = Object.assign({
             keyNamingStrategy: 'camelCase',
             stripUnderscore: false
         }, options);
         if (data instanceof Array) {
             result = [];
             data.forEach(function (obj) {
-                result.push(ObjectAttributeTypeExtractor.fixObjectAttrs(obj, options));
+                result.push(Extractor.fixObjectAttributesNamingConvention(obj, options));
             });
         }
         else if (typeof data === 'object') {
@@ -103,7 +170,7 @@ var ObjectAttributeTypeExtractor = (function () {
                         finalKey = key.toSnakecase();
                     }
                     if (typeof data[key] === 'object') {
-                        result[finalKey] = ObjectAttributeTypeExtractor.fixObjectAttrs(data[key], options);
+                        result[finalKey] = Extractor.fixObjectAttributesNamingConvention(data[key], options);
                     }
                     else {
                         result[finalKey] = data[key];
@@ -113,13 +180,14 @@ var ObjectAttributeTypeExtractor = (function () {
         }
         return result;
     };
+    // For JSON editor only. Should be extracted.
     ObjectAttributeTypeExtractor.convertDataToString = function (data, callbacks) {
         if (callbacks === void 0) { callbacks = {}; }
         var result = null;
         if (data instanceof Array) {
             result = [];
             data.forEach(function (obj) {
-                result.push(ObjectAttributeTypeExtractor.convertDataToString(obj));
+                result.push(Extractor.convertDataToString(obj));
             });
         }
         else if (typeof data === 'object') {
@@ -130,7 +198,7 @@ var ObjectAttributeTypeExtractor = (function () {
                         result[key] = 'date' in callbacks && callbacks.date instanceof Function ? callbacks.date(data[key]) : data[key].yyyymmdd('-');
                     }
                     else {
-                        result[key] = ObjectAttributeTypeExtractor.convertDataToString(data[key]);
+                        result[key] = Extractor.convertDataToString(data[key]);
                     }
                 }
                 else if (typeof data[key] !== 'function') {
@@ -143,4 +211,5 @@ var ObjectAttributeTypeExtractor = (function () {
     return ObjectAttributeTypeExtractor;
 }());
 export { ObjectAttributeTypeExtractor };
+var Extractor = ObjectAttributeTypeExtractor;
 //# sourceMappingURL=ObjectAttributeTypeExtractor.js.map

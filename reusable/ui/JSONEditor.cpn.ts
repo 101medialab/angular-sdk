@@ -44,7 +44,7 @@ export class JSONEditorComponent implements OnChanges {
 
     onReadyToInitialize() {
         if (this.viewInitialized && this.isInitializable) {
-            this.attrMapping = new ObjectAttributeTypeExtractor(
+            this.attrMapping = ObjectAttributeTypeExtractor.generateMapping(
                 this.schemaData ? this.schemaData : this.data,
                 this.objectAttributeTypeExtractorOptions
             );

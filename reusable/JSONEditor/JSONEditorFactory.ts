@@ -1,4 +1,4 @@
-import {ObjectAttributeTypeExtractor} from '../ObjectAttributeTypeExtractor';
+import { ExtractorResultType, NonPrimitiveTypeMeta, ObjectAttributeTypeExtractor as Extractor } from '../ObjectAttributeTypeExtractor';
 import * as JSONEditorTypes from './JSONEditorType';
 import 'json-editor/dist/jsoneditor.js';
 
@@ -21,16 +21,16 @@ export class JSONEditorFactory {
     }
 
     static generateSchemaByObject(obj: any, resolveTypeAny: () => void = null, options: any = {}) {
-        return this.generateSchemaByAttributeTypeObject(new ObjectAttributeTypeExtractor(obj, options), resolveTypeAny);
+        return this.generateSchemaByAttributeTypeObject(Extractor.generateMapping(obj, options), resolveTypeAny);
     }
 
     static generateSchemaByAttributeTypeObject(
-        attrMappingObj: ObjectAttributeTypeExtractor,
+        attrMappingObj: Extractor,
         resolveTypeAny: (JSONEditorTypes) => void = null,
         resolveTypeUndefined: (attrMapping, key) => void = null
     ): any {
         let schema = {},
-            attrMapping = attrMappingObj instanceof ObjectAttributeTypeExtractor ? attrMappingObj.mapping : attrMappingObj,
+            attrMapping = attrMappingObj instanceof NonPrimitiveTypeMeta ? attrMappingObj.mapping : attrMappingObj,
             defaultValue = {},
             i = 1;
 
@@ -38,18 +38,18 @@ export class JSONEditorFactory {
             if (['id'].indexOf(key) === -1) {
                 let titleCase = key.replace(/([A-Z]+)/g, " $1").replace(/_/g, ' ').capitalize();
 
-                if (['object', 'array'].indexOf(attrMapping[key]._type) > -1) {
-                    let type = attrMapping[key]._type,
+                if (['object', 'array'].indexOf(attrMapping[key].type) > -1) {
+                    let type = attrMapping[key].type,
                         schemaTemp;
 
-                    if ('_type' in attrMapping[key]._mapping) {
+                    if ('type' in attrMapping[key].mapping) {
                         // For primitive type array
                         schemaTemp = {
-                            type: attrMapping[key]._mapping._type,
+                            type: attrMapping[key].mapping.type,
                         };
 
-                        if ('_value' in attrMapping[key]._mapping) {
-                            schemaTemp['default'] = attrMapping[key]._mapping._value;
+                        if ('value' in attrMapping[key].mapping) {
+                            schemaTemp['default'] = attrMapping[key].mapping.value;
                         }
                     } else {
                         // For reference type array
@@ -63,12 +63,12 @@ export class JSONEditorFactory {
                         schemaTemp.title = titleCase;
                         schema[key] = schemaTemp;
                     }
-                } else if (attrMapping[key]._type !== 'any') {
-                    if (attrMapping[key] !== 'undefined' && attrMapping[key]._type != 'undefined') {
-                        schema[key] = new JSONEditorTypes[attrMapping[key]._type.capitalize() + 'Type'](titleCase);
-                        schema[key]['default'] = attrMapping[key]._value;
+                } else if (attrMapping[key].type !== 'any') {
+                    if (attrMapping[key] !== 'undefined' && attrMapping[key].type != 'undefined') {
+                        schema[key] = new JSONEditorTypes[attrMapping[key].type.capitalize() + 'Type'](titleCase);
+                        schema[key]['default'] = attrMapping[key].value;
 
-                        defaultValue[key] = attrMapping[key]._value;
+                        defaultValue[key] = attrMapping[key].value;
                     } else {
                         //console.error(`attrMapping[key] ${key} is undefined`);
 

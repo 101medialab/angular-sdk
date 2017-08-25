@@ -25,7 +25,7 @@ var JSONEditorComponent = (function () {
     };
     JSONEditorComponent.prototype.onReadyToInitialize = function () {
         if (this.viewInitialized && this.isInitializable) {
-            this.attrMapping = new ObjectAttributeTypeExtractor(this.schemaData ? this.schemaData : this.data, this.objectAttributeTypeExtractorOptions);
+            this.attrMapping = ObjectAttributeTypeExtractor.generateMapping(this.schemaData ? this.schemaData : this.data, this.objectAttributeTypeExtractorOptions);
             var schema = JSONEditorFactory.generateSchemaByAttributeTypeObject(this.attrMapping);
             if (this.schemaTransformer) {
                 schema = this.schemaTransformer(schema, this.context);

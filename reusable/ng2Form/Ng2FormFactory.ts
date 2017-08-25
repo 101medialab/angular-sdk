@@ -5,18 +5,24 @@ import {
     FormArray,
     Validators,
 } from '@angular/forms';
-import {ObjectAttributeTypeExtractor} from '../ObjectAttributeTypeExtractor';
+import {
+    ExtractorResultType,
+    NonPrimitiveTypeMeta,
+    PrimitiveTypeMeta,
+    ObjectAttributeTypeExtractor as Extractor
+} from '../ObjectAttributeTypeExtractor';
 
 export class Ng2FormFactory {
-    static generateFormGroupByObject(formBulider: FormBuilder, obj: any, resolveTypeAny: () => {ngForm: any, template: any} = null, options: any = {}) {
+    static generateFormGroupByObject(
+        formBuilder: FormBuilder, object: any, resolveTypeAny: () => { ngForm: any, template: any } = null, options: any = {}) {
         return Ng2FormFactory.generateFormGroupByAttributeTypeObject(
-            formBulider, new ObjectAttributeTypeExtractor(obj, options), resolveTypeAny
+            formBuilder, Extractor.generateMapping(object, options), resolveTypeAny
         );
     }
 
     static generateFormGroupByAttributeTypeObject(
-        formBulider: FormBuilder,
-        attrMappingObj: ObjectAttributeTypeExtractor | { each: any },
+        formBuilder: FormBuilder,
+        attributeMappingObject: any, // Yet all attributes inside should be typeof ExtractorResultType
         resolveTypeAny: (attrMapping, key: string) => {ngForm: any, template: any} = null,
         resolveTypeUndefined: (attrMapping, key: string) => {ngForm: any, template: any} = null
     ) {
@@ -24,29 +30,29 @@ export class Ng2FormFactory {
                 template: {},
                 ngForm: {},
             },
-            attrMapping = attrMappingObj instanceof ObjectAttributeTypeExtractor ? attrMappingObj.mapping : attrMappingObj;
+            attrMapping = attributeMappingObject instanceof NonPrimitiveTypeMeta ? attributeMappingObject.mapping : attributeMappingObject;
 
         for (let key in attrMapping) {
             if (['id'].indexOf(key) === -1) {
                 let titleCase = key.replace(/([A-Z]+)/g, " $1").replace(/_/g, ' ').capitalize();
 
-                if (['object', 'array'].indexOf(attrMapping[key]._type) > -1) {
-                    let type = attrMapping[key]._type,
-                        arrayType = '_type' in attrMapping[key]._mapping ?
+                if (['object', 'array'].indexOf(attrMapping[key].type) > -1) {
+                    let type = attrMapping[key].type,
+                        arrayType = 'type' in attrMapping[key].mapping ?
                             ('arrayType' in attrMapping[key] ? attrMapping[key].arrayType : 'primitive') : 'object',
                         init = () => {
                             let schemaTemp = null;
 
-                            if ('_type' in attrMapping[key]._mapping) {
+                            if ('type' in attrMapping[key].mapping) {
                                 // For primitive type array
                                 let control = new FormControl(
-                                    '_value' in attrMapping[key]._mapping ? attrMapping[key]._mapping._value : '',
+                                    'value' in attrMapping[key].mapping ? attrMapping[key].mapping.value : '',
                                     [Validators.required]
                                 ), template = {};
 
                                 template[key] = {
                                     label: titleCase,
-                                    type: attrMapping[key]._mapping._type,
+                                    type: attrMapping[key].mapping.type,
                                     control,
                                 };
 
@@ -56,11 +62,11 @@ export class Ng2FormFactory {
                                 };
 
                                 Ng2FormFactory.resolveTemplateConfigByType(
-                                    attrMapping[key]._mapping, template[key]
+                                    attrMapping[key].mapping, template[key]
                                 );
                             } else {
                                 // For reference type array or object
-                                schemaTemp = Ng2FormFactory.generateFormGroupByAttributeTypeObject(formBulider, attrMapping[key].mapping);
+                                schemaTemp = Ng2FormFactory.generateFormGroupByAttributeTypeObject(formBuilder, attrMapping[key].mapping);
                             }
 
                             schemaTemp.template.setValue = Ng2FormFactory.setValueToTemplate.bind(schemaTemp.template);
@@ -85,7 +91,8 @@ export class Ng2FormFactory {
                                 const control = <FormArray>form.ngForm[key];
                                 control.push(ngForm);
                                 children.push(template);
-                            }, remove = (i: number) => {
+                            },
+                            remove = (i: number) => {
                                 const control = <FormArray>form.ngForm[key];
                                 control.removeAt(i);
                                 children.splice(i, 1);
@@ -115,17 +122,17 @@ export class Ng2FormFactory {
                             children: template
                         };
                     }
-                } else if (attrMapping[key]._type !== 'any') {
-                    if (attrMapping[key] !== 'undefined' && typeof attrMapping[key]._type != 'undefined') {
+                } else if (attrMapping[key].type !== 'any') {
+                    if (attrMapping[key] !== 'undefined' && typeof attrMapping[key].type != 'undefined') {
                         let validator = attrMapping[key].validator ? attrMapping[key].validator : [],
-                            valueNotEmpty = attrMapping[key]._value !== undefined;
+                            valueNotEmpty = attrMapping[key].value !== undefined;
 
                         if (valueNotEmpty) validator.push(Validators.required);
 
-                        form.ngForm[key] = new FormControl(valueNotEmpty ? attrMapping[key]._value : '', validator);
+                        form.ngForm[key] = new FormControl(valueNotEmpty ? attrMapping[key].value : '', validator);
                         form.template[key] = {
                             label: titleCase,
-                            type: attrMapping[key]._type,
+                            type: attrMapping[key].type,
                             control: form.ngForm[key]
                         };
                     } else {
@@ -186,6 +193,7 @@ export class Ng2FormFactory {
                     if (target[key].groupType === 'object') {
                         target[key].setValue(value[key]);
                     } else {
+                        // Array
                         while (target[key].control.controls.length > 0) {
                             target[key].remove(0);
                         }
@@ -211,7 +219,7 @@ export class Ng2FormFactory {
     }
 
     static resolveTemplateConfigByType(attrMapping, templateObj) {
-        if (attrMapping._type === 'boolean') {
+        if (attrMapping.type === 'boolean') {
             templateObj.renderType = attrMapping.expandOptions ? 'radio' : 'checkbox';
         } else if (attrMapping.options) {
             if (attrMapping.options.length > 2 && attrMapping.maxChoices) {
@@ -223,7 +231,7 @@ export class Ng2FormFactory {
                 templateObj.renderType = attrMapping.expandOptions ? 'radio' : 'checkbox';
             }
         } else {
-            templateObj.renderType = attrMapping._type;
+            templateObj.renderType = attrMapping.type;
             if (templateObj.renderType === 'string') templateObj.renderType = 'text';
         }
 

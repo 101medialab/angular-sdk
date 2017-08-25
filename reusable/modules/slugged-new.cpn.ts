@@ -10,7 +10,7 @@ export class SluggedNewComponent extends SluggedEditComponent {
     }
 
     iOnInit() {
-        this.data = ObjectAttributeTypeExtractor.fixObjectAttrs(
+        this.data = ObjectAttributeTypeExtractor.fixObjectAttributesNamingConvention(
             this.status.resource.createOne(),
             this.objectAttributeTypeExtractorOptions
         );

@@ -1,4 +1,4 @@
-import { ObjectAttributeTypeExtractor } from '../ObjectAttributeTypeExtractor';
+import { ObjectAttributeTypeExtractor as Extractor } from '../ObjectAttributeTypeExtractor';
 import 'json-editor/dist/jsoneditor.js';
 export declare class JSONEditorFactory {
     private config;
@@ -12,7 +12,7 @@ export declare class JSONEditorFactory {
         data: any;
     });
     static generateSchemaByObject(obj: any, resolveTypeAny?: () => void, options?: any): any;
-    static generateSchemaByAttributeTypeObject(attrMappingObj: ObjectAttributeTypeExtractor, resolveTypeAny?: (JSONEditorTypes) => void, resolveTypeUndefined?: (attrMapping, key) => void): any;
+    static generateSchemaByAttributeTypeObject(attrMappingObj: Extractor, resolveTypeAny?: (JSONEditorTypes) => void, resolveTypeUndefined?: (attrMapping, key) => void): any;
     setElement(elem: any): this;
     readonly instance: any;
     init(): void;
