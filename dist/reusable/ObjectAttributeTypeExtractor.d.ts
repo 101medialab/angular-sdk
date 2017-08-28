@@ -1,4 +1,3 @@
-import 'core-js/es7/reflect';
 export declare type AttributeType = 'string' | 'number' | 'boolean' | 'date' | 'array' | 'object' | 'any';
 export declare class TypeMeta {
     protected _type: AttributeType;
@@ -18,13 +17,18 @@ export declare class NonPrimitiveTypeMeta extends TypeMeta {
     readonly value: any;
 }
 export declare type ExtractorResultType = NonPrimitiveTypeMeta | PrimitiveTypeMeta;
+export declare function OnOATResolved(cb: (target: any, key: string, resolved: any) => void): {
+    (target: Function): void;
+    (target: Object, propertyKey: string | symbol): void;
+};
 export declare class ObjectAttributeTypeExtractor {
     static generateMapping(input: any, options?: {
         keyNamingStrategy?: 'camelCase' | 'snake_case';
         stripUnderscore?: boolean;
+        onResolved?: (target: any, key: string, resolved: any) => void;
     }): any;
     static generateObjectTypeMapping(object: any, key: any, options: any): any;
     static resolveAttributeKey(options: any, key: any, object: any): any;
-    static fixObjectAttributesNamingConvention(data: any, options: any): any;
+    static fixNamingConvention(data: any, options: any): any;
     static convertDataToString(data: any, callbacks?: any): any;
 }

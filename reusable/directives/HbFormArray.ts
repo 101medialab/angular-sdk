@@ -4,19 +4,24 @@ import {HbFormWidget} from './HbFormWidget';
 @Component({
     selector: 'hb-form-array',
     template: `
-        <div [attr.id]="id" class="form-array {{ data.arrayType }}">
+        <div [attr.id]="data.id" class="form-array {{ data.arrayType }} {{ data.class }}">
             <header>
                 <h2>{{ data.label }}</h2>
 
-                <button *ngIf="data.arrayType != 'enum'" type="button" (click)="data.add()">Add</button>
+                <button class="btn btn-default hb-form-add-btn" *ngIf="data.arrayType != 'enum'" type="button" (click)="data.add()">Add</button>
             </header>
 
-            <div [attr.id]="id + '-' + i" class="panel panel-default"
+            <div [attr.id]="data.id + '-' + i" class="panel panel-default hb-form-array-cell"
                  *ngFor="let cell of (data.arrayType != 'enum' ? data.children : data.optionsTemplate); let i=index">
                 <hb-form-widget *ngIf="data.arrayType == 'enum' && cell.groupType == undefined"
                                 [data]="cell" [key]="i" [parent]="data"></hb-form-widget>
                 
-                <button *ngIf="data.arrayType != 'enum'" type="button" (click)="data.remove(i)">Remove</button>
+                <button class="btn btn-default hb-form-add-btn"
+                    type="button" 
+                    *ngIf="data.arrayType != 'enum'" 
+                    (click)="data.remove(i)">
+                    Remove
+                </button>
                 
                 <div *ngIf="data.arrayType != 'enum'">
                     <div *ngFor="let each of cell | mapToIterable;" class="panel panel-default">
@@ -35,6 +40,6 @@ import {HbFormWidget} from './HbFormWidget';
             </div>
         </div>
     `,
-    inputs: ['id', 'key', 'data', 'parent']
+    inputs: ['key', 'data', 'parent']
 })
 export class HbFormArray extends HbFormWidget {}

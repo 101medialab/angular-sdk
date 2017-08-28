@@ -8,7 +8,6 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import 'core-js/es7/reflect';
 var TypeMeta = (function () {
     function TypeMeta(_type) {
         this._type = _type;
@@ -71,6 +70,10 @@ var NonPrimitiveTypeMeta = (function (_super) {
     return NonPrimitiveTypeMeta;
 }(TypeMeta));
 export { NonPrimitiveTypeMeta };
+var OnOATResolvedId = Symbol('OnOATResolved');
+export function OnOATResolved(cb) {
+    return Reflect.metadata(OnOATResolvedId, cb);
+}
 var ObjectAttributeTypeExtractor = (function () {
     function ObjectAttributeTypeExtractor() {
     }
@@ -81,7 +84,7 @@ var ObjectAttributeTypeExtractor = (function () {
             stripUnderscore: false
         }, options);
         var result = {};
-        // input is an array already, analyze the first one
+        // input is an array, analyze the first cell only
         if (input instanceof Array) {
             return Extractor.generateMapping(input[0], options);
         }
@@ -98,6 +101,12 @@ var ObjectAttributeTypeExtractor = (function () {
                     else if (typeof input[key] !== 'function') {
                         resolvedMeta = new PrimitiveTypeMeta(input[key]);
                     }
+                    if (Reflect.hasMetadata(OnOATResolvedId, input, key)) {
+                        Reflect.getMetadata(OnOATResolvedId, input, key)(input, key, resolvedMeta);
+                    }
+                    else if (typeof options.onResolved === 'function') {
+                        options.onResolved(input, key, resolvedMeta);
+                    }
                     // Finished, set resolved attribute metadata to result
                     result[Extractor.resolveAttributeKey(options, key, input)] = resolvedMeta;
                 }
@@ -109,7 +118,7 @@ var ObjectAttributeTypeExtractor = (function () {
         var resolvedMeta = null;
         // Mark type as any if value is null
         if (object[key] === null) {
-            resolvedMeta = 'any';
+            resolvedMeta = new PrimitiveTypeMeta(null);
             // For Array
         }
         else if (object[key] instanceof Array) {
@@ -142,14 +151,15 @@ var ObjectAttributeTypeExtractor = (function () {
                 setterKey = trimmedKey;
             }
         }
-        // Some serializer serialize data with snake_case but JS Entity Classes name attributes with camelCase
+        // Some serializer serialize data with snake_case
+        // but JS Entity Classes name attributes with camelCase
         if (options.keyNamingStrategy === 'snake_case') {
             setterKey = setterKey.toSnakecase();
         }
         return setterKey;
     };
     // For naming convention changing. Not really related to this extractor
-    ObjectAttributeTypeExtractor.fixObjectAttributesNamingConvention = function (data, options) {
+    ObjectAttributeTypeExtractor.fixNamingConvention = function (data, options) {
         var result = null;
         options = Object.assign({
             keyNamingStrategy: 'camelCase',
@@ -158,7 +168,7 @@ var ObjectAttributeTypeExtractor = (function () {
         if (data instanceof Array) {
             result = [];
             data.forEach(function (obj) {
-                result.push(Extractor.fixObjectAttributesNamingConvention(obj, options));
+                result.push(Extractor.fixNamingConvention(obj, options));
             });
         }
         else if (typeof data === 'object') {
@@ -170,7 +180,7 @@ var ObjectAttributeTypeExtractor = (function () {
                         finalKey = key.toSnakecase();
                     }
                     if (typeof data[key] === 'object') {
-                        result[finalKey] = Extractor.fixObjectAttributesNamingConvention(data[key], options);
+                        result[finalKey] = Extractor.fixNamingConvention(data[key], options);
                     }
                     else {
                         result[finalKey] = data[key];
@@ -195,7 +205,10 @@ var ObjectAttributeTypeExtractor = (function () {
             for (var key in data) {
                 if (typeof data[key] === 'object') {
                     if (data[key] instanceof Date) {
-                        result[key] = 'date' in callbacks && callbacks.date instanceof Function ? callbacks.date(data[key]) : data[key].yyyymmdd('-');
+                        result[key] =
+                            'date' in callbacks &&
+                                callbacks.date instanceof Function ?
+                                callbacks.date(data[key]) : data[key].yyyymmdd('-');
                     }
                     else {
                         result[key] = Extractor.convertDataToString(data[key]);

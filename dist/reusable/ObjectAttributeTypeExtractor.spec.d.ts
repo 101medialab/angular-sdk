@@ -1,6 +1,6 @@
 import 'jest';
 import { NonPrimitiveTypeMeta, PrimitiveTypeMeta } from './ObjectAttributeTypeExtractor';
-export declare let expectedMapping: {
+export declare const expectedMapping: {
     "anyAttributeName": string;
     "booleanAttributeName": PrimitiveTypeMeta;
     "dateAttributeName": NonPrimitiveTypeMeta;

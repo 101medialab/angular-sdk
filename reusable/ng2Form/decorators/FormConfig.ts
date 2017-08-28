@@ -4,7 +4,7 @@ export interface IBaseFormConfig {
     label?: string;
     defaultValue?: any;
     hints?: string;
-    validators: any;
+    validators?: any;
     useValidators?: Array<string>
 }
 

@@ -1,6 +1,5 @@
 import { BaseClass } from '../BaseClass';
 export declare class HbFormWidget extends BaseClass {
-    id: any;
     key: any;
     data: any;
     parent: any;

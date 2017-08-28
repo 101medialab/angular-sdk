@@ -1,18 +1,19 @@
 import { FormBuilder } from '@angular/forms';
 export declare class Ng2FormFactory {
     static generateFormGroupByObject(formBuilder: FormBuilder, object: any, resolveTypeAny?: () => {
-        ngForm: any;
-        template: any;
+        ngFormControl: any;
+        templateConfig: any;
     }, options?: any): any;
-    static generateFormGroupByAttributeTypeObject(formBuilder: FormBuilder, attributeMappingObject: any, resolveTypeAny?: (attrMapping, key: string) => {
-        ngForm: any;
-        template: any;
+    static generateLabel(key: any): any;
+    static generateFormGroupByOATMapping(formBuilder: FormBuilder, attributeMappingObject: any, resolveTypeAny?: (attrMapping, key: string) => {
+        ngFormControl: any;
+        templateConfig: any;
     }, resolveTypeUndefined?: (attrMapping, key: string) => {
-        ngForm: any;
-        template: any;
+        ngFormControl: any;
+        templateConfig: any;
     }): any;
-    private static setupDefaultFormControl(form, key, titleCase);
-    private static handleResolvedResult(form, key, resolved);
+    private static prepareAndCreateChildTemplateConfig(current, key, formBuilder);
+    private static handleArray(current, key, formBuilder);
     static setValueToTemplate(value: any): void;
     static resolveTemplateConfigByType(attrMapping: any, templateObj: any): void;
     static setTemplatePreset(attrMapping: any, templateObj: any): void;

@@ -65,6 +65,7 @@ describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
                                 "type": "number"
                             }
                         }],
+                        "arrayType": "object",
                         "groupType": "array",
                         "label": "Object Array Attribute Name"
                     },
@@ -80,7 +81,6 @@ describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
                         "label": "Object Attribute Name"
                     },
                     "primitiveArrayAttributeName": {
-                        "arrayType": "primitive",
                         "children": [{
                             "primitiveArrayAttributeName": {
                                 "label": "Primitive Array Attribute Name",
@@ -88,6 +88,7 @@ describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
                                 "type": "number"
                             }
                         }],
+                        "arrayType": "primitive",
                         "groupType": "array",
                         "label": "Primitive Array Attribute Name",
                         "renderType": "array"
@@ -98,6 +99,7 @@ describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
                         "type": "string"
                     }
                 }],
+                "arrayType": "object",
                 "groupType": "array",
                 "label": "Object Array Attribute Name"
             },
@@ -120,6 +122,7 @@ describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
                         "type": "number"
                     }
                 }],
+                "arrayType": "primitive",
                 "groupType": "array",
                 "label": "Primitive Array Attribute Name"
             },

@@ -4,7 +4,10 @@ import {HbFormWidget} from './HbFormWidget';
 @Component({
     selector: 'hb-form-object',
     template: `
-        <div *ngIf="data.control != undefined && key != 'setValue'" [formGroup]="data.control" class="form-object {{ key }}">
+        <div *ngIf="data.control != undefined && key != 'setValue'" 
+             [formGroup]="data.control" 
+             class="form-object {{ key }}"
+        >
             <h2>{{ data.label }}</h2>
         
             <div class="form-object-content">
