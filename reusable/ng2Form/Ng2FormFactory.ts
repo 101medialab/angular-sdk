@@ -49,8 +49,20 @@ export class Ng2FormFactory {
             let currentTemplateConfig = null;
             let current = attrMapping[key];
 
+            // Object or Array
             if (['object', 'array'].indexOf(current._type) > -1) {
-                resolved = Ng2FormFactory.handleArrayAndObject(current, key, formBuilder);
+                if (current._type === 'array') {
+                    resolved = Ng2FormFactory.handleArray(current, key, formBuilder);
+                } else {
+                    // Handle Object
+                    let child = Ng2FormFactory.prepareAndCreateChildTemplateConfig(current, key, formBuilder)();
+
+                    resolved = {
+                        groupType: 'object',
+                        control: child.ngFormControl,
+                        children: child.templateConfig
+                    };
+                }
             }
             // Primitive type and date
             else if (current._type !== 'any') {
@@ -65,14 +77,15 @@ export class Ng2FormFactory {
                         control: new FormControl(valueNotEmpty ? current._value : '', validator)
                     };
                 } else {
-                    resolved = resolveTypeUndefined ? resolveTypeUndefined(current, key) : null;
+                    resolved = resolveTypeUndefined ? resolveTypeUndefined(current, key) : null; // Resolve as null first
                 }
             }
             // Last case: Null value => any
             else {
-                resolved = resolveTypeAny ? resolveTypeAny(current, key) : null;
+                resolved = resolveTypeAny ? resolveTypeAny(current, key) : null; // Resolve as null first
             }
 
+            // If resolved is still null, set it to default
             if (!currentTemplateConfig && !resolved) {
                 resolved = {
                     type: 'string',
@@ -81,6 +94,7 @@ export class Ng2FormFactory {
                 };
             }
 
+            // FIXME: this checking might be redundant
             if (resolved) {
                 currentTemplateConfig = resolved;
             }
@@ -100,93 +114,90 @@ export class Ng2FormFactory {
         return result;
     }
 
-    static handleArrayAndObject(current: any, key: string, formBuilder: FormBuilder) {
-        let templateConfig = null;
+    private static prepareAndCreateChildTemplateConfig(current: any, key: string, formBuilder: FormBuilder) {
+        let schemaTemp = null;
 
-        let { type } = current,
-            arrayType = 'type' in current._mapping ?
-                ('arrayType' in current ? current.arrayType : 'primitive') : 'object',
-            init = () => {
-                let schemaTemp = null;
+        if ('type' in current._mapping) {
+            // For primitive type array
+            let control = new FormControl(
+                'value' in current._mapping ? current._mapping.value : '',
+                [Validators.required]
+            ), templateConfig = {};
 
-                if ('type' in current._mapping) {
-                    // For primitive type array
-                    let control = new FormControl(
-                        'value' in current._mapping ? current._mapping.value : '',
-                        [Validators.required]
-                    ), templateConfig = {};
-
-                    templateConfig[key] = {
-                        label: Ng2FormFactory.generateLabel(key),
-                        type: current._mapping.type,
-                        control,
-                    };
-
-                    schemaTemp = {
-                        ngFormControl: control,
-                        templateConfig
-                    };
-
-                    Ng2FormFactory.resolveTemplateConfigByType(
-                        current._mapping, templateConfig[key]
-                    );
-                } else {
-                    // For reference type array or object
-                    schemaTemp = Ng2FormFactory.generateFormGroupByOATMapping(formBuilder, current._mapping);
-                }
-
-                schemaTemp.templateConfig.setValue = Ng2FormFactory.setValueToTemplate.bind(schemaTemp.templateConfig);
-
-                return {
-                    ngFormControl:
-                        schemaTemp.ngFormControl instanceof FormControl || type === 'object' ?
-                            schemaTemp.ngFormControl :
-                            // For reference type array
-                            new FormGroup(schemaTemp.ngFormControl),
-                    templateConfig: schemaTemp.templateConfig
-                };
+            templateConfig[key] = {
+                label: Ng2FormFactory.generateLabel(key),
+                type: current._mapping.type,
+                control,
             };
 
-        if (type === 'array') {
-            let ngFormArrayControl = new FormArray([]);
-
-            let children = [],
-                add = () => {
-                    let { ngFormControl, templateConfig } = init();
-
-                    const control = <FormArray>ngFormArrayControl;
-                    control.push(ngFormControl);
-                    children.push(templateConfig);
-                },
-                remove = (i: number) => {
-                    const control = <FormArray>ngFormArrayControl;
-                    control.removeAt(i);
-                    children.splice(i, 1);
-                };
-
-            add();
-
-            templateConfig = {
-                groupType: 'array',
-                arrayType,
-                add,
-                remove,
-                control: ngFormArrayControl,
-                children
+            schemaTemp = {
+                ngFormControl: control,
+                templateConfig
             };
 
-            Ng2FormFactory.setTemplatePreset(current, templateConfig);
+            Ng2FormFactory.resolveTemplateConfigByType(
+                current._mapping, templateConfig[key]
+            );
         } else {
-            let child = init();
-
-            templateConfig = {
-                groupType: 'object',
-                control: child.ngFormControl,
-                children: child.templateConfig
-            };
+            // For reference type array or object
+            schemaTemp = Ng2FormFactory.generateFormGroupByOATMapping(formBuilder, current._mapping);
         }
 
-        return templateConfig;
+        schemaTemp.templateConfig.setValue = Ng2FormFactory.setValueToTemplate.bind(schemaTemp.templateConfig);
+
+        const result = {
+            ngFormControl:
+                schemaTemp.ngFormControl instanceof FormControl || current.type === 'object' ?
+                    schemaTemp.ngFormControl :
+                    // For reference type array
+                    new FormGroup(schemaTemp.ngFormControl),
+            templateConfig: schemaTemp.templateConfig
+        };
+
+        return () => result;
+    }
+
+    private static handleArray(current: any, key: string, formBuilder: FormBuilder) {
+        let ngFormArrayControl = new FormArray([]);
+        let init = Ng2FormFactory.prepareAndCreateChildTemplateConfig(current, key, formBuilder);
+
+        let children = [],
+            add = () => {
+                let childConfig = init();
+
+                const control = <FormArray>ngFormArrayControl;
+                control.push(childConfig.ngFormControl);
+                children.push(childConfig.templateConfig);
+            },
+            remove = (i: number) => {
+                const control = <FormArray>ngFormArrayControl;
+                control.removeAt(i);
+                children.splice(i, 1);
+            };
+
+        add();
+
+        const arrayType =
+            'type' in current._mapping ? (
+                'arrayType' in current ?
+                    current.arrayType :
+                    'primitive'
+            ) :
+            'object'
+        ;
+
+        let result = {
+            groupType: 'array',
+            arrayType,
+            add,
+            remove,
+            control: ngFormArrayControl,
+            children
+        };
+
+        Ng2FormFactory.setTemplatePreset(current, result);
+
+        return result;
     }
 
     static setValueToTemplate(value) {
@@ -201,7 +212,9 @@ export class Ng2FormFactory {
                         );
                     }
                 } else {
+                    // For Object
                     if (target[key].groupType === 'object') {
+                        // Let FormGroup to handle value setting
                         target[key].setValue(value[key]);
                     } else {
                         // Array

@@ -48,12 +48,19 @@ export class NonPrimitiveTypeMeta extends TypeMeta {
 
 export type ExtractorResultType = NonPrimitiveTypeMeta | PrimitiveTypeMeta;
 
+const OnOATResolvedId = Symbol('OnOATResolved');
+
+export function OnOATResolved(cb: (target: any, key: string, resolved: any) => void) {
+    return Reflect.metadata(OnOATResolvedId, cb);
+}
+
 export class ObjectAttributeTypeExtractor {
     static generateMapping(
         input: any,
         options: {
             keyNamingStrategy?: 'camelCase' | 'snake_case',
-            stripUnderscore?: boolean
+            stripUnderscore?: boolean,
+            onResolved?: (target: any, key: string, resolved: any) => void
         } = {}
     ): any {
         options = Object.assign({
@@ -70,7 +77,7 @@ export class ObjectAttributeTypeExtractor {
             // Analyze attributes inside input object
             for (let key in input) {
                 if (typeof input[key] !== 'function') {
-                    let resolvedMeta = {};
+                    let resolvedMeta: any = {};
 
                     // Array or Object
                     if (typeof input[key] === 'object') {
@@ -79,6 +86,16 @@ export class ObjectAttributeTypeExtractor {
                     // Any primitive type
                     } else if (typeof input[key] !== 'function') {
                         resolvedMeta = new PrimitiveTypeMeta(input[key]);
+                    }
+
+                    if (Reflect.hasMetadata(OnOATResolvedId, input, key)) {
+                        Reflect.getMetadata(
+                            OnOATResolvedId, input, key
+                        )(
+                            input, key, resolvedMeta
+                        );
+                    } else if (typeof options.onResolved === 'function') {
+                        options.onResolved(input, key, resolvedMeta);
                     }
 
                     // Finished, set resolved attribute metadata to result

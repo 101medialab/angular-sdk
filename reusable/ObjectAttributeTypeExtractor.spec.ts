@@ -1,11 +1,11 @@
 import 'jest';
 import {
     NonPrimitiveTypeMeta,
-    ObjectAttributeTypeExtractor as Extractor,
+    ObjectAttributeTypeExtractor as Extractor, OnOATResolved,
     PrimitiveTypeMeta
 } from './ObjectAttributeTypeExtractor';
 
-export let expectedMapping = {
+export const expectedMapping = {
     "anyAttributeName": "any",
     "booleanAttributeName": new PrimitiveTypeMeta(true),
     "dateAttributeName": new NonPrimitiveTypeMeta('date', null, new Date('2017-08-24')),
@@ -45,6 +45,58 @@ export let expectedMapping = {
 };
 
 describe('ObjectAttributeTypeExtractor.generateMapping', () => {
+    it('should support callback on config resolved. Example usage: Decorator', () => {
+        const decorator = 'DemoDecorator';
+
+        class DecoratorDemo {
+            @Reflect.metadata(decorator, 'demo decorator value')
+            attr: string = '';
+            inner: Array<InsideObjectArrayDecoratorDemo> = [new InsideObjectArrayDecoratorDemo()]
+        }
+
+        class InsideObjectArrayDecoratorDemo {
+            @OnOATResolved((target, key, resolved) => {
+                resolved.anythingYouWantToAdd = 'this attribute is actually type of number';
+            })
+            innerAttr: string = '';
+        }
+
+        expect(
+            Extractor.generateMapping(
+                new DecoratorDemo(), {
+                    onResolved: (target, key, resolved) => {
+                        resolved.decorators = {};
+
+                        const decoratorValue = Reflect.getMetadata(decorator, target, key);
+
+                        if (decoratorValue) {
+                            resolved.decorators[decorator] = decoratorValue;
+                        }
+                    }
+                }
+            )
+        ).toMatchObject({
+            "attr": {
+                "_type": "string",
+                "_value": "",
+                "decorators": {
+                    "DemoDecorator": "demo decorator value"
+                }
+            },
+            "inner": {
+                "_mapping": {
+                    "innerAttr": {
+                        "_type": "string",
+                        "_value": "",
+                        "anythingYouWantToAdd": "this attribute is actually type of number"
+                    }
+                },
+                "_type": "array",
+                "_value": null,
+            }
+        });
+    });
+
     it('should generate mapping for a mixed type object with nested object array', () => {
         expect(
             Extractor.generateMapping({

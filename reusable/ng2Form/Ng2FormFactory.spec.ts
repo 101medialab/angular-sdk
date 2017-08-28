@@ -4,7 +4,18 @@ import { Ng2FormFactory as Factory } from './Ng2FormFactory';
 import { expectedMapping } from '../ObjectAttributeTypeExtractor.spec';
 import '../hb-es-shim';
 
-describe('Ng2FormFactory.generateFormGroupByAttributeTypeObject', () => {
+describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
+    it('pass', () => {
+        let expected = Factory.generateFormGroupByOATMapping(
+            new FormBuilder(),
+            expectedMapping
+        ).templateConfig;
+
+        expect(
+            expected
+        ).toEqual(null);
+    });
+
     it('should generate Angular form object and HBForm compatible template object from ObjectAttributeTypeExtractor mapping for a mixed renderType object with nested object array', () => {
         let expected = Factory.generateFormGroupByOATMapping(
             new FormBuilder(),
@@ -30,7 +41,7 @@ describe('Ng2FormFactory.generateFormGroupByAttributeTypeObject', () => {
                 "type": "date"
             },
             "objectArrayAttributeName": {
-                "children": {
+                "children": [{
                     "anyAttributeName": {
                         "label": "Any Attribute Name",
                         "renderType": "text",
@@ -47,14 +58,14 @@ describe('Ng2FormFactory.generateFormGroupByAttributeTypeObject', () => {
                         "type": "date"
                     },
                     "objectArrayAttributeName": {
-                        "children": {
+                        "children": [{
                             "attr1": {
                                 "label": "Attr1",
                                 "renderType": "number",
                                 "type": "number"
                             }
-                        },
-                        "groupType": "object",
+                        }],
+                        "groupType": "array",
                         "label": "Object Array Attribute Name"
                     },
                     "objectAttributeName": {
@@ -70,15 +81,13 @@ describe('Ng2FormFactory.generateFormGroupByAttributeTypeObject', () => {
                     },
                     "primitiveArrayAttributeName": {
                         "arrayType": "primitive",
-                        "children": [
-                            {
-                                "primitiveArrayAttributeName": {
-                                    "label": "Primitive Array Attribute Name",
-                                    "renderType": "number",
-                                    "type": "number"
-                                }
+                        "children": [{
+                            "primitiveArrayAttributeName": {
+                                "label": "Primitive Array Attribute Name",
+                                "renderType": "number",
+                                "type": "number"
                             }
-                        ],
+                        }],
                         "groupType": "array",
                         "label": "Primitive Array Attribute Name",
                         "renderType": "array"
@@ -88,8 +97,8 @@ describe('Ng2FormFactory.generateFormGroupByAttributeTypeObject', () => {
                         "renderType": "text",
                         "type": "string"
                     }
-                },
-                "groupType": "object",
+                }],
+                "groupType": "array",
                 "label": "Object Array Attribute Name"
             },
             "objectAttributeName": {
@@ -104,14 +113,14 @@ describe('Ng2FormFactory.generateFormGroupByAttributeTypeObject', () => {
                 "label": "Object Attribute Name"
             },
             "primitiveArrayAttributeName": {
-                "children": {
+                "children": [{
                     "primitiveArrayAttributeName": {
                         "label": "Primitive Array Attribute Name",
                         "renderType": "number",
                         "type": "number"
                     }
-                },
-                "groupType": "object",
+                }],
+                "groupType": "array",
                 "label": "Primitive Array Attribute Name"
             },
             "stringAttributeName": {
