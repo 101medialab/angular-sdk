@@ -4,6 +4,7 @@ import {
     ObjectAttributeTypeExtractor as Extractor, OnOATResolved,
     PrimitiveTypeMeta
 } from './ObjectAttributeTypeExtractor';
+import { FormConfig, SetupConfig } from './ng2Form/NgFormFactoryAnnotations';
 
 export const expectedMapping = {
     "anyAttributeName": "any",
@@ -45,12 +46,39 @@ export const expectedMapping = {
 };
 
 describe('ObjectAttributeTypeExtractor.generateMapping', () => {
+    it('should generate mapping for a mixed type object with nested object array', () => {
+        expect(
+            Extractor.generateMapping({
+                stringAttributeName: 'some characters',
+                booleanAttributeName: true,
+                dateAttributeName: new Date('2017-08-24'),
+                objectArrayAttributeName: [{
+                    stringAttributeName: 'some characters',
+                    booleanAttributeName: true,
+                    dateAttributeName: new Date('2017-08-24'),
+                    objectArrayAttributeName: [{ attr1: 1 }],
+                    primitiveArrayAttributeName: [1],
+                    objectAttributeName: { attr1: 1 },
+                    anyAttributeName: null
+                }],
+                primitiveArrayAttributeName: [1],
+                objectAttributeName: { attr1: 1 },
+                anyAttributeName: null
+            })
+        ).toMatchObject(expectedMapping)
+    });
+
     it('should support callback on config resolved. Example usage: Decorator', () => {
         const decorator = 'DemoDecorator';
 
         class DecoratorDemo {
+            @SetupConfig()
+            @FormConfig({
+                label: 'This is a attribute',
+                defaultValue: 99
+            })
             @Reflect.metadata(decorator, 'demo decorator value')
-            attr: string = '';
+            attr: string = null;
             inner: Array<InsideObjectArrayDecoratorDemo> = [new InsideObjectArrayDecoratorDemo()]
         }
 
@@ -75,7 +103,8 @@ describe('ObjectAttributeTypeExtractor.generateMapping', () => {
                     }
                 }
             )
-        ).toMatchObject({
+        ).toEqual({
+            //toMatchObject
             "attr": {
                 "_type": "string",
                 "_value": "",
@@ -95,27 +124,5 @@ describe('ObjectAttributeTypeExtractor.generateMapping', () => {
                 "_value": null,
             }
         });
-    });
-
-    it('should generate mapping for a mixed type object with nested object array', () => {
-        expect(
-            Extractor.generateMapping({
-                stringAttributeName: 'some characters',
-                booleanAttributeName: true,
-                dateAttributeName: new Date('2017-08-24'),
-                objectArrayAttributeName: [{
-                    stringAttributeName: 'some characters',
-                    booleanAttributeName: true,
-                    dateAttributeName: new Date('2017-08-24'),
-                    objectArrayAttributeName: [{ attr1: 1 }],
-                    primitiveArrayAttributeName: [1],
-                    objectAttributeName: { attr1: 1 },
-                    anyAttributeName: null
-                }],
-                primitiveArrayAttributeName: [1],
-                objectAttributeName: { attr1: 1 },
-                anyAttributeName: null
-            })
-        ).toMatchObject(expectedMapping)
     });
 });

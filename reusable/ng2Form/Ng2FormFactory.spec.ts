@@ -5,16 +5,16 @@ import { expectedMapping } from '../ObjectAttributeTypeExtractor.spec';
 import '../hb-es-shim';
 
 describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
-    it('pass', () => {
-        let expected = Factory.generateFormGroupByOATMapping(
-            new FormBuilder(),
-            expectedMapping
-        ).templateConfig;
-
-        expect(
-            expected
-        ).toEqual(null);
-    });
+    // it('pass', () => {
+    //     let expected = Factory.generateFormGroupByOATMapping(
+    //         new FormBuilder(),
+    //         expectedMapping
+    //     ).templateConfig;
+    //
+    //     expect(
+    //         expected
+    //     ).toEqual(null);
+    // });
 
     it('should generate Angular form object and HBForm compatible template object from ObjectAttributeTypeExtractor mapping for a mixed renderType object with nested object array', () => {
         let expected = Factory.generateFormGroupByOATMapping(

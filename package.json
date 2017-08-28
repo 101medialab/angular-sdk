@@ -81,6 +81,7 @@
     "url": "git://github.com/101medialab/angular2-sdk.git"
   },
   "jest": {
+    "testPathIgnorePatterns": ["/dist/"],
     "preset": "jest-preset-angular",
     "setupTestFrameworkScriptFile": "<rootDir>/node_modules/jest-preset-angular/setupJest.js",
     "globals": {

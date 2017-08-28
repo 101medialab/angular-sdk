@@ -1,13 +1,29 @@
-import "reflect-metadata";
+export * from './decorators/FormConfig';
+export * from './decorators/MultiOptions';
+export * from './decorators/HTMLSetting';
 
-enum decorators {
-    format
-};
+import { FormConfigSymbol } from './decorators/FormConfig';
+import { MultiOptionsSymbol } from './decorators/MultiOptions';
+import { HTMLSettingSymbol } from "./decorators/HTMLSetting";
+import { OnOATResolved } from "../ObjectAttributeTypeExtractor";
 
-function format(formatString: string) {
-    return Reflect.metadata(decorators.format, formatString);
-}
+export function SetupConfig() {
+    return OnOATResolved((target, key, resolved) => {
+        if (!resolved.formFactory) {
+            resolved.formFactory = {};
+        }
 
-function getFormat(target: any, propertyKey: string) {
-    return Reflect.getMetadata(decorators.format, target, propertyKey);
+        [
+            FormConfigSymbol,
+            MultiOptionsSymbol,
+            HTMLSettingSymbol
+        ].forEach((eachSymbol) => {
+            if (Reflect.hasMetadata(eachSymbol, target, key)) {
+                resolved.formFactory = Object.assign({},
+                    resolved.formFactory,
+                    Reflect.getMetadata(eachSymbol, target, key)
+                );
+            }
+        });
+    });
 }

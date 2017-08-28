@@ -1,5 +1,3 @@
-import 'core-js/es7/reflect';
-
 export type AttributeType = 'string' | 'number' | 'boolean' | 'date' | 'array' | 'object' | 'any';
 
 export class TypeMeta {
@@ -70,7 +68,7 @@ export class ObjectAttributeTypeExtractor {
 
         let result: any = {};
 
-        // input is an array already, analyze the first one
+        // input is an array, analyze the first cell only
         if (input instanceof Array) {
             return Extractor.generateMapping(input[0], options);
         } else {
@@ -114,7 +112,7 @@ export class ObjectAttributeTypeExtractor {
 
         // Mark type as any if value is null
         if (object[key] === null) {
-            resolvedMeta = 'any';
+            resolvedMeta = new PrimitiveTypeMeta(null);
 
         // For Array
         } else if (object[key] instanceof Array) {
@@ -140,7 +138,12 @@ export class ObjectAttributeTypeExtractor {
 
         // For Object
         } else {
-            resolvedMeta = new NonPrimitiveTypeMeta('object', Extractor.generateMapping(object[key], options));
+            resolvedMeta = new NonPrimitiveTypeMeta(
+                'object',
+                Extractor.generateMapping(
+                    object[key], options
+                )
+            );
         }
 
         return resolvedMeta;
@@ -158,7 +161,8 @@ export class ObjectAttributeTypeExtractor {
             }
         }
 
-        // Some serializer serialize data with snake_case but JS Entity Classes name attributes with camelCase
+        // Some serializer serialize data with snake_case
+        // but JS Entity Classes name attributes with camelCase
         if (options.keyNamingStrategy === 'snake_case') {
             setterKey = setterKey.toSnakecase();
         }
@@ -167,7 +171,7 @@ export class ObjectAttributeTypeExtractor {
     }
 
     // For naming convention changing. Not really related to this extractor
-    static fixObjectAttributesNamingConvention(data: any, options: any) {
+    static fixNamingConvention(data: any, options: any) {
         let result = null;
         options = Object.assign({
             keyNamingStrategy: 'camelCase',
@@ -178,7 +182,7 @@ export class ObjectAttributeTypeExtractor {
             result = [];
 
             data.forEach((obj) => {
-                result.push(Extractor.fixObjectAttributesNamingConvention(obj, options));
+                result.push(Extractor.fixNamingConvention(obj, options));
             });
         } else if (typeof data === 'object') {
             result = {};
@@ -192,7 +196,7 @@ export class ObjectAttributeTypeExtractor {
                     }
 
                     if (typeof data[key] === 'object') {
-                        result[finalKey] = Extractor.fixObjectAttributesNamingConvention(data[key], options);
+                        result[finalKey] = Extractor.fixNamingConvention(data[key], options);
                     } else {
                         result[finalKey] = data[key];
                     }
@@ -219,7 +223,10 @@ export class ObjectAttributeTypeExtractor {
             for (let key in data) {
                 if (typeof data[key] === 'object') {
                     if (data[key] instanceof Date) {
-                        result[key] = 'date' in callbacks && callbacks.date instanceof Function ? callbacks.date(data[key]) : data[key].yyyymmdd('-');
+                        result[key] =
+                            'date' in callbacks &&
+                            callbacks.date instanceof Function ?
+                                callbacks.date(data[key]) : data[key].yyyymmdd('-');
                     } else {
                         result[key] = Extractor.convertDataToString(data[key]);
                     }

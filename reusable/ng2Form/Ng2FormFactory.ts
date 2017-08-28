@@ -39,7 +39,8 @@ export class Ng2FormFactory {
             ngFormControl: {},
             templateConfig: {},
         };
-        let attrMapping = attributeMappingObject instanceof NonPrimitiveTypeMeta ? attributeMappingObject.mapping : attributeMappingObject;
+        let attrMapping = attributeMappingObject instanceof NonPrimitiveTypeMeta ?
+                attributeMappingObject.mapping : attributeMappingObject;
 
         for (let key in attrMapping) {
             // TODO: Skip attributes should be configurable
@@ -265,6 +266,8 @@ export class Ng2FormFactory {
     // Copy setting from OAT to templateConfig object
     static setTemplatePreset(attrMapping, templateObj) {
         [
+            'label',
+            'type',
             'maxChoices',
             'expandOptions',
             'options',
@@ -272,7 +275,7 @@ export class Ng2FormFactory {
             'renderType',
             'optionsTemplate'
         ].forEach(function (each) {
-            if (attrMapping[each]) {
+            if (attrMapping.formFactory && attrMapping.formFactory[each]) {
                 templateObj[each] = attrMapping[each];
             }
         });
