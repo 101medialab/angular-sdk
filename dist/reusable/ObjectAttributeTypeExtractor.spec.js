@@ -11,12 +11,12 @@ import 'jest';
 import { NonPrimitiveTypeMeta, ObjectAttributeTypeExtractor as Extractor, OnOATResolved, PrimitiveTypeMeta } from './ObjectAttributeTypeExtractor';
 import { FormConfig, SetupConfig } from './ng2Form/NgFormFactoryAnnotations';
 export var expectedMapping = {
-    "anyAttributeName": "any",
+    "anyAttributeName": new PrimitiveTypeMeta(null),
     "booleanAttributeName": new PrimitiveTypeMeta(true),
     "dateAttributeName": new NonPrimitiveTypeMeta('date', null, new Date('2017-08-24')),
     "objectArrayAttributeName": {
         "_mapping": {
-            "anyAttributeName": "any",
+            "anyAttributeName": new PrimitiveTypeMeta(null),
             "booleanAttributeName": new PrimitiveTypeMeta(true),
             "dateAttributeName": new NonPrimitiveTypeMeta('date', null, new Date('2017-08-24')),
             "objectArrayAttributeName": {
@@ -106,13 +106,13 @@ describe('ObjectAttributeTypeExtractor.generateMapping', function () {
                     resolved.decorators[decorator] = decoratorValue;
                 }
             }
-        })).toEqual({
-            //toMatchObject
+        })).toMatchObject({
             "attr": {
-                "_type": "string",
-                "_value": "",
-                "decorators": {
-                    "DemoDecorator": "demo decorator value"
+                "_type": "any",
+                "_value": null,
+                "formFactory": {
+                    "defaultValue": 99,
+                    "label": "This is a attribute"
                 }
             },
             "inner": {

@@ -1,10 +1,12 @@
 export * from './decorators/FormConfig';
 export * from './decorators/MultiOptions';
 export * from './decorators/HTMLSetting';
+export * from './decorators/FlexibleObjectArray';
 
 import { FormConfigSymbol } from './decorators/FormConfig';
 import { MultiOptionsSymbol } from './decorators/MultiOptions';
 import { HTMLSettingSymbol } from "./decorators/HTMLSetting";
+import { FlexibleObjectArraySymbol } from "./decorators/FlexibleObjectArray";
 import { OnOATResolved } from "../ObjectAttributeTypeExtractor";
 
 export function SetupConfig() {
@@ -16,7 +18,8 @@ export function SetupConfig() {
         [
             FormConfigSymbol,
             MultiOptionsSymbol,
-            HTMLSettingSymbol
+            HTMLSettingSymbol,
+            FlexibleObjectArraySymbol
         ].forEach((eachSymbol) => {
             if (Reflect.hasMetadata(eachSymbol, target, key)) {
                 resolved.formFactory = Object.assign({},

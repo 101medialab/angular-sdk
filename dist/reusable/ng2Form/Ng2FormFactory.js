@@ -1,5 +1,6 @@
 import { FormGroup, FormControl, FormArray, Validators, } from '@angular/forms';
 import { NonPrimitiveTypeMeta, ObjectAttributeTypeExtractor as Extractor } from '../ObjectAttributeTypeExtractor';
+export * from './NgFormFactoryAnnotations';
 var Ng2FormFactory = (function () {
     function Ng2FormFactory() {
     }
@@ -38,7 +39,7 @@ var Ng2FormFactory = (function () {
                     var child = Ng2FormFactory.prepareAndCreateChildTemplateConfig(current, key, formBuilder)();
                     resolved = {
                         groupType: 'object',
-                        control: new FormGroup(child.ngFormControl),
+                        control: child.ngFormControl instanceof FormGroup ? child.ngFormControl : new FormGroup(child.ngFormControl),
                         children: child.templateConfig
                     };
                 }
@@ -113,30 +114,44 @@ var Ng2FormFactory = (function () {
     };
     Ng2FormFactory.handleArray = function (current, key, formBuilder) {
         var ngFormArrayControl = new FormArray([]);
-        var init = Ng2FormFactory.prepareAndCreateChildTemplateConfig(current, key, formBuilder);
-        var children = [], add = function () {
-            var childConfig = init();
+        var initChildren = [];
+        var arrayType = null;
+        var result = {
+            groupType: 'array',
+            arrayType: current.formFactory && current.formFactory.arrayType ?
+                arrayType :
+                'type' in current._mapping ?
+                    'primitive' : 'object',
+            control: ngFormArrayControl,
+            children: [],
+            childrenConfigName: [],
+            useConfig: 0,
+            add: null,
+            remove: null
+        };
+        if (current.formFactory && current.formFactory.objectDefinitions) {
+            var i_1 = 0;
+            current.formFactory.objectDefinitions.forEach(function (each) {
+                initChildren[i_1] = Ng2FormFactory.prepareAndCreateChildTemplateConfig(new NonPrimitiveTypeMeta('array', each.structure), null, formBuilder);
+                result.childrenConfigName[i_1] = each.label;
+                i_1 += 1;
+            });
+        }
+        else {
+            initChildren[0] = Ng2FormFactory.prepareAndCreateChildTemplateConfig(current, key, formBuilder);
+        }
+        var add = function () {
+            var childConfig = initChildren[result.useConfig]();
             var control = ngFormArrayControl;
             control.push(childConfig.ngFormControl);
-            children.push(childConfig.templateConfig);
+            result.children.push(childConfig.templateConfig);
         }, remove = function (i) {
             var control = ngFormArrayControl;
             control.removeAt(i);
-            children.splice(i, 1);
+            result.children.splice(i, 1);
         };
-        add();
-        var arrayType = 'type' in current._mapping ? ('arrayType' in current ?
-            current.arrayType :
-            'primitive') :
-            'object';
-        var result = {
-            groupType: 'array',
-            arrayType: arrayType,
-            add: add,
-            remove: remove,
-            control: ngFormArrayControl,
-            children: children
-        };
+        result.add = add;
+        result.remove = remove;
         Ng2FormFactory.setTemplatePreset(current, result);
         return result;
     };
@@ -160,13 +175,13 @@ var Ng2FormFactory = (function () {
                         while (target[key].control.controls.length > 0) {
                             target[key].remove(0);
                         }
-                        var i_1 = 0;
+                        var i_2 = 0;
                         value[key].forEach(function (each) {
                             target[key].add();
                             var fixForPrimitiveArray = {};
                             fixForPrimitiveArray[key] = each;
-                            target[key].children[i_1].setValue(target[key].arrayType !== 'object' ? fixForPrimitiveArray : each);
-                            i_1++;
+                            target[key].children[i_2].setValue(target[key].arrayType !== 'object' ? fixForPrimitiveArray : each);
+                            i_2++;
                         });
                     }
                 }
@@ -207,7 +222,8 @@ var Ng2FormFactory = (function () {
             'options',
             'option',
             'renderType',
-            'optionsTemplate'
+            'optionsTemplate',
+            'arrayType'
         ].forEach(function (each) {
             if (attrMapping.formFactory && attrMapping.formFactory[each]) {
                 templateObj[each] = attrMapping[each];

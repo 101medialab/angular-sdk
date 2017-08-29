@@ -1,4 +1,5 @@
 import { FormBuilder } from '@angular/forms';
+export * from './NgFormFactoryAnnotations';
 export declare class Ng2FormFactory {
     static generateFormGroupByObject(formBuilder: FormBuilder, object: any, resolveTypeAny?: () => {
         ngFormControl: any;

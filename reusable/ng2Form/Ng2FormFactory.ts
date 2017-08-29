@@ -10,6 +10,7 @@ import {
     ObjectAttributeTypeExtractor as Extractor
 } from '../ObjectAttributeTypeExtractor';
 
+export * from './NgFormFactoryAnnotations';
 export class Ng2FormFactory {
     static generateFormGroupByObject(
         formBuilder: FormBuilder,
@@ -60,7 +61,7 @@ export class Ng2FormFactory {
 
                     resolved = {
                         groupType: 'object',
-                        control: new FormGroup(child.ngFormControl),
+                        control: child.ngFormControl instanceof FormGroup ? child.ngFormControl : new FormGroup(child.ngFormControl),
                         children: child.templateConfig
                     };
                 }
@@ -160,41 +161,56 @@ export class Ng2FormFactory {
 
     private static handleArray(current: any, key: string, formBuilder: FormBuilder) {
         let ngFormArrayControl = new FormArray([]);
-        let init = Ng2FormFactory.prepareAndCreateChildTemplateConfig(current, key, formBuilder);
+        let initChildren = [];
+        let arrayType = null;
 
-        let children = [],
-            add = () => {
-                let childConfig = init();
+        let result = {
+            groupType: 'array',
+            arrayType:
+                current.formFactory && current.formFactory.arrayType ?
+                    arrayType :
+                    'type' in current._mapping ?
+                        'primitive' : 'object'
+            ,
+            control: ngFormArrayControl,
+            children: [],
+            childrenConfigName:[],
+            useConfig: 0,
+            add: null,
+            remove: null
+        };
+
+        if (current.formFactory && current.formFactory.objectDefinitions) {
+            let i = 0;
+            current.formFactory.objectDefinitions.forEach((each) => {
+                initChildren[i] = Ng2FormFactory.prepareAndCreateChildTemplateConfig(
+                    new NonPrimitiveTypeMeta(
+                        'array',
+                        each.structure
+                    ), null, formBuilder
+                );
+                result.childrenConfigName[i] = each.label;
+                i += 1;
+            });
+        } else {
+            initChildren[0] = Ng2FormFactory.prepareAndCreateChildTemplateConfig(current, key, formBuilder)
+        }
+
+        let add = () => {
+                let childConfig = initChildren[result.useConfig]();
 
                 const control = <FormArray>ngFormArrayControl;
                 control.push(childConfig.ngFormControl);
-                children.push(childConfig.templateConfig);
+                result.children.push(childConfig.templateConfig);
             },
             remove = (i: number) => {
                 const control = <FormArray>ngFormArrayControl;
                 control.removeAt(i);
-                children.splice(i, 1);
+                result.children.splice(i, 1);
             };
 
-        add();
-
-        const arrayType =
-            'type' in current._mapping ? (
-                'arrayType' in current ?
-                    current.arrayType :
-                    'primitive'
-            ) :
-            'object'
-        ;
-
-        let result = {
-            groupType: 'array',
-            arrayType,
-            add,
-            remove,
-            control: ngFormArrayControl,
-            children
-        };
+        result.add = add;
+        result.remove = remove;
 
         Ng2FormFactory.setTemplatePreset(current, result);
 
@@ -273,7 +289,8 @@ export class Ng2FormFactory {
             'options',
             'option',
             'renderType',
-            'optionsTemplate'
+            'optionsTemplate',
+            'arrayType'
         ].forEach(function (each) {
             if (attrMapping.formFactory && attrMapping.formFactory[each]) {
                 templateObj[each] = attrMapping[each];

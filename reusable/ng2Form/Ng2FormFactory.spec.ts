@@ -1,8 +1,12 @@
 import 'jest';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Ng2FormFactory as Factory } from './Ng2FormFactory';
 import { expectedMapping } from '../ObjectAttributeTypeExtractor.spec';
-import { ObjectAttributeTypeExtractor } from '../ObjectAttributeTypeExtractor';
+import {
+    ObjectAttributeTypeExtractor as Extractor
+} from '../ObjectAttributeTypeExtractor';
+import { Ng2FormFactory as Factory } from './Ng2FormFactory';
+import { FormConfig, SetupConfig } from './NgFormFactoryAnnotations';
+import { FlexibleObjectArray } from "./decorators/FlexibleObjectArray";
 import '../hb-es-shim';
 
 describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
@@ -24,6 +28,11 @@ describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
         );
 
         new FormGroup(expected.ngFormControl);
+
+        expected.templateConfig.primitiveArrayAttributeName.add();
+        expected.templateConfig.objectArrayAttributeName.add();
+        expected.templateConfig.objectArrayAttributeName.children[0].objectArrayAttributeName.add();
+        expected.templateConfig.objectArrayAttributeName.children[0].primitiveArrayAttributeName.add();
 
         expect(
             expected.templateConfig
@@ -135,5 +144,68 @@ describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
                 "type": "string"
             }
         });
+    });
+
+    it('should generate form for Mixed type Array', () => {
+        class A {
+            name: string = '';
+        }
+
+        class B {
+            @SetupConfig()
+            @FormConfig({
+                defaultValue: ''
+            })
+            phoneNo: number = null;
+        }
+
+        class DecoratorDemo {
+            @SetupConfig()
+            @FlexibleObjectArray({
+                objectDefinitions: [{
+                    label: 'Type A',
+                    structure: Extractor.generateMapping(
+                        new A()
+                    )
+                }, {
+                    label: 'Type B',
+                    structure: Extractor.generateMapping(
+                        new B()
+                    )
+                }]
+            })
+            attr: Array<A|B> = [];
+        }
+
+        let expected = Factory.generateFormGroupByOATMapping(
+            new FormBuilder(),
+            Extractor.generateMapping(
+                new DecoratorDemo()
+            )
+        );
+
+        new FormGroup(expected.ngFormControl);
+
+        expected.templateConfig.attr.useConfig = 1;
+        expected.templateConfig.attr.add();
+
+        expected.templateConfig.attr.useConfig = 0;
+        expected.templateConfig.attr.add();
+
+        expect(
+            expected.templateConfig.attr.children
+        ).toMatchObject([{
+            "phoneNo": {
+                "label": "Phone No",
+                "renderType": "text",
+                "type": "string"
+            },
+        }, {
+            "name": {
+                "label": "Name",
+                "renderType": "text",
+                "type": "string"
+            },
+        }]);
     });
 });

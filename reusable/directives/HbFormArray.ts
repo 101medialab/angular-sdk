@@ -7,6 +7,13 @@ import {HbFormWidget} from './HbFormWidget';
         <div [attr.id]="data.id" class="form-array {{ data.arrayType }} {{ data.class }}">
             <header>
                 <h2>{{ data.label }}</h2>
+                
+                <select *ngIf="data.childrenConfigName.length > 0" class="hb-form-array-config-switch"
+                        [(ngModel)]="data.useConfig" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let configName of data.childrenConfigName; let i = index" [value]="i">
+                        {{ configName }}
+                    </option>
+                </select>
 
                 <button class="btn btn-default hb-form-add-btn" *ngIf="data.arrayType != 'enum'" type="button" (click)="data.add()">Add</button>
             </header>
