@@ -7,7 +7,7 @@ import {BaseClass} from '../BaseClass';
         <div *ngIf="data.control != undefined && data.groupType == undefined && key != 'setValue'"
              [ngClass]="{ 'error': !data.control.valid }" class="expand-to-child hb-form-widget">
             <div *ngIf="data.expandOptions == undefined">
-                <label for="{{ key ? key : data.label.slugify() }}-input">{{ data.renderType !== 'checkbox' ? data.label : data.option.name }}</label>
+                <label for="{{ key ? key : data.label.slugify() }}-input">{{ data.renderType !== 'checkbox' || data.label !== undefined ? data.label : data.option.name }}</label>
         
                 <div class="input-control-container">
                     <input id="{{ key ? key : data.label.slugify() }}-input"

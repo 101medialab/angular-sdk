@@ -2,7 +2,6 @@ import 'jest';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Ng2FormFactory as Factory } from './Ng2FormFactory';
 import { expectedMapping } from '../ObjectAttributeTypeExtractor.spec';
-import { ObjectAttributeTypeExtractor } from '../ObjectAttributeTypeExtractor';
 import '../hb-es-shim';
 describe('Ng2FormFactory.generateFormGroupByOATMapping', function () {
     // it('pass', () => {
@@ -126,18 +125,6 @@ describe('Ng2FormFactory.generateFormGroupByOATMapping', function () {
                 "type": "string"
             }
         });
-    });
-    it('should pass', function () {
-        var a = {
-            "obj": {
-                "attr1": 123123
-            }
-        };
-        var OAT = ObjectAttributeTypeExtractor.generateMapping(a, {
-            stripUnderscore: true
-        });
-        var _a = Factory.generateFormGroupByOATMapping(new FormBuilder(), OAT), ngFormControl = _a.ngFormControl, templateConfig = _a.templateConfig;
-        new FormGroup(ngFormControl);
     });
 });
 //# sourceMappingURL=Ng2FormFactory.spec.js.map
