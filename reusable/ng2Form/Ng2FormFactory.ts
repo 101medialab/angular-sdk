@@ -147,16 +147,16 @@ export class Ng2FormFactory {
 
         schemaTemp.templateConfig.setValue = Ng2FormFactory.setValueToTemplate.bind(schemaTemp.templateConfig);
 
-        const result = {
-            ngFormControl:
-                schemaTemp.ngFormControl instanceof FormControl || current.type === 'object' ?
-                    schemaTemp.ngFormControl :
-                    // For reference type array
-                    new FormGroup(schemaTemp.ngFormControl),
-            templateConfig: schemaTemp.templateConfig
+        return () => {
+            return {
+                ngFormControl:
+                    schemaTemp.ngFormControl instanceof FormControl || current.type === 'object' ?
+                        schemaTemp.ngFormControl :
+                        // For reference type array
+                        new FormGroup(schemaTemp.ngFormControl),
+                templateConfig: schemaTemp.templateConfig
+            };
         };
-
-        return () => result;
     }
 
     private static handleArray(current: any, key: string, formBuilder: FormBuilder) {

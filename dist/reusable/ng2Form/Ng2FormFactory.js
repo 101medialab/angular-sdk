@@ -103,14 +103,15 @@ var Ng2FormFactory = (function () {
             schemaTemp = Ng2FormFactory.generateFormGroupByOATMapping(formBuilder, current._mapping);
         }
         schemaTemp.templateConfig.setValue = Ng2FormFactory.setValueToTemplate.bind(schemaTemp.templateConfig);
-        var result = {
-            ngFormControl: schemaTemp.ngFormControl instanceof FormControl || current.type === 'object' ?
-                schemaTemp.ngFormControl :
-                // For reference type array
-                new FormGroup(schemaTemp.ngFormControl),
-            templateConfig: schemaTemp.templateConfig
+        return function () {
+            return {
+                ngFormControl: schemaTemp.ngFormControl instanceof FormControl || current.type === 'object' ?
+                    schemaTemp.ngFormControl :
+                    // For reference type array
+                    new FormGroup(schemaTemp.ngFormControl),
+                templateConfig: schemaTemp.templateConfig
+            };
         };
-        return function () { return result; };
     };
     Ng2FormFactory.handleArray = function (current, key, formBuilder) {
         var ngFormArrayControl = new FormArray([]);
