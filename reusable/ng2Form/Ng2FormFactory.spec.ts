@@ -1,7 +1,8 @@
 import 'jest';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Ng2FormFactory as Factory } from './Ng2FormFactory';
 import { expectedMapping } from '../ObjectAttributeTypeExtractor.spec';
+import { ObjectAttributeTypeExtractor } from '../ObjectAttributeTypeExtractor';
 import '../hb-es-shim';
 
 describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
@@ -20,10 +21,12 @@ describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
         let expected = Factory.generateFormGroupByOATMapping(
             new FormBuilder(),
             expectedMapping
-        ).templateConfig;
+        );
+
+        new FormGroup(expected.ngFormControl);
 
         expect(
-            expected
+            expected.templateConfig
         ).toMatchObject({
             "anyAttributeName": {
                 "label": "Any Attribute Name",

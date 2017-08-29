@@ -60,7 +60,7 @@ export class Ng2FormFactory {
 
                     resolved = {
                         groupType: 'object',
-                        control: child.ngFormControl,
+                        control: new FormGroup(child.ngFormControl),
                         children: child.templateConfig
                     };
                 }

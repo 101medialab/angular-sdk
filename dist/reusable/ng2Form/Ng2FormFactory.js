@@ -38,7 +38,7 @@ var Ng2FormFactory = (function () {
                     var child = Ng2FormFactory.prepareAndCreateChildTemplateConfig(current, key, formBuilder)();
                     resolved = {
                         groupType: 'object',
-                        control: child.ngFormControl,
+                        control: new FormGroup(child.ngFormControl),
                         children: child.templateConfig
                     };
                 }
