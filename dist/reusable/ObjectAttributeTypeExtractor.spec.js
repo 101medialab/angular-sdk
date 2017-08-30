@@ -14,38 +14,23 @@ export var expectedMapping = {
     "anyAttributeName": new PrimitiveTypeMeta(null),
     "booleanAttributeName": new PrimitiveTypeMeta(true),
     "dateAttributeName": new NonPrimitiveTypeMeta('date', null, new Date('2017-08-24')),
-    "objectArrayAttributeName": {
-        "_mapping": {
-            "anyAttributeName": new PrimitiveTypeMeta(null),
-            "booleanAttributeName": new PrimitiveTypeMeta(true),
-            "dateAttributeName": new NonPrimitiveTypeMeta('date', null, new Date('2017-08-24')),
-            "objectArrayAttributeName": {
-                "_mapping": {
-                    "attr1": new PrimitiveTypeMeta(1)
-                },
-                "_type": "array"
-            },
-            "objectAttributeName": {
-                "_mapping": {
-                    "attr1": new PrimitiveTypeMeta(1)
-                },
-                "_type": "object"
-            },
-            "primitiveArrayAttributeName": new NonPrimitiveTypeMeta('array', new PrimitiveTypeMeta(1)),
-            "stringAttributeName": new PrimitiveTypeMeta("some characters")
-        },
-        "_type": "array"
-    },
-    "objectAttributeName": {
-        "_mapping": {
+    "objectArrayAttributeName": new NonPrimitiveTypeMeta('array', {
+        "anyAttributeName": new PrimitiveTypeMeta(null),
+        "booleanAttributeName": new PrimitiveTypeMeta(true),
+        "dateAttributeName": new NonPrimitiveTypeMeta('date', null, new Date('2017-08-24')),
+        "objectArrayAttributeName": new NonPrimitiveTypeMeta("array", {
             "attr1": new PrimitiveTypeMeta(1)
-        },
-        "_type": "object"
-    },
-    "primitiveArrayAttributeName": {
-        "_mapping": new PrimitiveTypeMeta(1),
-        "_type": "array"
-    },
+        }),
+        "objectAttributeName": new NonPrimitiveTypeMeta("object", {
+            "attr1": new PrimitiveTypeMeta(1)
+        }),
+        "primitiveArrayAttributeName": new NonPrimitiveTypeMeta('array', new PrimitiveTypeMeta(1)),
+        "stringAttributeName": new PrimitiveTypeMeta("some characters")
+    }),
+    "objectAttributeName": new NonPrimitiveTypeMeta("object", {
+        "attr1": new PrimitiveTypeMeta(1)
+    }),
+    "primitiveArrayAttributeName": new NonPrimitiveTypeMeta("array", new PrimitiveTypeMeta(1)),
     "stringAttributeName": new PrimitiveTypeMeta("some characters")
 };
 describe('ObjectAttributeTypeExtractor.generateMapping', function () {

@@ -1,6 +1,6 @@
 {
   "name": "hb-ng2-sdk",
-  "version": "0.0.2-build0003",
+  "version": "0.0.2-build0004",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",

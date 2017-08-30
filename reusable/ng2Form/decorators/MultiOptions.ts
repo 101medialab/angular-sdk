@@ -16,7 +16,7 @@ export const MultiOptionsSymbol = Symbol('IMultipleOptionsFormConfig');
 
 export function MultiOptions(options: IMultipleOptionsFormConfig) {
     return Reflect.metadata(
-        MultiOptionsSymbol, 
+        MultiOptionsSymbol,
         Object.assign(
             <IMultipleOptionsFormConfig>{
                 expandOptions: true

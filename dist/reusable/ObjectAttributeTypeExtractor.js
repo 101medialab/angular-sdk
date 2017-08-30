@@ -45,7 +45,8 @@ var PrimitiveTypeMeta = (function (_super) {
 export { PrimitiveTypeMeta };
 var NonPrimitiveTypeMeta = (function (_super) {
     __extends(NonPrimitiveTypeMeta, _super);
-    function NonPrimitiveTypeMeta(type, _mapping, _value) {
+    function NonPrimitiveTypeMeta(type, _mapping, // All attributes should be type of ExtractorResultType
+        _value) {
         if (_mapping === void 0) { _mapping = null; }
         if (_value === void 0) { _value = null; }
         var _this = _super.call(this, type) || this;

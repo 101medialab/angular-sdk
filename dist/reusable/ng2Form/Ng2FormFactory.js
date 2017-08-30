@@ -82,28 +82,36 @@ var Ng2FormFactory = (function () {
         result.templateConfig.setValue = Ng2FormFactory.setValueToTemplate.bind(result.templateConfig);
         return result;
     };
-    Ng2FormFactory.prepareAndCreateChildTemplateConfig = function (current, key, formBuilder) {
-        var schemaTemp = null;
-        if ('type' in current._mapping) {
-            // For primitive type array
-            var control = new FormControl('value' in current._mapping ? current._mapping.value : '', [Validators.required]), templateConfig = {};
-            templateConfig[key] = {
-                label: Ng2FormFactory.generateLabel(key),
-                type: current._mapping.type,
-                control: control,
-            };
-            schemaTemp = {
-                ngFormControl: control,
-                templateConfig: templateConfig
-            };
-            Ng2FormFactory.resolveTemplateConfigByType(current._mapping, templateConfig[key]);
-        }
-        else {
-            // For reference type array or object
-            schemaTemp = Ng2FormFactory.generateFormGroupByOATMapping(formBuilder, current._mapping);
-        }
-        schemaTemp.templateConfig.setValue = Ng2FormFactory.setValueToTemplate.bind(schemaTemp.templateConfig);
+    Ng2FormFactory.prepareAndCreateChildTemplateConfig = function (currentInput, key, formBuilder, isRaw) {
+        if (isRaw === void 0) { isRaw = false; }
         return function () {
+            var current = null;
+            if (isRaw) {
+                current = new NonPrimitiveTypeMeta('array', Extractor.generateMapping(new currentInput()));
+            }
+            else {
+                current = currentInput;
+            }
+            var schemaTemp = null;
+            if ('type' in current._mapping && typeof current._mapping.type === 'string') {
+                // For primitive type array
+                var control = new FormControl('value' in current._mapping ? current._mapping.value : '', [Validators.required]), templateConfig = {};
+                templateConfig[key] = {
+                    label: Ng2FormFactory.generateLabel(key),
+                    type: current._mapping.type,
+                    control: control,
+                };
+                schemaTemp = {
+                    ngFormControl: control,
+                    templateConfig: templateConfig
+                };
+                Ng2FormFactory.resolveTemplateConfigByType(current._mapping, templateConfig[key]);
+            }
+            else {
+                // For reference type array or object
+                schemaTemp = Ng2FormFactory.generateFormGroupByOATMapping(formBuilder, current._mapping);
+            }
+            schemaTemp.templateConfig.setValue = Ng2FormFactory.setValueToTemplate.bind(schemaTemp.templateConfig);
             return {
                 ngFormControl: schemaTemp.ngFormControl instanceof FormControl || current.type === 'object' ?
                     schemaTemp.ngFormControl :
@@ -133,7 +141,9 @@ var Ng2FormFactory = (function () {
         if (current.formFactory && current.formFactory.objectDefinitions) {
             var i_1 = 0;
             current.formFactory.objectDefinitions.forEach(function (each) {
-                initChildren[i_1] = Ng2FormFactory.prepareAndCreateChildTemplateConfig(new NonPrimitiveTypeMeta('array', each.structure), null, formBuilder);
+                initChildren[i_1] = Ng2FormFactory.prepareAndCreateChildTemplateConfig({
+                    _mapping: each.structure
+                }, '', formBuilder);
                 result.childrenConfigName[i_1] = each.label;
                 i_1 += 1;
             });
@@ -226,8 +236,8 @@ var Ng2FormFactory = (function () {
             'optionsTemplate',
             'arrayType'
         ].forEach(function (each) {
-            if (attrMapping.formFactory && attrMapping.formFactory[each]) {
-                templateObj[each] = attrMapping[each];
+            if (attrMapping.formFactory && each in attrMapping.formFactory) {
+                templateObj[each] = attrMapping.formFactory[each];
             }
         });
     };

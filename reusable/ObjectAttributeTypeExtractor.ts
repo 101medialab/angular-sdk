@@ -29,7 +29,7 @@ export class PrimitiveTypeMeta extends TypeMeta {
 export class NonPrimitiveTypeMeta extends TypeMeta {
     constructor(
         type: 'object' | 'array' | 'date',
-        private _mapping: ExtractorResultType = null,
+        private _mapping: any = null, // All attributes should be type of ExtractorResultType
         private _value: any = null
     ) {
         super(type);
@@ -123,7 +123,6 @@ export class ObjectAttributeTypeExtractor {
                     'array',
                     new PrimitiveTypeMeta(target[0])
                 );
-
             // For Object Array
             } else {
                 resolvedMeta = new NonPrimitiveTypeMeta(

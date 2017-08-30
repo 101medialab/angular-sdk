@@ -1,4 +1,4 @@
-export type RenderTypeCompatible = 'text' | 'textarea' | 'select';
+export type RenderTypeCompatible = 'text' | 'email' | 'number' | 'hidden' | 'radio' | 'checkbox' | 'textarea' | 'select';
 
 export interface IBaseFormConfig {
     label?: string;
@@ -6,6 +6,7 @@ export interface IBaseFormConfig {
     hints?: string;
     validators?: any;
     useValidators?: Array<string>
+    renderType?: RenderTypeCompatible
 }
 
 export const FormConfigSymbol = Symbol('FormConfig');

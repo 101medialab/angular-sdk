@@ -12,7 +12,7 @@ export declare class PrimitiveTypeMeta extends TypeMeta {
 export declare class NonPrimitiveTypeMeta extends TypeMeta {
     private _mapping;
     private _value;
-    constructor(type: 'object' | 'array' | 'date', _mapping?: ExtractorResultType, _value?: any);
+    constructor(type: 'object' | 'array' | 'date', _mapping?: any, _value?: any);
     readonly mapping: ExtractorResultType;
     readonly value: any;
 }

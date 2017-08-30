@@ -13,7 +13,7 @@ export declare class Ng2FormFactory {
         ngFormControl: any;
         templateConfig: any;
     }): any;
-    private static prepareAndCreateChildTemplateConfig(current, key, formBuilder);
+    private static prepareAndCreateChildTemplateConfig(currentInput, key, formBuilder, isRaw?);
     private static handleArray(current, key, formBuilder);
     static setValueToTemplate(value: any): void;
     static resolveTemplateConfigByType(attrMapping: any, templateObj: any): void;

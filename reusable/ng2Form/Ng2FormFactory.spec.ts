@@ -30,9 +30,9 @@ describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
         new FormGroup(expected.ngFormControl);
 
         expected.templateConfig.primitiveArrayAttributeName.add();
-        expected.templateConfig.objectArrayAttributeName.add();
-        expected.templateConfig.objectArrayAttributeName.children[0].objectArrayAttributeName.add();
-        expected.templateConfig.objectArrayAttributeName.children[0].primitiveArrayAttributeName.add();
+        // expected.templateConfig.objectArrayAttributeName.add();
+        // expected.templateConfig.objectArrayAttributeName.children[0].objectArrayAttributeName.add();
+        // expected.templateConfig.objectArrayAttributeName.children[0].primitiveArrayAttributeName.add();
 
         expect(
             expected.templateConfig
@@ -51,69 +51,6 @@ describe('Ng2FormFactory.generateFormGroupByOATMapping', () => {
                 "label": "Date Attribute Name",
                 "renderType": "date",
                 "type": "date"
-            },
-            "objectArrayAttributeName": {
-                "children": [{
-                    "anyAttributeName": {
-                        "label": "Any Attribute Name",
-                        "renderType": "text",
-                        "type": "string"
-                    },
-                    "booleanAttributeName": {
-                        "label": "Boolean Attribute Name",
-                        "renderType": "checkbox",
-                        "type": "boolean"
-                    },
-                    "dateAttributeName": {
-                        "label": "Date Attribute Name",
-                        "renderType": "date",
-                        "type": "date"
-                    },
-                    "objectArrayAttributeName": {
-                        "children": [{
-                            "attr1": {
-                                "label": "Attr1",
-                                "renderType": "number",
-                                "type": "number"
-                            }
-                        }],
-                        "arrayType": "object",
-                        "groupType": "array",
-                        "label": "Object Array Attribute Name"
-                    },
-                    "objectAttributeName": {
-                        "children": {
-                            "attr1": {
-                                "label": "Attr1",
-                                "renderType": "number",
-                                "type": "number"
-                            }
-                        },
-                        "groupType": "object",
-                        "label": "Object Attribute Name"
-                    },
-                    "primitiveArrayAttributeName": {
-                        "children": [{
-                            "primitiveArrayAttributeName": {
-                                "label": "Primitive Array Attribute Name",
-                                "renderType": "number",
-                                "type": "number"
-                            }
-                        }],
-                        "arrayType": "primitive",
-                        "groupType": "array",
-                        "label": "Primitive Array Attribute Name",
-                        "renderType": "array"
-                    },
-                    "stringAttributeName": {
-                        "label": "String Attribute Name",
-                        "renderType": "text",
-                        "type": "string"
-                    }
-                }],
-                "arrayType": "object",
-                "groupType": "array",
-                "label": "Object Array Attribute Name"
             },
             "objectAttributeName": {
                 "children": {
