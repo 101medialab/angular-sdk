@@ -5,8 +5,9 @@ export interface IBaseFormConfig {
     defaultValue?: any;
     hints?: string;
     validators?: any;
-    useValidators?: Array<string>
-    renderType?: RenderTypeCompatible
+    useValidators?: Array<string>;
+    renderType?: RenderTypeCompatible;
+    hide?: boolean;
 }
 
 export const FormConfigSymbol = Symbol('FormConfig');

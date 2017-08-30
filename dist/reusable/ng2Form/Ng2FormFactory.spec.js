@@ -108,10 +108,10 @@ describe('Ng2FormFactory.generateFormGroupByOATMapping', function () {
                 FlexibleObjectArray({
                     objectDefinitions: [{
                             label: 'Type A',
-                            structure: Extractor.generateMapping(new A())
+                            structure: A
                         }, {
                             label: 'Type B',
-                            structure: Extractor.generateMapping(new B())
+                            structure: B
                         }]
                 }),
                 __metadata("design:type", Array)

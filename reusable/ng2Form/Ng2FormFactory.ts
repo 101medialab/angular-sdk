@@ -196,9 +196,7 @@ export class Ng2FormFactory {
         if (current.formFactory && current.formFactory.objectDefinitions) {
             let i = 0;
             current.formFactory.objectDefinitions.forEach((each) => {
-                initChildren[i] = Ng2FormFactory.prepareAndCreateChildTemplateConfig({
-                    _mapping: each.structure
-                }, '', formBuilder);
+                initChildren[i] = Ng2FormFactory.prepareAndCreateChildTemplateConfig(each.structure, '', formBuilder, true);
                 result.childrenConfigName[i] = each.label;
                 i += 1;
             });
@@ -298,6 +296,7 @@ export class Ng2FormFactory {
             'expandOptions',
             'options',
             'option',
+            'hide',
             'renderType',
             'optionsTemplate',
             'arrayType'

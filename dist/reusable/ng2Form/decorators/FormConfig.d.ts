@@ -6,6 +6,7 @@ export interface IBaseFormConfig {
     validators?: any;
     useValidators?: Array<string>;
     renderType?: RenderTypeCompatible;
+    hide?: boolean;
 }
 export declare const FormConfigSymbol: symbol;
 export declare function FormConfig(options: IBaseFormConfig): {

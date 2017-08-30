@@ -23,13 +23,6 @@ import {HbFormWidget} from './HbFormWidget';
                 <hb-form-widget *ngIf="data.arrayType == 'enum' && cell.groupType == undefined"
                                 [data]="cell" [key]="i" [parent]="data"></hb-form-widget>
                 
-                <button class="btn btn-default hb-form-add-btn"
-                    type="button" 
-                    *ngIf="data.arrayType != 'enum'" 
-                    (click)="data.remove(i)">
-                    Remove
-                </button>
-                
                 <div *ngIf="data.arrayType != 'enum'">
                     <div *ngFor="let each of cell | mapToIterable;" class="panel panel-default">
                         <hb-form-widget *ngIf="each.val.groupType == undefined"
@@ -40,6 +33,13 @@ import {HbFormWidget} from './HbFormWidget';
                                         [data]="each.val" [key]="each.key" [parent]="data"></hb-form-object>
                     </div>
                 </div>
+                
+                <button class="btn btn-default hb-form-add-btn"
+                    type="button" 
+                    *ngIf="data.arrayType != 'enum'" 
+                    (click)="data.remove(i)">
+                    Remove
+                </button>
             </div>
 
             <div class="hints" *ngIf="data?.hints">

@@ -4,7 +4,14 @@ import {BaseClass} from '../BaseClass';
 @Component({
     selector: 'hb-form-widget',
     template: `
-        <div *ngIf="data.control != undefined && data.groupType == undefined && key != 'setValue'"
+        <div *ngIf="
+            data.control != undefined && 
+            data.groupType == undefined && 
+            key != 'setValue' && (
+                data.hide == undefined ||  
+                !data.hide
+            )
+        "
              [ngClass]="{ 'error': !data.control.valid }" class="expand-to-child hb-form-widget">
             <div *ngIf="data.expandOptions == undefined">
                 <label for="{{ key ? key : data.label.slugify() }}-input">{{ data.renderType !== 'checkbox' || data.label !== undefined ? data.label : data.option.name }}</label>

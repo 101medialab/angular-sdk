@@ -2,12 +2,12 @@ import { IBaseFormConfig, RenderTypeCompatible } from './FormConfig';
 
 export interface IMultipleOptionsFormConfig extends IBaseFormConfig {
     maxChoices: number;
-    expandOptions: boolean;
+    expandOptions?: boolean;
     options: Array<{
         name: string,
         value: any
     }>;
-    option: string;
+    option?: string;
     renderType: RenderTypeCompatible;
     optionsTemplate: string;
 }

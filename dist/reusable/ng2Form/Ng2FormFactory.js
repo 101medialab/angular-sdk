@@ -141,9 +141,7 @@ var Ng2FormFactory = (function () {
         if (current.formFactory && current.formFactory.objectDefinitions) {
             var i_1 = 0;
             current.formFactory.objectDefinitions.forEach(function (each) {
-                initChildren[i_1] = Ng2FormFactory.prepareAndCreateChildTemplateConfig({
-                    _mapping: each.structure
-                }, '', formBuilder);
+                initChildren[i_1] = Ng2FormFactory.prepareAndCreateChildTemplateConfig(each.structure, '', formBuilder, true);
                 result.childrenConfigName[i_1] = each.label;
                 i_1 += 1;
             });
@@ -232,6 +230,7 @@ var Ng2FormFactory = (function () {
             'expandOptions',
             'options',
             'option',
+            'hide',
             'renderType',
             'optionsTemplate',
             'arrayType'
