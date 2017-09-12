@@ -2,7 +2,7 @@
 let path = require('path'),
     webpack = require('webpack');
 
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -33,7 +33,7 @@ module.exports = {
             '$': 'jquery',
             'jQuery': 'jquery'
         }),
-        new CopyWebpackPlugin([ { from: './reusable/directives/templates', to: './reusable/directives/templates' } ], {}),
+        // new CopyWebpackPlugin([ { from: './reusable/directives/templates', to: './reusable/directives/templates' } ], {}),
     ],
     resolve: {
         modules: [

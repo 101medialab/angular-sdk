@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { FileDropDirective } from 'ng2-file-upload/file-upload/file-drop.directive';
 import { FileSelectDirective } from 'ng2-file-upload/file-upload/file-select.directive';
 import { Angulartics2Module } from 'angulartics2';
-import { CanDeactivateGuard, BackToTop, EmitWhenViewportChanges, HbClass, HbHeightModifier, HbPerfectScroll, HbTooltip, ProfileSelectize, ScrollToWhen, Selectize, HbFormArray, HbFormObject, HbFormWidget, Backdrop, JSONEditorComponent, UploaderComponent, ShareButton, LogoutComponent, HbFlickity, HbCollectionFlickity, HbFlickityNav, Default, Asset, Photon, Values, MapToIterable, BaseDIContainer, DummyDIContainer, Status, Config } from '../index';
+import { CanDeactivateGuard, BackToTop, EmitWhenViewportChanges, HbClass, HbHeightModifier, HbPerfectScroll, HbTooltip, ProfileSelectize, ScrollToWhen, Selectize, Backdrop, JSONEditorComponent, UploaderComponent, ShareButton, LogoutComponent, HbFlickity, HbCollectionFlickity, HbFlickityNav, Default, Asset, Photon, Values, MapToIterable, BaseDIContainer, DummyDIContainer, Status, Config } from '../index';
 export function DummyDIContainerFactory(baseDIContainer, config, status) {
     return new DummyDIContainer(baseDIContainer, config, status);
 }
@@ -22,9 +22,6 @@ var directivesAndPipes = [
     ProfileSelectize,
     ScrollToWhen,
     Selectize,
-    HbFormArray,
-    HbFormObject,
-    HbFormWidget,
     Backdrop,
     JSONEditorComponent,
     UploaderComponent,

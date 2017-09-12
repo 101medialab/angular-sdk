@@ -1,6 +1,6 @@
 {
   "name": "hb-ng2-sdk",
-  "version": "0.0.2-build0004",
+  "version": "0.0.2-build0005",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -28,6 +28,7 @@
     "@angular/core": "^4.3.3",
     "@angular/forms": "^4.3.3",
     "@angular/http": "^4.3.3",
+    "@angular/material": "^2.0.0-beta.10",
     "@angular/platform-browser": "^4.3.3",
     "@angular/platform-browser-dynamic": "^4.3.3",
     "@angular/platform-server": "^4.3.3",
@@ -81,7 +82,9 @@
     "url": "git://github.com/101medialab/angular2-sdk.git"
   },
   "jest": {
-    "testPathIgnorePatterns": ["/dist/"],
+    "testPathIgnorePatterns": [
+      "/dist/"
+    ],
     "preset": "jest-preset-angular",
     "setupTestFrameworkScriptFile": "<rootDir>/node_modules/jest-preset-angular/setupJest.js",
     "globals": {

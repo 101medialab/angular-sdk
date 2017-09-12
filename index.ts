@@ -14,9 +14,6 @@ export * from './HbComponent/SlideMenuComponent';
 export * from './reusable/directives/BackToTop';
 export * from './reusable/directives/EmitWhenViewportChanges';
 export * from './reusable/directives/HbClass';
-export * from './reusable/directives/HbFormArray';
-export * from './reusable/directives/HbFormObject';
-export * from './reusable/directives/HbFormWidget';
 export * from './reusable/directives/HbHeightModifier';
 export * from './reusable/directives/HbPerfectScroll';
 export * from './reusable/directives/HbTooltip';
@@ -46,7 +43,6 @@ export * from './reusable/modules/status.svc';
 export * from './reusable/mixin/ProfileSearchMixin';
 export * from './reusable/Mixin';
 
-export * from './reusable/ng2Form/Ng2FormFactory';
 export * from './reusable/pipe/Asset';
 export * from './reusable/pipe/Default';
 export * from './reusable/pipe/MapToIterable';

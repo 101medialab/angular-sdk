@@ -22,10 +22,6 @@ import {
     ScrollToWhen,
     Selectize,
 
-    HbFormArray,
-    HbFormObject,
-    HbFormWidget,
-
     Backdrop,
     JSONEditorComponent,
     UploaderComponent,
@@ -66,10 +62,6 @@ let directivesAndPipes = [
         ProfileSelectize,
         ScrollToWhen,
         Selectize,
-
-        HbFormArray,
-        HbFormObject,
-        HbFormWidget,
 
         Backdrop,
         JSONEditorComponent,
