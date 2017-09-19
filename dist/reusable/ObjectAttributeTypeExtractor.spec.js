@@ -1,28 +1,28 @@
 import 'jest';
 import { NonPrimitiveTypeMeta, ObjectAttributeTypeExtractor as Extractor, PrimitiveTypeMeta } from './ObjectAttributeTypeExtractor';
-export var expectedMapping = {
+export var expectedMapping = new NonPrimitiveTypeMeta('object', {
     "anyAttributeName": new PrimitiveTypeMeta(null),
     "booleanAttributeName": new PrimitiveTypeMeta(true),
     "dateAttributeName": new NonPrimitiveTypeMeta('date', null, new Date('2017-08-24')),
-    "objectArrayAttributeName": new NonPrimitiveTypeMeta('array', {
+    "objectArrayAttributeName": new NonPrimitiveTypeMeta('array', new NonPrimitiveTypeMeta("object", {
         "anyAttributeName": new PrimitiveTypeMeta(null),
         "booleanAttributeName": new PrimitiveTypeMeta(true),
         "dateAttributeName": new NonPrimitiveTypeMeta('date', null, new Date('2017-08-24')),
-        "objectArrayAttributeName": new NonPrimitiveTypeMeta("array", {
+        "objectArrayAttributeName": new NonPrimitiveTypeMeta("array", new NonPrimitiveTypeMeta("object", {
             "attr1": new PrimitiveTypeMeta(1)
-        }),
+        })),
         "objectAttributeName": new NonPrimitiveTypeMeta("object", {
             "attr1": new PrimitiveTypeMeta(1)
         }),
         "primitiveArrayAttributeName": new NonPrimitiveTypeMeta('array', new PrimitiveTypeMeta(1)),
         "stringAttributeName": new PrimitiveTypeMeta("some characters")
-    }),
+    })),
     "objectAttributeName": new NonPrimitiveTypeMeta("object", {
         "attr1": new PrimitiveTypeMeta(1)
     }),
     "primitiveArrayAttributeName": new NonPrimitiveTypeMeta("array", new PrimitiveTypeMeta(1)),
     "stringAttributeName": new PrimitiveTypeMeta("some characters")
-};
+});
 describe('ObjectAttributeTypeExtractor.generateMapping', function () {
     it('should generate mapping for a mixed type object with nested object array', function () {
         expect(Extractor.generateMapping({

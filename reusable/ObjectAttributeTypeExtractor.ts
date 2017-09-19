@@ -71,7 +71,7 @@ export class ObjectAttributeTypeExtractor {
 
         // input is an array, analyze the first cell only
         if (input instanceof Array) {
-            result = new NonPrimitiveTypeMeta(
+            mapping = new NonPrimitiveTypeMeta(
                 'array',
                 Extractor.generateMapping(input[0], options)
             );
@@ -109,10 +109,13 @@ export class ObjectAttributeTypeExtractor {
         }
 
         if (
-            typeof input === 'object' &&
-            !(input instanceof Date)
+            typeof input === 'object'
         ) {
-            result = new NonPrimitiveTypeMeta('object', mapping);
+            if (!(input instanceof Date) && !(input instanceof Array)) {
+                result = new NonPrimitiveTypeMeta('object', mapping);
+            } else {
+                result = mapping;
+            }
         } else {
             result = { mapping };
         }
@@ -142,16 +145,10 @@ export class ObjectAttributeTypeExtractor {
             let target = object[key];
             // For Primitive Array
             if (typeof target[0] !== 'object') {
-                resolvedMeta = new NonPrimitiveTypeMeta(
-                    'array',
-                    new PrimitiveTypeMeta(target[0])
-                );
+                resolvedMeta = new NonPrimitiveTypeMeta('array', new PrimitiveTypeMeta(target[0]));
             // For Object Array
             } else {
-                resolvedMeta = new NonPrimitiveTypeMeta(
-                    'array',
-                    Extractor.generateMapping(target, options)
-                );
+                resolvedMeta = Extractor.generateMapping(target, options);
             }
 
         // For Date
@@ -160,12 +157,7 @@ export class ObjectAttributeTypeExtractor {
 
         // For Object
         } else {
-            resolvedMeta = new NonPrimitiveTypeMeta(
-                'object',
-                Extractor.generateMapping(
-                    object[key], options
-                )
-            );
+            resolvedMeta = Extractor.generateMapping(object[key], options);
         }
 
         return resolvedMeta;

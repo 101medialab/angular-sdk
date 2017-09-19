@@ -88,7 +88,7 @@ var ObjectAttributeTypeExtractor = /** @class */ (function () {
         var result = null;
         // input is an array, analyze the first cell only
         if (input instanceof Array) {
-            result = new NonPrimitiveTypeMeta('array', Extractor.generateMapping(input[0], options));
+            mapping = new NonPrimitiveTypeMeta('array', Extractor.generateMapping(input[0], options));
         }
         else {
             // Analyze attributes inside input object
@@ -114,9 +114,13 @@ var ObjectAttributeTypeExtractor = /** @class */ (function () {
                 }
             }
         }
-        if (typeof input === 'object' &&
-            !(input instanceof Date)) {
-            result = new NonPrimitiveTypeMeta('object', mapping);
+        if (typeof input === 'object') {
+            if (!(input instanceof Date) && !(input instanceof Array)) {
+                result = new NonPrimitiveTypeMeta('object', mapping);
+            }
+            else {
+                result = mapping;
+            }
         }
         else {
             result = { mapping: mapping };
@@ -144,7 +148,7 @@ var ObjectAttributeTypeExtractor = /** @class */ (function () {
                 // For Object Array
             }
             else {
-                resolvedMeta = new NonPrimitiveTypeMeta('array', Extractor.generateMapping(target, options));
+                resolvedMeta = Extractor.generateMapping(target, options);
             }
             // For Date
         }
@@ -153,7 +157,7 @@ var ObjectAttributeTypeExtractor = /** @class */ (function () {
             // For Object
         }
         else {
-            resolvedMeta = new NonPrimitiveTypeMeta('object', Extractor.generateMapping(object[key], options));
+            resolvedMeta = Extractor.generateMapping(object[key], options);
         }
         return resolvedMeta;
     };
