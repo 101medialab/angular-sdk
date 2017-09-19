@@ -1,7 +1,7 @@
 import { NonPrimitiveTypeMeta, ObjectAttributeTypeExtractor as Extractor } from '../ObjectAttributeTypeExtractor';
 import * as JSONEditorTypes from './JSONEditorType';
 import 'json-editor/dist/jsoneditor.js';
-var JSONEditorFactory = (function () {
+var JSONEditorFactory = /** @class */ (function () {
     function JSONEditorFactory(_a) {
         var config = _a.config, schema = _a.schema, data = _a.data;
         this.config = {

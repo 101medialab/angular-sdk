@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EventDispatcher } from './EventDispatcher';
 import { BaseResource } from './BaseResource';
-var BaseStatus = (function () {
+var BaseStatus = /** @class */ (function () {
     function BaseStatus(_evtDispatcher, _resource) {
         if (_resource === void 0) { _resource = null; }
         this._evtDispatcher = _evtDispatcher;

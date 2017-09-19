@@ -1,5 +1,5 @@
 import { Pipe } from '@angular/core';
-var Values = (function () {
+var Values = /** @class */ (function () {
     function Values() {
     }
     Values.prototype.transform = function (value, args) {

@@ -1,4 +1,4 @@
-var HttpHeader = (function () {
+var HttpHeader = /** @class */ (function () {
     function HttpHeader(name, value) {
         this.name = name;
         this.value = value;

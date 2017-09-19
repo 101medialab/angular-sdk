@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var TypeMeta = (function () {
+var TypeMeta = /** @class */ (function () {
     function TypeMeta(_type) {
         this._type = _type;
     }
@@ -22,7 +22,7 @@ var TypeMeta = (function () {
     return TypeMeta;
 }());
 export { TypeMeta };
-var PrimitiveTypeMeta = (function (_super) {
+var PrimitiveTypeMeta = /** @class */ (function (_super) {
     __extends(PrimitiveTypeMeta, _super);
     function PrimitiveTypeMeta(_value) {
         var _this = _super.call(this, ([
@@ -43,7 +43,7 @@ var PrimitiveTypeMeta = (function (_super) {
     return PrimitiveTypeMeta;
 }(TypeMeta));
 export { PrimitiveTypeMeta };
-var NonPrimitiveTypeMeta = (function (_super) {
+var NonPrimitiveTypeMeta = /** @class */ (function (_super) {
     __extends(NonPrimitiveTypeMeta, _super);
     function NonPrimitiveTypeMeta(type, _mapping, // All attributes should be type of ExtractorResultType
         _value) {
@@ -71,11 +71,11 @@ var NonPrimitiveTypeMeta = (function (_super) {
     return NonPrimitiveTypeMeta;
 }(TypeMeta));
 export { NonPrimitiveTypeMeta };
-var OnOATResolvedId = Symbol('OnOATResolved');
+var OnOATResolvedSymbol = Symbol('OnOATResolved');
 export function OnOATResolved(cb) {
-    return Reflect.metadata(OnOATResolvedId, cb);
+    return Reflect.metadata(OnOATResolvedSymbol, cb);
 }
-var ObjectAttributeTypeExtractor = (function () {
+var ObjectAttributeTypeExtractor = /** @class */ (function () {
     function ObjectAttributeTypeExtractor() {
     }
     ObjectAttributeTypeExtractor.generateMapping = function (input, options) {
@@ -84,10 +84,11 @@ var ObjectAttributeTypeExtractor = (function () {
             keyNamingStrategy: 'camelCase',
             stripUnderscore: false
         }, options);
-        var result = {};
+        var mapping = {};
+        var result = null;
         // input is an array, analyze the first cell only
         if (input instanceof Array) {
-            return Extractor.generateMapping(input[0], options);
+            result = new NonPrimitiveTypeMeta('array', Extractor.generateMapping(input[0], options));
         }
         else {
             // Analyze attributes inside input object
@@ -102,16 +103,29 @@ var ObjectAttributeTypeExtractor = (function () {
                     else if (typeof input[key] !== 'function') {
                         resolvedMeta = new PrimitiveTypeMeta(input[key]);
                     }
-                    if (Reflect.hasMetadata(OnOATResolvedId, input, key)) {
-                        Reflect.getMetadata(OnOATResolvedId, input, key)(input, key, resolvedMeta);
+                    if (Reflect.hasMetadata(OnOATResolvedSymbol, input, key)) {
+                        Reflect.getMetadata(OnOATResolvedSymbol, input, key)(input, key, resolvedMeta);
                     }
                     else if (typeof options.onResolved === 'function') {
                         options.onResolved(input, key, resolvedMeta);
                     }
                     // Finished, set resolved attribute metadata to result
-                    result[Extractor.resolveAttributeKey(options, key, input)] = resolvedMeta;
+                    mapping[Extractor.resolveAttributeKey(options, key, input)] = resolvedMeta;
                 }
             }
+        }
+        if (typeof input === 'object' &&
+            !(input instanceof Date)) {
+            result = new NonPrimitiveTypeMeta('object', mapping);
+        }
+        else {
+            result = { mapping: mapping };
+        }
+        if (Reflect.hasMetadata(OnOATResolvedSymbol, result.constructor)) {
+            Reflect.getMetadata(OnOATResolvedSymbol, result.constructor)(result);
+        }
+        else if (typeof options.onResolved === 'function') {
+            options.onResolved(result);
         }
         return result;
     };

@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-var EventDispatcher = (function () {
+var EventDispatcher = /** @class */ (function () {
     function EventDispatcher() {
         this.emitters = new Map();
     }

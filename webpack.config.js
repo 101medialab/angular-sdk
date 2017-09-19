@@ -19,7 +19,7 @@ module.exports = {
             use: ['awesome-typescript-loader', 'angular2-template-loader']
         }, {
             test: /\.html$/,
-            use: 'raw-loader'
+            use: 'html-loader?minimize=false'
         }]
     },
     plugins: [
@@ -46,5 +46,5 @@ module.exports = {
         extensions: ['.ts', '.js']
     },
     stats: 'errors-only',
-    devtool: 'source-map'
+    devtool: false
 };

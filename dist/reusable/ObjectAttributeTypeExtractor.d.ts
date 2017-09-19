@@ -25,7 +25,7 @@ export declare class ObjectAttributeTypeExtractor {
     static generateMapping(input: any, options?: {
         keyNamingStrategy?: 'camelCase' | 'snake_case';
         stripUnderscore?: boolean;
-        onResolved?: (target: any, key: string, resolved: any) => void;
+        onResolved?: (target: any, key?: string, resolved?: any) => void;
     }): any;
     static generateObjectTypeMapping(object: any, key: any, options: any): any;
     static resolveAttributeKey(options: any, key: any, object: any): any;

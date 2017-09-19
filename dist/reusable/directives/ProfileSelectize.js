@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 import { Directive, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { setupProfileSelectize } from '../JSONEditor/plugin';
 import { Selectize } from './Selectize';
-var ProfileSelectize = (function (_super) {
+var ProfileSelectize = /** @class */ (function (_super) {
     __extends(ProfileSelectize, _super);
     function ProfileSelectize(el) {
         var _this = _super.call(this, el) || this;

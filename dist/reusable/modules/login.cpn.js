@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { BaseComponent } from '../../HbComponent/BaseComponent';
-var LoginComponent = (function (_super) {
+var LoginComponent = /** @class */ (function (_super) {
     __extends(LoginComponent, _super);
     function LoginComponent(status, router, authHttp, mainStatus) {
         var _this = _super.call(this, status) || this;

@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef } from '@angular/core';
 import { Status } from '../modules/status.svc';
-var HbClassConfig = (function () {
+var HbClassConfig = /** @class */ (function () {
     function HbClassConfig() {
         this.event = '';
         this.action = '';
@@ -12,7 +12,7 @@ var HbClassConfig = (function () {
 }());
 export { HbClassConfig };
 // TODO: isInitialized has not checked
-var HbClass = (function () {
+var HbClass = /** @class */ (function () {
     function HbClass(el, mainStatus) {
         this.el = el;
         this.mainStatus = mainStatus;

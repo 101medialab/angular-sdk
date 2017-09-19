@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef } from '@angular/core';
 import { EventDispatcher } from '../../HbComponent/EventDispatcher';
-var HbHeightModifier = (function () {
+var HbHeightModifier = /** @class */ (function () {
     function HbHeightModifier(el, eventDispatcher) {
         this.el = el;
         this.eventDispatcher = eventDispatcher;

@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Headers } from '@angular/http';
 import { ExtendedAuthHttp } from '../reusable/ExtendedAuthHttp';
 import { EventDispatcher } from './EventDispatcher';
-var BaseResource = (function () {
+var BaseResource = /** @class */ (function () {
     function BaseResource(http, _baseUrl, headers, eventDispatcher) {
         if (headers === void 0) { headers = []; }
         this.http = http;

@@ -1,6 +1,6 @@
 import { Pipe } from '@angular/core';
 import { Status } from '../modules/status.svc';
-var Photon = (function () {
+var Photon = /** @class */ (function () {
     function Photon() {
     }
     Photon.prototype.transform = function (path, args) {

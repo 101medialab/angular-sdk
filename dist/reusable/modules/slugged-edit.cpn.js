@@ -12,7 +12,7 @@ import { ProfileSearchMixin } from '../mixin/ProfileSearchMixin';
 import { applyMixins } from '../Mixin';
 import { SluggedIdvComponent } from './slugged-idv.cpn';
 import { EditComponent } from './edit.cpn';
-var SluggedEditComponent = (function (_super) {
+var SluggedEditComponent = /** @class */ (function (_super) {
     __extends(SluggedEditComponent, _super);
     function SluggedEditComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;

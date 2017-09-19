@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 import { SluggedEditComponent } from './slugged-edit.cpn';
 import { ObjectAttributeTypeExtractor } from '../ObjectAttributeTypeExtractor';
-var SluggedNewComponent = (function (_super) {
+var SluggedNewComponent = /** @class */ (function (_super) {
     __extends(SluggedNewComponent, _super);
     function SluggedNewComponent() {
         return _super !== null && _super.apply(this, arguments) || this;

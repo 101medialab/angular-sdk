@@ -1,7 +1,7 @@
 import { Directive, Input, ElementRef } from '@angular/core';
 import mountJQuery from 'perfect-scrollbar/src/js/adaptor/jquery.js';
 mountJQuery($);
-var HbPerfectScroll = (function () {
+var HbPerfectScroll = /** @class */ (function () {
     function HbPerfectScroll(elemRef) {
         this.options = {};
         this.$el = $(elemRef.nativeElement);

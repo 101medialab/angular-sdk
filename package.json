@@ -1,6 +1,6 @@
 {
-  "name": "hb-ng2-sdk",
-  "version": "0.0.2-build0005",
+  "name": "hb-ng-sdk",
+  "version": "0.0.2-build0006",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -87,14 +87,25 @@
     ],
     "preset": "jest-preset-angular",
     "setupTestFrameworkScriptFile": "<rootDir>/node_modules/jest-preset-angular/setupJest.js",
+    "transform": {
+      "^.+\\.(ts|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js",
+      "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest"
+    },
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "reusable/tsconfig.spec.json"
+        "tsConfigFile": "src/tsconfig.spec.json",
+        "useBabelrc": true
       },
       "__TRANSFORM_HTML__": true
     },
+    "moduleDirectories": [
+      "node_modules"
+    ],
     "moduleNameMapper": {
       "(.*)": "<rootDir>/reusable/$1"
-    }
+    },
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!hb-ng2-sdk)/"
+    ]
   }
 }

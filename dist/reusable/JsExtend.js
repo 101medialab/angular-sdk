@@ -1,5 +1,5 @@
 // Extend Native JS, skip if function name has been used.
-var JsExtend = (function () {
+var JsExtend = /** @class */ (function () {
     function JsExtend(extend, exportTo) {
         if (exportTo === void 0) { exportTo = window; }
         if (typeof extend !== 'object') {

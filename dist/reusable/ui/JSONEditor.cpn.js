@@ -1,7 +1,7 @@
 import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { ExtendedJSONEditorFactory as JSONEditorFactory } from '../JSONEditor/ExtendedJSONEditorFactory';
 import { ObjectAttributeTypeExtractor } from '../ObjectAttributeTypeExtractor';
-var JSONEditorComponent = (function () {
+var JSONEditorComponent = /** @class */ (function () {
     function JSONEditorComponent() {
         this.config = {};
         this.objectAttributeTypeExtractorOptions = {};

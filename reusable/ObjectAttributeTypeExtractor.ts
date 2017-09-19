@@ -46,10 +46,10 @@ export class NonPrimitiveTypeMeta extends TypeMeta {
 
 export type ExtractorResultType = NonPrimitiveTypeMeta | PrimitiveTypeMeta;
 
-const OnOATResolvedId = Symbol('OnOATResolved');
+const OnOATResolvedSymbol = Symbol('OnOATResolved');
 
 export function OnOATResolved(cb: (target: any, key: string, resolved: any) => void) {
-    return Reflect.metadata(OnOATResolvedId, cb);
+    return Reflect.metadata(OnOATResolvedSymbol, cb);
 }
 
 export class ObjectAttributeTypeExtractor {
@@ -58,7 +58,7 @@ export class ObjectAttributeTypeExtractor {
         options: {
             keyNamingStrategy?: 'camelCase' | 'snake_case',
             stripUnderscore?: boolean,
-            onResolved?: (target: any, key: string, resolved: any) => void
+            onResolved?: (target: any, key?: string, resolved?: any) => void
         } = {}
     ): any {
         options = Object.assign({
@@ -66,11 +66,15 @@ export class ObjectAttributeTypeExtractor {
             stripUnderscore: false
         }, options);
 
-        let result: any = {};
+        let mapping: any = {};
+        let result: any = null;
 
         // input is an array, analyze the first cell only
         if (input instanceof Array) {
-            return Extractor.generateMapping(input[0], options);
+            result = new NonPrimitiveTypeMeta(
+                'array',
+                Extractor.generateMapping(input[0], options)
+            );
         } else {
             // Analyze attributes inside input object
             for (let key in input) {
@@ -86,9 +90,9 @@ export class ObjectAttributeTypeExtractor {
                         resolvedMeta = new PrimitiveTypeMeta(input[key]);
                     }
 
-                    if (Reflect.hasMetadata(OnOATResolvedId, input, key)) {
+                    if (Reflect.hasMetadata(OnOATResolvedSymbol, input, key)) {
                         Reflect.getMetadata(
-                            OnOATResolvedId, input, key
+                            OnOATResolvedSymbol, input, key
                         )(
                             input, key, resolvedMeta
                         );
@@ -97,14 +101,33 @@ export class ObjectAttributeTypeExtractor {
                     }
 
                     // Finished, set resolved attribute metadata to result
-                    result[
+                    mapping[
                         Extractor.resolveAttributeKey(options, key, input)
                     ] = resolvedMeta;
                 }
             }
         }
 
-        return result;
+        if (
+            typeof input === 'object' &&
+            !(input instanceof Date)
+        ) {
+            result = new NonPrimitiveTypeMeta('object', mapping);
+        } else {
+            result = { mapping };
+        }
+
+        if (Reflect.hasMetadata(OnOATResolvedSymbol, result.constructor)) {
+            Reflect.getMetadata(
+                OnOATResolvedSymbol, result.constructor
+            )(
+                result
+            );
+        } else if (typeof options.onResolved === 'function') {
+            options.onResolved(result);
+        }
+
+        return result
     }
 
     static generateObjectTypeMapping(object: any, key, options: any) {

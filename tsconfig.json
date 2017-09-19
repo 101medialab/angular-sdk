@@ -3,8 +3,8 @@
     "buildOnSave": false,
     "compilerOptions": {
         "baseUrl": "./",
-        "target": "es5",
-        "module": "es2015",
+        "target": "ES5",
+        "module": "ES2015",
         "moduleResolution": "node",
         "declaration": true,
         "noImplicitAny": false,
@@ -40,5 +40,9 @@
         "genDir": "./dist",
         "skipMetadataEmit" : false,
         "entryModule": "./reusable/CommonModule#CommonModule"
+    },
+    "awesomeTypescriptLoaderOptions": {
+        "useBabel": true,
+        "useCache": true
     }
 }

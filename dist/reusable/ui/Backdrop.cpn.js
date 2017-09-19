@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-var Backdrop = (function () {
+var Backdrop = /** @class */ (function () {
     function Backdrop() {
         this.mode = 'screen';
     }

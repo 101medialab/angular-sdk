@@ -12,7 +12,7 @@ import URI from 'urijs';
 import { BaseResourceComponent } from '../../HbComponent/BaseResourceComponent';
 import { Debounce } from '../Debounce';
 import { NavItem } from '../../HbComponent/NavItem';
-var MainComponent = (function (_super) {
+var MainComponent = /** @class */ (function (_super) {
     __extends(MainComponent, _super);
     function MainComponent(criteriaNames, defaultCriteria, diContainer, activatedRoute) {
         if (criteriaNames === void 0) { criteriaNames = []; }
