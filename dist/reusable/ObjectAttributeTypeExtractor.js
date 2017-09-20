@@ -126,10 +126,10 @@ var ObjectAttributeTypeExtractor = /** @class */ (function () {
             result = { mapping: mapping };
         }
         if (Reflect.hasMetadata(OnOATResolvedSymbol, result.constructor)) {
-            Reflect.getMetadata(OnOATResolvedSymbol, result.constructor)(result);
+            Reflect.getMetadata(OnOATResolvedSymbol, result.constructor)(input, null, result);
         }
         else if (typeof options.onResolved === 'function') {
-            options.onResolved(result);
+            options.onResolved(input, null, result);
         }
         return result;
     };

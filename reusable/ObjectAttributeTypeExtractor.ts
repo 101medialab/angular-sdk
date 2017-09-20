@@ -120,14 +120,14 @@ export class ObjectAttributeTypeExtractor {
             result = { mapping };
         }
 
-        if (Reflect.hasMetadata(OnOATResolvedSymbol, result.constructor)) {
+        if (Reflect.hasMetadata(OnOATResolvedSymbol, input.constructor)) {
             Reflect.getMetadata(
-                OnOATResolvedSymbol, result.constructor
+                OnOATResolvedSymbol, input.constructor
             )(
-                result
+                input.constructor, null, result
             );
         } else if (typeof options.onResolved === 'function') {
-            options.onResolved(result);
+            options.onResolved(input, null, result);
         }
 
         return result
