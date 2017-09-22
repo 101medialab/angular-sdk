@@ -10,4 +10,8 @@ export class BaseClass {
     isDefinedNotNull(obj) {
         return BaseClass.isDefinedNotNull(obj);
     }
+
+    typeof(obj) {
+        return typeof obj;
+    }
 }

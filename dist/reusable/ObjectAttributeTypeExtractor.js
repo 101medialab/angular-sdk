@@ -125,8 +125,8 @@ var ObjectAttributeTypeExtractor = /** @class */ (function () {
         else {
             result = { mapping: mapping };
         }
-        if (Reflect.hasMetadata(OnOATResolvedSymbol, result.constructor)) {
-            Reflect.getMetadata(OnOATResolvedSymbol, result.constructor)(input, null, result);
+        if (Reflect.hasMetadata(OnOATResolvedSymbol, input.constructor)) {
+            Reflect.getMetadata(OnOATResolvedSymbol, input.constructor)(input.constructor, null, result);
         }
         else if (typeof options.onResolved === 'function') {
             options.onResolved(input, null, result);

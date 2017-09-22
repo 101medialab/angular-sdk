@@ -10,6 +10,9 @@ var BaseClass = /** @class */ (function () {
     BaseClass.prototype.isDefinedNotNull = function (obj) {
         return BaseClass.isDefinedNotNull(obj);
     };
+    BaseClass.prototype.typeof = function (obj) {
+        return typeof obj;
+    };
     return BaseClass;
 }());
 export { BaseClass };

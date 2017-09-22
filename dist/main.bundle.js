@@ -45728,8 +45728,8 @@ var ObjectAttributeTypeExtractor = /** @class */function () {
         } else {
             result = { mapping: mapping };
         }
-        if (Reflect.hasMetadata(OnOATResolvedSymbol, result.constructor)) {
-            Reflect.getMetadata(OnOATResolvedSymbol, result.constructor)(input, null, result);
+        if (Reflect.hasMetadata(OnOATResolvedSymbol, input.constructor)) {
+            Reflect.getMetadata(OnOATResolvedSymbol, input.constructor)(input.constructor, null, result);
         } else if (typeof options.onResolved === 'function') {
             options.onResolved(input, null, result);
         }
@@ -47834,6 +47834,9 @@ exports.HttpHeader = HttpHeader;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var BaseClass = /** @class */function () {
     function BaseClass() {}
     BaseClass.prototype.log = function () {
@@ -47844,6 +47847,9 @@ var BaseClass = /** @class */function () {
     };
     BaseClass.prototype.isDefinedNotNull = function (obj) {
         return BaseClass.isDefinedNotNull(obj);
+    };
+    BaseClass.prototype.typeof = function (obj) {
+        return typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
     };
     return BaseClass;
 }();
