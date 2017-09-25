@@ -75,7 +75,7 @@ export class BaseResource {
         }
     }
 
-    get(url: string, headers: Array<HttpHeader> = [], forceReload: boolean = false, noLoadingScreen = false) {
+    get(url: string, headers: Array<HttpHeader> = [], forceReload: boolean = false, noLoadingScreen = false): any {
         let reqHeaders = this.extendBaseHeader(headers),
             requestUrl = this._baseUrl + url;
 
@@ -132,11 +132,11 @@ export class BaseResource {
         });
     }
 
-    post(url: string, body: any | '', headers: Array<HttpHeader> = []) {
+    post(url: string, body: any | '', headers: Array<HttpHeader> = []): any {
         return this.send('post', url, body, headers);
     }
 
-    send(action: string, url: string, body: any | '', headers: Array<HttpHeader> = [], skipJSONConverting = false) {
+    send(action: string, url: string, body: any | '', headers: Array<HttpHeader> = [], skipJSONConverting = false): any {
         let reqHeaders = this.extendBaseHeader(headers),
             reqBody = typeof body === 'object' ? JSON.stringify(body) : body;
 
@@ -156,6 +156,9 @@ export class BaseResource {
                             this.currentLoading.delete(url);
 
                             resolve(res);
+                        },
+                        (error) => {
+                            reject(error);
                         }
                     );
 

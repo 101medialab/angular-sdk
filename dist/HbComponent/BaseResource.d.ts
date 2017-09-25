@@ -19,9 +19,9 @@ export declare class BaseResource {
     isCancelIfLoading: boolean;
     isLoading(): boolean;
     cancelIfLoading(url: string): void;
-    get(url: string, headers?: Array<HttpHeader>, forceReload?: boolean, noLoadingScreen?: boolean): Promise<{}>;
-    post(url: string, body: any | '', headers?: Array<HttpHeader>): Promise<{}>;
-    send(action: string, url: string, body: any | '', headers?: Array<HttpHeader>, skipJSONConverting?: boolean): Promise<{}>;
+    get(url: string, headers?: Array<HttpHeader>, forceReload?: boolean, noLoadingScreen?: boolean): any;
+    post(url: string, body: any | '', headers?: Array<HttpHeader>): any;
+    send(action: string, url: string, body: any | '', headers?: Array<HttpHeader>, skipJSONConverting?: boolean): any;
     cancelAllCurrentLoading(): void;
     cancelCurrentLoading(url: any): void;
     private extendBaseHeader(headers);

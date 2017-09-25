@@ -46262,6 +46262,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.BaseResource = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _http = __webpack_require__(26);
@@ -46274,11 +46276,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param = undefined && undefined.__param || function (paramIndex, decorator) {
     return function (target, key) {
@@ -46325,20 +46328,20 @@ var BaseResource = /** @class */function () {
         return this;
     };
     Object.defineProperty(BaseResource.prototype, "baseUrl", {
-        get: function () {
+        get: function get() {
             return this._baseUrl;
         },
-        set: function (value) {
+        set: function set(value) {
             this._baseUrl = value;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BaseResource.prototype, "isCancelIfLoading", {
-        get: function () {
+        get: function get() {
             return this._isCancelIfLoading;
         },
-        set: function (value) {
+        set: function set(value) {
             this._isCancelIfLoading = value;
         },
         enumerable: true,
@@ -46412,7 +46415,7 @@ var BaseResource = /** @class */function () {
             skipJSONConverting = false;
         }
         var reqHeaders = this.extendBaseHeader(headers),
-            reqBody = typeof body === 'object' ? JSON.stringify(body) : body;
+            reqBody = (typeof body === "undefined" ? "undefined" : _typeof(body)) === 'object' ? JSON.stringify(body) : body;
         if (this.isCancelIfLoading) {
             this.cancelIfLoading(url);
         }
@@ -46423,6 +46426,8 @@ var BaseResource = /** @class */function () {
                 }
                 _this.currentLoading.delete(url);
                 resolve(res);
+            }, function (error) {
+                reject(error);
             });
             _this.currentLoading.set(url, { request: request, resolve: resolve, reject: reject });
         });

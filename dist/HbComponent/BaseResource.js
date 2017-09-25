@@ -121,6 +121,8 @@ var BaseResource = /** @class */ (function () {
                 }
                 _this.currentLoading.delete(url);
                 resolve(res);
+            }, function (error) {
+                reject(error);
             });
             _this.currentLoading.set(url, { request: request, resolve: resolve, reject: reject });
         });
