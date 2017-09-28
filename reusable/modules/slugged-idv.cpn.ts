@@ -29,16 +29,16 @@ export class SluggedIdvComponent extends IdvComponent {
                     category: 'From Homepage',
                     label:
                         from === 'trending' ?
-                        'Trending - Position ' + index :
+                            'Trending - Position ' + index :
                             from === 'featured' ?
-                            'Featured ' + this.domainConfig.getResourceName(true) :
-                            'Up & Coming'
+                                'Featured ' + this.domainConfig.getResourceName(true) :
+                                'Up & Coming'
                 });
             }
 
             if (typeof slug !== 'undefined') {
                 this.status.resource.get(
-                    '/' + this.resolveBaseUrl(slug), [], isForceReload
+                    this.resolveBaseUrl(slug), [], isForceReload
                 ).then((data) => {
                     this.data = this.setupData(
                         Object.assign({}, data)

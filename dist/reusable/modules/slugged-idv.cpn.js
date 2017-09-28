@@ -38,7 +38,7 @@ var SluggedIdvComponent = /** @class */ (function (_super) {
                 });
             }
             if (typeof slug !== 'undefined') {
-                _this.status.resource.get('/' + _this.resolveBaseUrl(slug), [], isForceReload).then(function (data) {
+                _this.status.resource.get(_this.resolveBaseUrl(slug), [], isForceReload).then(function (data) {
                     _this.data = _this.setupData(Object.assign({}, data));
                     _this.status.resource.isCancelIfLoading = true;
                     _this.state.isInitialized = true;

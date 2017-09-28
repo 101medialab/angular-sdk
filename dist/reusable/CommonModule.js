@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FileDropDirective } from 'ng2-file-upload/file-upload/file-drop.directive';
 import { FileSelectDirective } from 'ng2-file-upload/file-upload/file-select.directive';
-import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { CanDeactivateGuard, BackToTop, EmitWhenViewportChanges, HbClass, HbHeightModifier, HbPerfectScroll, HbTooltip, ProfileSelectize, ScrollToWhen, Selectize, Backdrop, JSONEditorComponent, UploaderComponent, ShareButton, LogoutComponent, HbFlickity, HbCollectionFlickity, HbFlickityNav, Default, Asset, Photon, Values, MapToIterable, BaseDIContainer, DummyDIContainer, Status, Config } from '../index';
 export function DummyDIContainerFactory(baseDIContainer, config, status) {
     return new DummyDIContainer(baseDIContainer, config, status);
@@ -48,7 +48,7 @@ var CommonModule = /** @class */ (function () {
                         HttpModule,
                         FormsModule,
                         ReactiveFormsModule,
-                        Angulartics2Module
+                        Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
                     ],
                     providers: [
                         BaseDIContainer, {

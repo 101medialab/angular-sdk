@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Status as MainStatus } from '../reusable/modules/status.svc';
-import { Angulartics2GoogleAnalytics } from 'angulartics2/dist/providers/ga/angulartics2-ga';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 export declare class BaseDIContainer {
     private _router;
     private _titleService;

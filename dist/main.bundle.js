@@ -277,7 +277,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__);
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -1073,7 +1073,7 @@ var Version = (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('4.3.6');
+var VERSION = new Version('4.4.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -5856,6 +5856,14 @@ var QueryList = (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * internal
+     * @return {?}
+     */
+    QueryList.prototype.destroy = function () {
+        this._emitter.complete();
+        this._emitter.unsubscribe();
+    };
     return QueryList;
 }());
 /**
@@ -5925,7 +5933,7 @@ var SystemJsNgModuleLoader = (function () {
         if (exportName === undefined) {
             exportName = 'default';
         }
-        return __webpack_require__(47)(module)
+        return __webpack_require__(48)(module)
             .then(function (module) { return module[exportName]; })
             .then(function (type) { return checkNotEmpty(type, module, exportName); })
             .then(function (type) { return _this._compiler.compileModuleAsync(type); });
@@ -5941,7 +5949,7 @@ var SystemJsNgModuleLoader = (function () {
             exportName = 'default';
             factoryClassSuffix = '';
         }
-        return __webpack_require__(47)(this._config.factoryPathPrefix + module + this._config.factoryPathSuffix)
+        return __webpack_require__(48)(this._config.factoryPathPrefix + module + this._config.factoryPathSuffix)
             .then(function (module) { return module[exportName + factoryClassSuffix]; })
             .then(function (factory) { return checkNotEmpty(factory, module, exportName); });
     };
@@ -12796,6 +12804,9 @@ function destroyViewNodes(view) {
         }
         else if (def.flags & 2 /* TypeText */) {
             ((view.renderer.destroyNode))(asTextData(view, i).renderText);
+        }
+        else if (def.flags & 67108864 /* TypeContentQuery */ || def.flags & 134217728 /* TypeViewQuery */) {
+            asQueryList(view, i).destroy();
         }
     }
 }
@@ -25668,17 +25679,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.EventDispatcher = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var EventDispatcher = /** @class */function () {
@@ -25738,6 +25752,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Status = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _BaseStatus = __webpack_require__(50);
@@ -25758,7 +25774,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -25772,11 +25790,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var Status = /** @class */function (_super) {
@@ -25799,10 +25818,10 @@ var Status = /** @class */function (_super) {
     }
     Status_1 = Status;
     Object.defineProperty(Status.prototype, "isEditor", {
-        get: function () {
+        get: function get() {
             return this._isEditor;
         },
-        set: function (value) {
+        set: function set(value) {
             this._isEditor = value;
         },
         enumerable: true,
@@ -25868,21 +25887,21 @@ var Status = /** @class */function (_super) {
     Object.defineProperty(Status, "APP_ENV", {
         // Never use this static attribute to do anything normal user must not see.
         // All code compile and send to users, it is simple to exploit the application.
-        get: function () {
+        get: function get() {
             return Status_1.appEnv;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Status.prototype, "DEVICE_TYPE", {
-        get: function () {
+        get: function get() {
             return this.deviceType;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Status.prototype, "WIN_HEIGHT", {
-        get: function () {
+        get: function get() {
             return this.deviceHeight;
         },
         enumerable: true,
@@ -27518,7 +27537,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_rxjs_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21_rxjs_operator_filter__);
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -33771,7 +33790,7 @@ function provideRouterInitializer() {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["Version"]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["Version"]('4.4.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -33861,7 +33880,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -38268,7 +38287,7 @@ var By = (function () {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["Version"]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["Version"]('4.4.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -38314,7 +38333,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -38952,10 +38973,10 @@ var Bindable = /** @class */function () {
         this._value = _value;
     }
     Object.defineProperty(Bindable.prototype, "value", {
-        get: function () {
+        get: function get() {
             return this._value;
         },
-        set: function (value) {
+        set: function set(value) {
             this._value = value;
         },
         enumerable: true,
@@ -39172,7 +39193,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -43139,7 +43160,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.4.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -43218,7 +43239,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__(16);
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -45373,7 +45394,7 @@ JsonpModule.ctorParameters = function () { return []; };
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.4.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -45413,17 +45434,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ExtendedAuthHttp = exports.ExtendedAuthHttpConfig = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _http = __webpack_require__(26);
 
-var _angular2Jwt = __webpack_require__(99);
+var _angular2Jwt = __webpack_require__(98);
 
 var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -45437,11 +45462,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var ExtendedAuthHttpConfig = /** @class */function () {
@@ -45476,7 +45502,7 @@ var ExtendedAuthHttp = /** @class */function (_super) {
     __extends(ExtendedAuthHttp, _super);
     function ExtendedAuthHttp(extendedAuthHttpConfig, http, option) {
         var _this = _super.call(this, new _angular2Jwt.AuthConfig(Object.assign(extendedAuthHttpConfig.authHttpConfig, {
-            tokenGetter: function () {
+            tokenGetter: function tokenGetter() {
                 return _this.getToken();
             },
             noJwtError: true
@@ -46477,7 +46503,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -46626,7 +46654,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -47500,6 +47530,78 @@ module.exports = function(module) {
 
 /***/ }),
 /* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(0);
+var angulartics2_1 = __webpack_require__(4);
+var angulartics2On_1 = __webpack_require__(49);
+__export(__webpack_require__(4));
+__export(__webpack_require__(49));
+__export(__webpack_require__(104));
+exports.ANGULARTICS2_FORROOT_GUARD = new core_1.OpaqueToken('ANGULARTICS2_FORROOT_GUARD');
+function provideForRootGuard(angulartics2) {
+    if (angulartics2) {
+        throw new Error("Angulartics2Module.forRoot() called twice. Lazy loaded modules should use Angulartics2Module.forChild() instead.");
+    }
+    return 'guarded';
+}
+exports.provideForRootGuard = provideForRootGuard;
+var Angulartics2Module = Angulartics2Module_1 = (function () {
+    function Angulartics2Module(guard) {
+    }
+    Angulartics2Module.forRoot = function (providers) {
+        return {
+            ngModule: Angulartics2Module_1,
+            providers: [
+                {
+                    provide: exports.ANGULARTICS2_FORROOT_GUARD,
+                    useFactory: provideForRootGuard,
+                    deps: [[angulartics2_1.Angulartics2, new core_1.Optional(), new core_1.SkipSelf()]]
+                },
+                angulartics2_1.Angulartics2
+            ].concat(providers)
+        };
+    };
+    Angulartics2Module.forChild = function () {
+        return {
+            ngModule: Angulartics2Module_1,
+            providers: []
+        };
+    };
+    return Angulartics2Module;
+}());
+Angulartics2Module = Angulartics2Module_1 = __decorate([
+    core_1.NgModule({
+        declarations: [angulartics2On_1.Angulartics2On],
+        exports: [angulartics2On_1.Angulartics2On]
+    }),
+    __param(0, core_1.Optional()), __param(0, core_1.Inject(exports.ANGULARTICS2_FORROOT_GUARD)),
+    __metadata("design:paramtypes", [Object])
+], Angulartics2Module);
+exports.Angulartics2Module = Angulartics2Module;
+var Angulartics2Module_1;
+
+
+/***/ }),
+/* 48 */
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -47508,10 +47610,10 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 47;
+webpackEmptyAsyncContext.id = 48;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47587,144 +47689,6 @@ exports.Angulartics2On = Angulartics2On;
 
 
 /***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(0);
-var angulartics2_1 = __webpack_require__(4);
-var Angulartics2GoogleAnalytics = (function () {
-    function Angulartics2GoogleAnalytics(angulartics2) {
-        var _this = this;
-        this.angulartics2 = angulartics2;
-        this.angulartics2.settings.pageTracking.trackRelativePath = true;
-        this.angulartics2.settings.ga = {
-            additionalAccountNames: [],
-            userId: null
-        };
-        this.angulartics2.pageTrack.subscribe(function (x) { return _this.pageTrack(x.path); });
-        this.angulartics2.eventTrack.subscribe(function (x) { return _this.eventTrack(x.action, x.properties); });
-        this.angulartics2.exceptionTrack.subscribe(function (x) { return _this.exceptionTrack(x); });
-        this.angulartics2.setUsername.subscribe(function (x) { return _this.setUsername(x); });
-        this.angulartics2.setUserProperties.subscribe(function (x) { return _this.setUserProperties(x); });
-        this.angulartics2.userTimings.subscribe(function (x) { return _this.userTimings(x); });
-    }
-    Angulartics2GoogleAnalytics.prototype.pageTrack = function (path) {
-        if (typeof _gaq !== 'undefined' && _gaq) {
-            _gaq.push(['_trackPageview', path]);
-            for (var _i = 0, _a = this.angulartics2.settings.ga.additionalAccountNames; _i < _a.length; _i++) {
-                var accountName = _a[_i];
-                _gaq.push([accountName + '._trackPageview', path]);
-            }
-            ;
-        }
-        if (typeof ga !== 'undefined' && ga) {
-            if (this.angulartics2.settings.ga.userId) {
-                ga('set', '&uid', this.angulartics2.settings.ga.userId);
-            }
-            ga('send', 'pageview', path);
-            for (var _b = 0, _c = this.angulartics2.settings.ga.additionalAccountNames; _b < _c.length; _b++) {
-                var accountName = _c[_b];
-                ga(accountName + '.send', 'pageview', path);
-            }
-            ;
-        }
-    };
-    Angulartics2GoogleAnalytics.prototype.eventTrack = function (action, properties) {
-        if (!properties || !properties.category) {
-            properties = properties || {};
-            properties.category = 'Event';
-        }
-        if (properties.value) {
-            var parsed = parseInt(properties.value, 10);
-            properties.value = isNaN(parsed) ? 0 : parsed;
-        }
-        if (typeof ga !== 'undefined') {
-            var eventOptions = {
-                eventCategory: properties.category,
-                eventAction: action,
-                eventLabel: properties.label,
-                eventValue: properties.value,
-                nonInteraction: properties.noninteraction,
-                page: properties.page || location.hash.substring(1) || location.pathname,
-                userId: this.angulartics2.settings.ga.userId
-            };
-            this.setDimensionsAndMetrics(properties);
-            if (this.angulartics2.settings.ga.transport) {
-                ga('send', 'event', eventOptions, { transport: this.angulartics2.settings.ga.transport });
-            }
-            else {
-                ga('send', 'event', eventOptions);
-            }
-            for (var _i = 0, _a = this.angulartics2.settings.ga.additionalAccountNames; _i < _a.length; _i++) {
-                var accountName = _a[_i];
-                ga(accountName + '.send', 'event', eventOptions);
-            }
-        }
-        else if (typeof _gaq !== 'undefined') {
-            _gaq.push(['_trackEvent', properties.category, action, properties.label, properties.value, properties.noninteraction]);
-        }
-    };
-    Angulartics2GoogleAnalytics.prototype.exceptionTrack = function (properties) {
-        if (properties.fatal === undefined) {
-            console.log('No "fatal" provided, sending with fatal=true');
-            properties.fatal = true;
-        }
-        properties.exDescription = properties.description;
-        var eventOptions = {
-            exFatal: properties.fatal,
-            exDescription: properties.description
-        };
-        ga('send', 'exception', eventOptions);
-    };
-    Angulartics2GoogleAnalytics.prototype.setUsername = function (userId) {
-        this.angulartics2.settings.ga.userId = userId;
-    };
-    Angulartics2GoogleAnalytics.prototype.setUserProperties = function (properties) {
-        this.setDimensionsAndMetrics(properties);
-    };
-    Angulartics2GoogleAnalytics.prototype.userTimings = function (properties) {
-        if (!properties || !properties.timingCategory || !properties.timingVar || !properties.timingValue) {
-            console.error('Properties timingCategory, timingVar, and timingValue are required to be set.');
-            return;
-        }
-        if (ga) {
-            ga('send', 'timing', properties);
-        }
-    };
-    Angulartics2GoogleAnalytics.prototype.setDimensionsAndMetrics = function (properties) {
-        if (ga) {
-            for (var idx = 1; idx <= 200; idx++) {
-                if (properties['dimension' + idx.toString()]) {
-                    ga('set', 'dimension' + idx.toString(), properties['dimension' + idx.toString()]);
-                }
-                if (properties['metric' + idx.toString()]) {
-                    ga('set', 'metric' + idx.toString(), properties['metric' + idx.toString()]);
-                }
-            }
-        }
-    };
-    return Angulartics2GoogleAnalytics;
-}());
-Angulartics2GoogleAnalytics = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [angulartics2_1.Angulartics2])
-], Angulartics2GoogleAnalytics);
-exports.Angulartics2GoogleAnalytics = Angulartics2GoogleAnalytics;
-
-
-/***/ }),
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -47736,6 +47700,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.BaseStatus = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _EventDispatcher = __webpack_require__(6);
@@ -47746,11 +47712,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var BaseStatus = /** @class */function () {
@@ -47769,21 +47736,21 @@ var BaseStatus = /** @class */function () {
         this._current.username = null;
     };
     Object.defineProperty(BaseStatus.prototype, "current", {
-        get: function () {
+        get: function get() {
             return this._current;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BaseStatus.prototype, "evtDispatcher", {
-        get: function () {
+        get: function get() {
             return this._evtDispatcher;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BaseStatus.prototype, "resource", {
-        get: function () {
+        get: function get() {
             return this._resource;
         },
         enumerable: true,
@@ -47796,10 +47763,10 @@ var BaseStatus = /** @class */function () {
         return this.current.username;
     };
     Object.defineProperty(BaseStatus.prototype, "redirectToOnceLoggedIn", {
-        get: function () {
+        get: function get() {
             return this._redirectToOnceLoggedIn;
         },
-        set: function (value) {
+        set: function set(value) {
             this._redirectToOnceLoggedIn = value;
         },
         enumerable: true,
@@ -47871,6 +47838,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.CommonModule = undefined;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 exports.DummyDIContainerFactory = DummyDIContainerFactory;
 
 var _core = __webpack_require__(0);
@@ -47883,20 +47853,21 @@ var _router = __webpack_require__(15);
 
 var _http = __webpack_require__(26);
 
-var _fileDrop = __webpack_require__(97);
+var _fileDrop = __webpack_require__(96);
 
-var _fileSelect = __webpack_require__(98);
+var _fileSelect = __webpack_require__(97);
 
-var _angulartics = __webpack_require__(95);
+var _angulartics = __webpack_require__(47);
 
-var _index = __webpack_require__(96);
+var _index = __webpack_require__(95);
 
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 function DummyDIContainerFactory(baseDIContainer, config, status) {
     return new _index.DummyDIContainer(baseDIContainer, config, status);
@@ -47907,7 +47878,7 @@ _index.Default, _index.Asset, _index.Photon, _index.Values, _index.MapToIterable
 var CommonModule = /** @class */function () {
     function CommonModule() {}
     CommonModule = __decorate([(0, _core.NgModule)({
-        imports: [_common.CommonModule, _router.RouterModule, _http.HttpModule, _forms.FormsModule, _forms.ReactiveFormsModule, _angulartics.Angulartics2Module],
+        imports: [_common.CommonModule, _router.RouterModule, _http.HttpModule, _forms.FormsModule, _forms.ReactiveFormsModule, _angulartics.Angulartics2Module.forRoot([_angulartics.Angulartics2GoogleAnalytics])],
         providers: [_index.BaseDIContainer, {
             provide: _index.DummyDIContainer,
             useFactory: DummyDIContainerFactory,
@@ -47932,17 +47903,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Config = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param = undefined && undefined.__param || function (paramIndex, decorator) {
     return function (target, key) {
@@ -47968,21 +47942,21 @@ var Config = /** @class */function () {
         this._API_DOMAIN_URL = resourceName && resourceName != '' ? this.pluralResourceName : '';
     }
     Object.defineProperty(Config, "baseTemplateUrl", {
-        get: function () {
+        get: function get() {
             return '/bundles/hypebeastwiki/scripts/templates/';
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Config, "templateSuffix", {
-        get: function () {
+        get: function get() {
             return '.tpl.html';
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Config.prototype, "API_DOMAIN_URL", {
-        get: function () {
+        get: function get() {
             return this._API_DOMAIN_URL;
         },
         enumerable: true,
@@ -48053,7 +48027,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -48078,7 +48054,7 @@ var ExtendedJSONEditorFactory = /** @class */function (_super) {
         var editors = window.JSONEditor.defaults.editors,
             resolvers = window.JSONEditor.defaults.resolvers;
         editors.autocomplete = editors.string.extend({
-            build: function () {
+            build: function build() {
                 this._super();
                 if (this.schema.setup) {
                     this.schema.setup(this);
@@ -48086,7 +48062,7 @@ var ExtendedJSONEditorFactory = /** @class */function (_super) {
             }
         });
         editors.ckeditor = editors.string.extend({
-            build: function () {
+            build: function build() {
                 this._super();
                 if (this.schema.setup) {
                     this.schema.setup(this);
@@ -48214,7 +48190,7 @@ var JSONEditorFactory = /** @class */function () {
         return this;
     };
     Object.defineProperty(JSONEditorFactory.prototype, "instance", {
-        get: function () {
+        get: function get() {
             return this._instance;
         },
         enumerable: true,
@@ -48244,7 +48220,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -48432,14 +48410,14 @@ function setupProfileSelectize(input, options) {
         options: options.list,
         create: false,
         render: {
-            item: function (item, escape) {
-                return "\n                        <div>\n                            <span class=\"title\">\n                                <span class=\"name\">" + escape(item.name) + "</span>\n                                " + ('type' in item ? "<span class=\"type\">" + escape(item.type.capitalize()) + "</span>" : '') + "\n                            </span>\n                        </div>\n                    ";
+            item: function item(_item, escape) {
+                return "\n                        <div>\n                            <span class=\"title\">\n                                <span class=\"name\">" + escape(_item.name) + "</span>\n                                " + ('type' in _item ? "<span class=\"type\">" + escape(_item.type.capitalize()) + "</span>" : '') + "\n                            </span>\n                        </div>\n                    ";
             },
-            option: function (item, escape) {
+            option: function option(item, escape) {
                 return "\n                        <div>\n                            <span class=\"title\">\n                                <span class=\"name\">" + escape(item.name) + "</span>\n                                " + ('type' in item ? "<span class=\"type\">" + escape(item.type.capitalize()) + "</span>" : '') + "\n                            </span>\n                        </div>\n                    ";
             }
         },
-        load: function (query, callback) {
+        load: function load(query, callback) {
             if (!query.length) return callback();
             var instance = $el[0].selectize;
             options.resource.get((options.apiEndPoint ? options.apiEndPoint : '/search/by-name/') + query, [], true).then(function (result) {
@@ -48469,13 +48447,16 @@ function setupProfileSelectize(input, options) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 // Extend Native JS, skip if function name has been used.
 var JsExtend = /** @class */function () {
     function JsExtend(extend, exportTo) {
         if (exportTo === void 0) {
             exportTo = window;
         }
-        if (typeof extend !== 'object') {
+        if ((typeof extend === 'undefined' ? 'undefined' : _typeof(extend)) !== 'object') {
             console.error('JSExtend: First argument in constructor is not typeof object.');
             return;
         }
@@ -48541,6 +48522,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Selectize = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 __webpack_require__(88);
@@ -48549,11 +48532,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var Selectize = /** @class */function () {
@@ -48596,7 +48580,7 @@ Object.defineProperty(exports, "__esModule", {
 var ProfileSearchMixin = /** @class */function () {
     function ProfileSearchMixin() {}
     Object.defineProperty(ProfileSearchMixin, "fromSeparator", {
-        get: function () {
+        get: function get() {
             return '__type__';
         },
         enumerable: true,
@@ -48657,6 +48641,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Config = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _Config = __webpack_require__(54);
@@ -48667,7 +48653,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -48681,11 +48669,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param = undefined && undefined.__param || function (paramIndex, decorator) {
     return function (target, key) {
@@ -48714,35 +48703,35 @@ var Config = /** @class */function (_super) {
     }
     Config_1 = Config;
     Object.defineProperty(Config.prototype, "ROUTE_TYPE_MAIN", {
-        get: function () {
+        get: function get() {
             return 'main';
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Config.prototype, "ROUTE_TYPE_CREATE", {
-        get: function () {
+        get: function get() {
             return 'create';
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Config.prototype, "ROUTE_TYPE_LIST", {
-        get: function () {
+        get: function get() {
             return 'list';
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Config.prototype, "ROUTE_TYPE_VIEW", {
-        get: function () {
+        get: function get() {
             return 'view';
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Config.prototype, "ROUTE_TYPE_UPDATE", {
-        get: function () {
+        get: function get() {
             return 'update';
         },
         enumerable: true,
@@ -48792,7 +48781,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -48862,6 +48853,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Resource = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _ExtendedAuthHttp = __webpack_require__(27);
@@ -48878,7 +48871,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -48892,11 +48887,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var Resource = /** @class */function (_super) {
@@ -48938,7 +48934,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -49013,7 +49011,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -49050,7 +49050,7 @@ var SluggedIdvComponent = /** @class */function (_super) {
                 });
             }
             if (typeof slug !== 'undefined') {
-                _this.status.resource.get('/' + _this.resolveBaseUrl(slug), [], isForceReload).then(function (data) {
+                _this.status.resource.get(_this.resolveBaseUrl(slug), [], isForceReload).then(function (data) {
                     _this.data = _this.setupData(Object.assign({}, data));
                     _this.status.resource.isCancelIfLoading = true;
                     _this.state.isInitialized = true;
@@ -49090,6 +49090,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.HbFlickity = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _EventDispatcher = __webpack_require__(6);
@@ -49106,11 +49108,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param = undefined && undefined.__param || function (paramIndex, decorator) {
     return function (target, key) {
@@ -75200,7 +75203,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__ = __webpack_require__(16);
 
 /**
- * @license Angular v4.3.6
+ * @license Angular v4.4.3
  * (c) 2010-2017 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -79766,12 +79769,12 @@ var formControlBinding$1 = {
  * {\@link AbstractControl}.
  *
  * **Set the value**: You can pass in an initial value when instantiating the {\@link FormControl},
- * or you can set it programmatically later using {\@link AbstractControl#setValue} or
- * {\@link AbstractControl#patchValue}.
+ * or you can set it programmatically later using {\@link AbstractControl#setValue setValue} or
+ * {\@link AbstractControl#patchValue patchValue}.
  *
  * **Listen to value**: If you want to listen to changes in the value of the control, you can
- * subscribe to the {\@link AbstractControl#valueChanges} event.  You can also listen to
- * {\@link AbstractControl#statusChanges} to be notified when the validation status is
+ * subscribe to the {\@link AbstractControl#valueChanges valueChanges} event.  You can also listen to
+ * {\@link AbstractControl#statusChanges statusChanges} to be notified when the validation status is
  * re-calculated.
  *
  * ### Example
@@ -79916,12 +79919,13 @@ var formDirectiveProvider$1 = {
  *
  * **Set value**: You can set the form's initial value when instantiating the
  * {\@link FormGroup}, or you can set it programmatically later using the {\@link FormGroup}'s
- * {\@link AbstractControl#setValue} or {\@link AbstractControl#patchValue} methods.
+ * {\@link AbstractControl#setValue setValue} or {\@link AbstractControl#patchValue patchValue}
+ * methods.
  *
  * **Listen to value**: If you want to listen to changes in the value of the form, you can subscribe
- * to the {\@link FormGroup}'s {\@link AbstractControl#valueChanges} event.  You can also listen to
- * its {\@link AbstractControl#statusChanges} event to be notified when the validation status is
- * re-calculated.
+ * to the {\@link FormGroup}'s {\@link AbstractControl#valueChanges valueChanges} event.  You can also
+ * listen to its {\@link AbstractControl#statusChanges statusChanges} event to be notified when the
+ * validation status is re-calculated.
  *
  * Furthermore, you can listen to the directive's `ngSubmit` event to be notified when the user has
  * triggered a form submission. The `ngSubmit` event will be emitted with the original form
@@ -80204,11 +80208,11 @@ var formGroupNameProvider = {
  *
  * **Set the value**: You can set an initial value for each child control when instantiating
  * the {\@link FormGroup}, or you can set it programmatically later using
- * {\@link AbstractControl#setValue} or {\@link AbstractControl#patchValue}.
+ * {\@link AbstractControl#setValue setValue} or {\@link AbstractControl#patchValue patchValue}.
  *
  * **Listen to value**: If you want to listen to changes in the value of the group, you can
- * subscribe to the {\@link AbstractControl#valueChanges} event.  You can also listen to
- * {\@link AbstractControl#statusChanges} to be notified when the validation status is
+ * subscribe to the {\@link AbstractControl#valueChanges valueChanges} event.  You can also listen to
+ * {\@link AbstractControl#statusChanges statusChanges} to be notified when the validation status is
  * re-calculated.
  *
  * ### Example
@@ -80446,7 +80450,7 @@ var controlNameBinding = {
  * closest {\@link FormGroup} or {\@link FormArray} above it.
  *
  * **Access the control**: You can access the {\@link FormControl} associated with
- * this directive by using the {\@link AbstractControl#get} method.
+ * this directive by using the {\@link AbstractControl#get get} method.
  * Ex: `this.form.get('first');`
  *
  * **Get value**: the `value` property is always synced and available on the {\@link FormControl}.
@@ -80454,11 +80458,11 @@ var controlNameBinding = {
  *
  *  **Set value**: You can set an initial value for the control when instantiating the
  *  {\@link FormControl}, or you can set it programmatically later using
- *  {\@link AbstractControl#setValue} or {\@link AbstractControl#patchValue}.
+ *  {\@link AbstractControl#setValue setValue} or {\@link AbstractControl#patchValue patchValue}.
  *
  * **Listen to value**: If you want to listen to changes in the value of the control, you can
- * subscribe to the {\@link AbstractControl#valueChanges} event.  You can also listen to
- * {\@link AbstractControl#statusChanges} to be notified when the validation status is
+ * subscribe to the {\@link AbstractControl#valueChanges valueChanges} event.  You can also listen to
+ * {\@link AbstractControl#statusChanges statusChanges} to be notified when the validation status is
  * re-calculated.
  *
  * ### Example
@@ -81124,7 +81128,7 @@ FormBuilder.ctorParameters = function () { return []; };
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.3.6');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["Version"]('4.4.3');
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -81297,78 +81301,6 @@ ReactiveFormsModule.ctorParameters = function () { return []; };
 
 "use strict";
 
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(0);
-var angulartics2_1 = __webpack_require__(4);
-var angulartics2On_1 = __webpack_require__(48);
-__export(__webpack_require__(4));
-__export(__webpack_require__(48));
-__export(__webpack_require__(104));
-exports.ANGULARTICS2_FORROOT_GUARD = new core_1.OpaqueToken('ANGULARTICS2_FORROOT_GUARD');
-function provideForRootGuard(angulartics2) {
-    if (angulartics2) {
-        throw new Error("Angulartics2Module.forRoot() called twice. Lazy loaded modules should use Angulartics2Module.forChild() instead.");
-    }
-    return 'guarded';
-}
-exports.provideForRootGuard = provideForRootGuard;
-var Angulartics2Module = Angulartics2Module_1 = (function () {
-    function Angulartics2Module(guard) {
-    }
-    Angulartics2Module.forRoot = function (providers) {
-        return {
-            ngModule: Angulartics2Module_1,
-            providers: [
-                {
-                    provide: exports.ANGULARTICS2_FORROOT_GUARD,
-                    useFactory: provideForRootGuard,
-                    deps: [[angulartics2_1.Angulartics2, new core_1.Optional(), new core_1.SkipSelf()]]
-                },
-                angulartics2_1.Angulartics2
-            ].concat(providers)
-        };
-    };
-    Angulartics2Module.forChild = function () {
-        return {
-            ngModule: Angulartics2Module_1,
-            providers: []
-        };
-    };
-    return Angulartics2Module;
-}());
-Angulartics2Module = Angulartics2Module_1 = __decorate([
-    core_1.NgModule({
-        declarations: [angulartics2On_1.Angulartics2On],
-        exports: [angulartics2On_1.Angulartics2On]
-    }),
-    __param(0, core_1.Optional()), __param(0, core_1.Inject(exports.ANGULARTICS2_FORROOT_GUARD)),
-    __metadata("design:paramtypes", [Object])
-], Angulartics2Module);
-exports.Angulartics2Module = Angulartics2Module;
-var Angulartics2Module_1;
-
-
-/***/ }),
-/* 96 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -81380,7 +81312,7 @@ Object.keys(_BaseComponent).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _BaseComponent[key];
     }
   });
@@ -81392,7 +81324,7 @@ Object.keys(_BaseDIContainer).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _BaseDIContainer[key];
     }
   });
@@ -81404,7 +81336,7 @@ Object.keys(_BaseEventEmitter).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _BaseEventEmitter[key];
     }
   });
@@ -81414,7 +81346,7 @@ var _BaseResource = __webpack_require__(30);
 
 Object.defineProperty(exports, 'BaseResource', {
   enumerable: true,
-  get: function () {
+  get: function get() {
     return _BaseResource.BaseResource;
   }
 });
@@ -81425,7 +81357,7 @@ Object.keys(_BaseResourceComponent).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _BaseResourceComponent[key];
     }
   });
@@ -81437,7 +81369,7 @@ Object.keys(_BaseStatus).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _BaseStatus[key];
     }
   });
@@ -81449,7 +81381,7 @@ Object.keys(_CanActivateGuard).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _CanActivateGuard[key];
     }
   });
@@ -81461,7 +81393,7 @@ Object.keys(_CanDeactivateGuard).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _CanDeactivateGuard[key];
     }
   });
@@ -81473,7 +81405,7 @@ Object.keys(_EventDispatcher).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _EventDispatcher[key];
     }
   });
@@ -81485,7 +81417,7 @@ Object.keys(_HttpHeader).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _HttpHeader[key];
     }
   });
@@ -81497,7 +81429,7 @@ Object.keys(_NavItem).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _NavItem[key];
     }
   });
@@ -81509,7 +81441,7 @@ Object.keys(_SlideMenuComponent).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _SlideMenuComponent[key];
     }
   });
@@ -81521,7 +81453,7 @@ Object.keys(_BackToTop).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _BackToTop[key];
     }
   });
@@ -81533,7 +81465,7 @@ Object.keys(_EmitWhenViewportChanges).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _EmitWhenViewportChanges[key];
     }
   });
@@ -81545,7 +81477,7 @@ Object.keys(_HbClass).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _HbClass[key];
     }
   });
@@ -81557,7 +81489,7 @@ Object.keys(_HbHeightModifier).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _HbHeightModifier[key];
     }
   });
@@ -81569,7 +81501,7 @@ Object.keys(_HbPerfectScroll).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _HbPerfectScroll[key];
     }
   });
@@ -81581,7 +81513,7 @@ Object.keys(_HbTooltip).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _HbTooltip[key];
     }
   });
@@ -81593,7 +81525,7 @@ Object.keys(_ProfileSelectize).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _ProfileSelectize[key];
     }
   });
@@ -81605,7 +81537,7 @@ Object.keys(_ScrollToWhen).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _ScrollToWhen[key];
     }
   });
@@ -81617,7 +81549,7 @@ Object.keys(_Selectize).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _Selectize[key];
     }
   });
@@ -81629,7 +81561,7 @@ Object.keys(_ShareButton).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _ShareButton[key];
     }
   });
@@ -81641,7 +81573,7 @@ Object.keys(_ExtendedJSONEditorFactory).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _ExtendedJSONEditorFactory[key];
     }
   });
@@ -81653,7 +81585,7 @@ Object.keys(_JSONEditorFactory).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _JSONEditorFactory[key];
     }
   });
@@ -81665,7 +81597,7 @@ Object.keys(_JSONEditorType).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _JSONEditorType[key];
     }
   });
@@ -81677,7 +81609,7 @@ Object.keys(_plugin).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _plugin[key];
     }
   });
@@ -81689,7 +81621,7 @@ Object.keys(_Config).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _Config[key];
     }
   });
@@ -81701,7 +81633,7 @@ Object.keys(_DummyDIContainer).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _DummyDIContainer[key];
     }
   });
@@ -81713,7 +81645,7 @@ Object.keys(_edit).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _edit[key];
     }
   });
@@ -81725,7 +81657,7 @@ Object.keys(_idv).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _idv[key];
     }
   });
@@ -81737,7 +81669,7 @@ Object.keys(_login).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _login[key];
     }
   });
@@ -81749,7 +81681,7 @@ Object.keys(_logout).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _logout[key];
     }
   });
@@ -81761,7 +81693,7 @@ Object.keys(_main).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _main[key];
     }
   });
@@ -81773,7 +81705,7 @@ Object.keys(_resource).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _resource[key];
     }
   });
@@ -81785,7 +81717,7 @@ Object.keys(_sluggedEdit).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _sluggedEdit[key];
     }
   });
@@ -81797,7 +81729,7 @@ Object.keys(_sluggedIdv).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _sluggedIdv[key];
     }
   });
@@ -81809,7 +81741,7 @@ Object.keys(_sluggedNew).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _sluggedNew[key];
     }
   });
@@ -81821,7 +81753,7 @@ Object.keys(_status).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _status[key];
     }
   });
@@ -81833,7 +81765,7 @@ Object.keys(_ProfileSearchMixin).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _ProfileSearchMixin[key];
     }
   });
@@ -81845,7 +81777,7 @@ Object.keys(_Mixin).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _Mixin[key];
     }
   });
@@ -81857,7 +81789,7 @@ Object.keys(_Asset).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _Asset[key];
     }
   });
@@ -81869,7 +81801,7 @@ Object.keys(_Default).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _Default[key];
     }
   });
@@ -81881,7 +81813,7 @@ Object.keys(_MapToIterable).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _MapToIterable[key];
     }
   });
@@ -81893,7 +81825,7 @@ Object.keys(_Photon).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _Photon[key];
     }
   });
@@ -81905,7 +81837,7 @@ Object.keys(_Values).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _Values[key];
     }
   });
@@ -81917,7 +81849,7 @@ Object.keys(_Backdrop).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _Backdrop[key];
     }
   });
@@ -81929,7 +81861,7 @@ Object.keys(_HbCollectionFlickity).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _HbCollectionFlickity[key];
     }
   });
@@ -81941,7 +81873,7 @@ Object.keys(_HbFlickity).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _HbFlickity[key];
     }
   });
@@ -81953,7 +81885,7 @@ Object.keys(_HbFlickityNav).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _HbFlickityNav[key];
     }
   });
@@ -81965,7 +81897,7 @@ Object.keys(_JSONEditor).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _JSONEditor[key];
     }
   });
@@ -81977,7 +81909,7 @@ Object.keys(_Uploader).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _Uploader[key];
     }
   });
@@ -81989,7 +81921,7 @@ Object.keys(_BaseClass).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _BaseClass[key];
     }
   });
@@ -82001,7 +81933,7 @@ Object.keys(_Bindable).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _Bindable[key];
     }
   });
@@ -82013,7 +81945,7 @@ Object.keys(_CommonModule).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _CommonModule[key];
     }
   });
@@ -82023,7 +81955,7 @@ var _Config2 = __webpack_require__(54);
 
 Object.defineProperty(exports, 'BaseConfig', {
   enumerable: true,
-  get: function () {
+  get: function get() {
     return _Config2.Config;
   }
 });
@@ -82034,7 +81966,7 @@ Object.keys(_Debounce).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _Debounce[key];
     }
   });
@@ -82046,7 +81978,7 @@ Object.keys(_ExtendedAuthHttp).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _ExtendedAuthHttp[key];
     }
   });
@@ -82058,7 +81990,7 @@ Object.keys(_ExtendedFileUploader).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _ExtendedFileUploader[key];
     }
   });
@@ -82070,7 +82002,7 @@ Object.keys(_hbEsShim).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _hbEsShim[key];
     }
   });
@@ -82082,7 +82014,7 @@ Object.keys(_JsExtend).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _JsExtend[key];
     }
   });
@@ -82094,14 +82026,14 @@ Object.keys(_ObjectAttributeTypeExtractor).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   Object.defineProperty(exports, key, {
     enumerable: true,
-    get: function () {
+    get: function get() {
       return _ObjectAttributeTypeExtractor[key];
     }
   });
 });
 
 /***/ }),
-/* 97 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82220,7 +82152,7 @@ exports.FileDropDirective = FileDropDirective;
 
 
 /***/ }),
-/* 98 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82282,7 +82214,7 @@ exports.FileSelectDirective = FileSelectDirective;
 
 
 /***/ }),
-/* 99 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82650,7 +82582,7 @@ var AuthModule_1;
 //# sourceMappingURL=angular2-jwt.js.map
 
 /***/ }),
-/* 100 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82743,7 +82675,7 @@ exports.Angulartics2AppInsights = Angulartics2AppInsights;
 
 
 /***/ }),
-/* 101 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82807,7 +82739,7 @@ exports.Angulartics2BaiduAnalytics = Angulartics2BaiduAnalytics;
 
 
 /***/ }),
-/* 102 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82857,6 +82789,144 @@ Angulartics2Facebook = __decorate([
     __metadata("design:paramtypes", [angulartics2_1.Angulartics2])
 ], Angulartics2Facebook);
 exports.Angulartics2Facebook = Angulartics2Facebook;
+
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(0);
+var angulartics2_1 = __webpack_require__(4);
+var Angulartics2GoogleAnalytics = (function () {
+    function Angulartics2GoogleAnalytics(angulartics2) {
+        var _this = this;
+        this.angulartics2 = angulartics2;
+        this.angulartics2.settings.pageTracking.trackRelativePath = true;
+        this.angulartics2.settings.ga = {
+            additionalAccountNames: [],
+            userId: null
+        };
+        this.angulartics2.pageTrack.subscribe(function (x) { return _this.pageTrack(x.path); });
+        this.angulartics2.eventTrack.subscribe(function (x) { return _this.eventTrack(x.action, x.properties); });
+        this.angulartics2.exceptionTrack.subscribe(function (x) { return _this.exceptionTrack(x); });
+        this.angulartics2.setUsername.subscribe(function (x) { return _this.setUsername(x); });
+        this.angulartics2.setUserProperties.subscribe(function (x) { return _this.setUserProperties(x); });
+        this.angulartics2.userTimings.subscribe(function (x) { return _this.userTimings(x); });
+    }
+    Angulartics2GoogleAnalytics.prototype.pageTrack = function (path) {
+        if (typeof _gaq !== 'undefined' && _gaq) {
+            _gaq.push(['_trackPageview', path]);
+            for (var _i = 0, _a = this.angulartics2.settings.ga.additionalAccountNames; _i < _a.length; _i++) {
+                var accountName = _a[_i];
+                _gaq.push([accountName + '._trackPageview', path]);
+            }
+            ;
+        }
+        if (typeof ga !== 'undefined' && ga) {
+            if (this.angulartics2.settings.ga.userId) {
+                ga('set', '&uid', this.angulartics2.settings.ga.userId);
+            }
+            ga('send', 'pageview', path);
+            for (var _b = 0, _c = this.angulartics2.settings.ga.additionalAccountNames; _b < _c.length; _b++) {
+                var accountName = _c[_b];
+                ga(accountName + '.send', 'pageview', path);
+            }
+            ;
+        }
+    };
+    Angulartics2GoogleAnalytics.prototype.eventTrack = function (action, properties) {
+        if (!properties || !properties.category) {
+            properties = properties || {};
+            properties.category = 'Event';
+        }
+        if (properties.value) {
+            var parsed = parseInt(properties.value, 10);
+            properties.value = isNaN(parsed) ? 0 : parsed;
+        }
+        if (typeof ga !== 'undefined') {
+            var eventOptions = {
+                eventCategory: properties.category,
+                eventAction: action,
+                eventLabel: properties.label,
+                eventValue: properties.value,
+                nonInteraction: properties.noninteraction,
+                page: properties.page || location.hash.substring(1) || location.pathname,
+                userId: this.angulartics2.settings.ga.userId
+            };
+            this.setDimensionsAndMetrics(properties);
+            if (this.angulartics2.settings.ga.transport) {
+                ga('send', 'event', eventOptions, { transport: this.angulartics2.settings.ga.transport });
+            }
+            else {
+                ga('send', 'event', eventOptions);
+            }
+            for (var _i = 0, _a = this.angulartics2.settings.ga.additionalAccountNames; _i < _a.length; _i++) {
+                var accountName = _a[_i];
+                ga(accountName + '.send', 'event', eventOptions);
+            }
+        }
+        else if (typeof _gaq !== 'undefined') {
+            _gaq.push(['_trackEvent', properties.category, action, properties.label, properties.value, properties.noninteraction]);
+        }
+    };
+    Angulartics2GoogleAnalytics.prototype.exceptionTrack = function (properties) {
+        if (properties.fatal === undefined) {
+            console.log('No "fatal" provided, sending with fatal=true');
+            properties.fatal = true;
+        }
+        properties.exDescription = properties.description;
+        var eventOptions = {
+            exFatal: properties.fatal,
+            exDescription: properties.description
+        };
+        ga('send', 'exception', eventOptions);
+    };
+    Angulartics2GoogleAnalytics.prototype.setUsername = function (userId) {
+        this.angulartics2.settings.ga.userId = userId;
+    };
+    Angulartics2GoogleAnalytics.prototype.setUserProperties = function (properties) {
+        this.setDimensionsAndMetrics(properties);
+    };
+    Angulartics2GoogleAnalytics.prototype.userTimings = function (properties) {
+        if (!properties || !properties.timingCategory || !properties.timingVar || !properties.timingValue) {
+            console.error('Properties timingCategory, timingVar, and timingValue are required to be set.');
+            return;
+        }
+        if (ga) {
+            ga('send', 'timing', properties);
+        }
+    };
+    Angulartics2GoogleAnalytics.prototype.setDimensionsAndMetrics = function (properties) {
+        if (ga) {
+            for (var idx = 1; idx <= 200; idx++) {
+                if (properties['dimension' + idx.toString()]) {
+                    ga('set', 'dimension' + idx.toString(), properties['dimension' + idx.toString()]);
+                }
+                if (properties['metric' + idx.toString()]) {
+                    ga('set', 'metric' + idx.toString(), properties['metric' + idx.toString()]);
+                }
+            }
+        }
+    };
+    return Angulartics2GoogleAnalytics;
+}());
+Angulartics2GoogleAnalytics = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [angulartics2_1.Angulartics2])
+], Angulartics2GoogleAnalytics);
+exports.Angulartics2GoogleAnalytics = Angulartics2GoogleAnalytics;
 
 
 /***/ }),
@@ -82953,15 +83023,15 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(101));
-__export(__webpack_require__(49));
+__export(__webpack_require__(100));
+__export(__webpack_require__(102));
 __export(__webpack_require__(103));
 __export(__webpack_require__(105));
 __export(__webpack_require__(106));
 __export(__webpack_require__(107));
 __export(__webpack_require__(108));
-__export(__webpack_require__(102));
-__export(__webpack_require__(100));
+__export(__webpack_require__(101));
+__export(__webpack_require__(99));
 
 
 /***/ }),
@@ -83314,6 +83384,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.BaseDIContainer = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _router = __webpack_require__(15);
@@ -83322,17 +83394,18 @@ var _platformBrowser = __webpack_require__(16);
 
 var _status = __webpack_require__(7);
 
-var _angulartics2Ga = __webpack_require__(49);
+var _angulartics = __webpack_require__(47);
 
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var BaseDIContainer = /** @class */function () {
@@ -83343,34 +83416,34 @@ var BaseDIContainer = /** @class */function () {
         this._ngGA = ngGA;
     }
     Object.defineProperty(BaseDIContainer.prototype, "router", {
-        get: function () {
+        get: function get() {
             return this._router;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BaseDIContainer.prototype, "titleService", {
-        get: function () {
+        get: function get() {
             return this._titleService;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BaseDIContainer.prototype, "mainStatus", {
-        get: function () {
+        get: function get() {
             return this._mainStatus;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BaseDIContainer.prototype, "ngGA", {
-        get: function () {
+        get: function get() {
             return this._ngGA;
         },
         enumerable: true,
         configurable: true
     });
-    BaseDIContainer = __decorate([(0, _core.Injectable)(), __metadata("design:paramtypes", [_router.Router, _platformBrowser.Title, _status.Status, _angulartics2Ga.Angulartics2GoogleAnalytics])], BaseDIContainer);
+    BaseDIContainer = __decorate([(0, _core.Injectable)(), __metadata("design:paramtypes", [_router.Router, _platformBrowser.Title, _status.Status, _angulartics.Angulartics2GoogleAnalytics])], BaseDIContainer);
     return BaseDIContainer;
 }();
 exports.BaseDIContainer = BaseDIContainer;
@@ -83387,17 +83460,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.BaseEventEmitter = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param = undefined && undefined.__param || function (paramIndex, decorator) {
     return function (target, key) {
@@ -83411,7 +83487,7 @@ var BaseEventEmitter = /** @class */function () {
         this._emitter = new _core.EventEmitter();
     }
     Object.defineProperty(BaseEventEmitter.prototype, "emitter", {
-        get: function () {
+        get: function get() {
             return this._emitter;
         },
         enumerable: true,
@@ -83440,6 +83516,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.CanActivateGuard = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _router = __webpack_require__(15);
@@ -83450,11 +83528,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var CanActivateGuard = /** @class */function () {
@@ -83488,6 +83567,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.CanDeactivateGuard = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 // Copied from https://angular.io/docs/ts/latest/guide/router.html#!#can-deactivate-guard
@@ -83495,8 +83576,9 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
 var CanDeactivateGuard = /** @class */function () {
@@ -83529,7 +83611,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -83576,7 +83660,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -83609,17 +83695,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.BackToTop = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var BackToTop = /** @class */function () {
@@ -83660,6 +83749,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.EmitWhenViewportChanges = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _status = __webpack_require__(7);
@@ -83676,7 +83767,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -83690,11 +83783,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var EmitWhenViewportChanges = /** @class */function (_super) {
@@ -83780,6 +83874,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.HbClass = exports.HbClassConfig = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _status = __webpack_require__(7);
@@ -83788,11 +83884,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var HbClassConfig = /** @class */function () {
@@ -83925,6 +84022,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.HbHeightModifier = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _EventDispatcher = __webpack_require__(6);
@@ -83933,11 +84032,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var HbHeightModifier = /** @class */function () {
@@ -84006,6 +84106,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.HbPerfectScroll = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _jquery = __webpack_require__(156);
@@ -84018,11 +84120,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 (0, _jquery2.default)($);
@@ -84073,6 +84176,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.HbTooltip = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 __webpack_require__(140);
@@ -84081,11 +84186,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var HbTooltip = /** @class */function () {
@@ -84120,6 +84226,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ProfileSelectize = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _plugin = __webpack_require__(59);
@@ -84130,7 +84238,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -84144,11 +84254,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var ProfileSelectize = /** @class */function (_super) {
@@ -84165,7 +84276,7 @@ var ProfileSelectize = /** @class */function (_super) {
         this.instance = (0, _plugin.setupProfileSelectize)(this.$el, $.extend(true, this.options, {
             options: this.list,
             selectizeOptions: {
-                onChange: function (slug) {
+                onChange: function onChange(slug) {
                     _this.onChange.emit({ slug: slug, instance: _this.instance });
                 }
             }
@@ -84193,6 +84304,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ScrollToWhen = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _status = __webpack_require__(7);
@@ -84203,7 +84316,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -84217,11 +84332,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var ScrollToWhen = /** @class */function (_super) {
@@ -84278,17 +84394,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ShareButton = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var ShareButton = /** @class */function () {
@@ -84353,21 +84472,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.extended = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _JsExtend = __webpack_require__(60);
 
 var extended = exports.extended = new _JsExtend.JsExtend({
     Array: {
         prototype: {
-            prepend: function (elem) {
+            prepend: function prepend(elem) {
                 this.unshift(elem);
             },
-            contains: function (value) {
+            contains: function contains(value) {
                 for (var i = 0; i < this.length; i++) {
                     if (this[i] === value) return true;
                 }
                 return false;
             },
-            unique: function () {
+            unique: function unique() {
                 var arr = [];
                 for (var i = 0; i < this.length; i++) {
                     if (!arr.contains(this[i])) {
@@ -84379,8 +84500,8 @@ var extended = exports.extended = new _JsExtend.JsExtend({
         }
     },
     Math: {
-        slope: function (h, w) {
-            if (typeof h === 'object') {
+        slope: function slope(h, w) {
+            if ((typeof h === 'undefined' ? 'undefined' : _typeof(h)) === 'object') {
                 if ('width' in h && 'height' in h) {
                     return h.height / h.width;
                 } else {
@@ -84392,18 +84513,18 @@ var extended = exports.extended = new _JsExtend.JsExtend({
     },
     String: {
         prototype: {
-            capitalize: function () {
+            capitalize: function capitalize() {
                 return this.charAt(0).toUpperCase() + this.slice(1);
             },
-            toSnakecase: function () {
+            toSnakecase: function toSnakecase() {
                 return this.replace(/([A-Z]+)/g, "_$1").toLowerCase();
             },
-            toTitlecase: function () {
+            toTitlecase: function toTitlecase() {
                 return this.replace(/\w\S*/g, function (txt) {
                     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() + ' ';
                 }).trim();
             },
-            slugify: function () {
+            slugify: function slugify() {
                 return this.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
             }
         }
@@ -84418,7 +84539,7 @@ var extended = exports.extended = new _JsExtend.JsExtend({
                 return new Date(Date.parse(input));
             };
             // JS 1.8 gecko
-            var noOffset = function (input) {
+            var noOffset = function noOffset(input) {
                 if (input instanceof Date) {
                     return input.getTime();
                 }
@@ -84461,11 +84582,11 @@ var extended = exports.extended = new _JsExtend.JsExtend({
                 return NaN;
             };
         }(),
-        now: function () {
+        now: function now() {
             return new Date().getTime();
         },
         prototype: {
-            yyyymmdd: function (separator) {
+            yyyymmdd: function yyyymmdd(separator) {
                 var yyyy = this.getFullYear().toString(),
                     mm = (this.getMonth() + 1).toString(),
                     dd = this.getDate().toString();
@@ -84492,21 +84613,21 @@ var DummyDIContainer = /** @class */function () {
         this._status = status;
     }
     Object.defineProperty(DummyDIContainer.prototype, "baseDI", {
-        get: function () {
+        get: function get() {
             return this._baseDI;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(DummyDIContainer.prototype, "config", {
-        get: function () {
+        get: function get() {
             return this._config;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(DummyDIContainer.prototype, "status", {
-        get: function () {
+        get: function get() {
             return this._status;
         },
         enumerable: true,
@@ -84534,7 +84655,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -84614,6 +84737,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.LogoutComponent = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _router = __webpack_require__(15);
@@ -84624,11 +84749,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var LogoutComponent = /** @class */function () {
@@ -84664,6 +84790,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.MainComponent = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _urijs = __webpack_require__(214);
 
 var _urijs2 = _interopRequireDefault(_urijs);
@@ -84680,7 +84808,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -84829,7 +84959,7 @@ var MainComponent = /** @class */function (_super) {
             config = null;
         }
         var returnArgs = false;
-        if (typeof name === 'object') {
+        if ((typeof name === 'undefined' ? 'undefined' : _typeof(name)) === 'object') {
             config = name;
             returnArgs = true;
         }
@@ -84895,7 +85025,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -84942,6 +85074,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Asset = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _status = __webpack_require__(7);
@@ -84950,8 +85084,9 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
 var Asset = /** @class */function () {
@@ -84981,14 +85116,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Default = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
 var Default = /** @class */function () {
@@ -85018,14 +85156,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.MapToIterable = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
 var MapToIterable = /** @class */function () {
@@ -85058,6 +85199,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Photon = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _status = __webpack_require__(7);
@@ -85066,8 +85209,9 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
 var Photon = /** @class */function () {
@@ -85103,14 +85247,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Values = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
 var Values = /** @class */function () {
@@ -85142,6 +85289,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Backdrop = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _Bindable = __webpack_require__(21);
@@ -85150,11 +85299,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var Backdrop = /** @class */function () {
@@ -85183,6 +85333,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.HbCollectionFlickity = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _EventDispatcher = __webpack_require__(6);
@@ -85193,7 +85345,9 @@ var __extends = undefined && undefined.__extends || function () {
     var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
         d.__proto__ = b;
     } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) {
+            if (b.hasOwnProperty(p)) d[p] = b[p];
+        }
     };
     return function (d, b) {
         extendStatics(d, b);
@@ -85207,11 +85361,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param = undefined && undefined.__param || function (paramIndex, decorator) {
     return function (target, key) {
@@ -85271,6 +85426,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.HbFlickityNav = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _EventDispatcher = __webpack_require__(6);
@@ -85281,11 +85438,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param = undefined && undefined.__param || function (paramIndex, decorator) {
     return function (target, key) {
@@ -85368,6 +85526,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.JSONEditorComponent = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _ExtendedJSONEditorFactory = __webpack_require__(56);
@@ -85378,11 +85538,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var JSONEditorComponent = /** @class */function () {
@@ -85461,6 +85622,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.UploaderComponent = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _core = __webpack_require__(0);
 
 var _fileUploader = __webpack_require__(29);
@@ -85471,11 +85634,12 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
 var UploaderComponent = /** @class */function () {
