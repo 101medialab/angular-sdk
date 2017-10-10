@@ -1,8 +1,5 @@
 import {Directive, Input, ElementRef, OnChanges, OnDestroy} from '@angular/core';
-
-import mountJQuery from 'perfect-scrollbar/src/js/adaptor/jquery.js';
-
-mountJQuery($);
+import 'perfect-scrollbar';
 
 @Directive({
     selector: '[hb-perfect-scroll]'
