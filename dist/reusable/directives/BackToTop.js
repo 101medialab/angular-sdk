@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef } from '@angular/core';
-var BackToTop = /** @class */ (function () {
+var BackToTop = (function () {
     function BackToTop(el) {
         this.el = el;
         this.$el = $(this.el.nativeElement);
@@ -26,7 +26,7 @@ var BackToTop = /** @class */ (function () {
         { type: ElementRef, },
     ]; };
     BackToTop.propDecorators = {
-        'target': [{ type: Input, args: ['target',] },],
+        "target": [{ type: Input, args: ['target',] },],
     };
     return BackToTop;
 }());

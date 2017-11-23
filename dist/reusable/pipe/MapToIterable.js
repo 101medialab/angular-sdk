@@ -1,5 +1,5 @@
 import { Pipe } from "@angular/core";
-var MapToIterable = /** @class */ (function () {
+var MapToIterable = (function () {
     function MapToIterable() {
     }
     MapToIterable.prototype.transform = function (object) {

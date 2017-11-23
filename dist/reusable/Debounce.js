@@ -1,4 +1,4 @@
-var Debounce = /** @class */ (function () {
+var Debounce = (function () {
     function Debounce() {
         this.timer = 0;
     }

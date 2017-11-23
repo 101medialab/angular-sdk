@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { BaseComponent } from './BaseComponent';
-var BaseResourceComponent = /** @class */ (function (_super) {
+var BaseResourceComponent = (function (_super) {
     __extends(BaseResourceComponent, _super);
     function BaseResourceComponent(diContainer, activatedRoute) {
         var _this = _super.call(this, diContainer.baseDI.mainStatus) || this;

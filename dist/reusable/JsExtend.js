@@ -1,5 +1,7 @@
 // Extend Native JS, skip if function name has been used.
-var JsExtend = /** @class */ (function () {
+var 
+// Extend Native JS, skip if function name has been used.
+JsExtend = (function () {
     function JsExtend(extend, exportTo) {
         if (exportTo === void 0) { exportTo = window; }
         if (typeof extend !== 'object') {
@@ -26,5 +28,6 @@ var JsExtend = /** @class */ (function () {
     }
     return JsExtend;
 }());
+// Extend Native JS, skip if function name has been used.
 export { JsExtend };
 //# sourceMappingURL=JsExtend.js.map

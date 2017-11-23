@@ -8,10 +8,10 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import { Component, ViewChild, Input, Inject } from '@angular/core';
+import { Component, ViewChild, Input, ElementRef, Inject } from '@angular/core';
 import { EventDispatcher } from '../../HbComponent/EventDispatcher';
 import { HbFlickity } from './HbFlickity';
-var HbCollectionFlickity = /** @class */ (function (_super) {
+var HbCollectionFlickity = (function (_super) {
     __extends(HbCollectionFlickity, _super);
     function HbCollectionFlickity(eventDispatcher) {
         var _this = _super.call(this, eventDispatcher) || this;
@@ -51,8 +51,8 @@ var HbCollectionFlickity = /** @class */ (function (_super) {
         { type: EventDispatcher, decorators: [{ type: Inject, args: [EventDispatcher,] },] },
     ]; };
     HbCollectionFlickity.propDecorators = {
-        'options': [{ type: Input, args: ['options',] },],
-        'container': [{ type: ViewChild, args: ['container',] },],
+        "options": [{ type: Input, args: ['options',] },],
+        "container": [{ type: ViewChild, args: ['container',] },],
     };
     return HbCollectionFlickity;
 }(HbFlickity));

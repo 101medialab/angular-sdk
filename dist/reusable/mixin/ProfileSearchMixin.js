@@ -1,4 +1,4 @@
-var ProfileSearchMixin = /** @class */ (function () {
+var ProfileSearchMixin = (function () {
     function ProfileSearchMixin() {
     }
     Object.defineProperty(ProfileSearchMixin, "fromSeparator", {

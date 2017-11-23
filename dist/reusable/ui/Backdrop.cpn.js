@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-var Backdrop = /** @class */ (function () {
+import { Bindable } from '../Bindable';
+var Backdrop = (function () {
     function Backdrop() {
         this.mode = 'screen';
     }
@@ -12,8 +13,8 @@ var Backdrop = /** @class */ (function () {
     /** @nocollapse */
     Backdrop.ctorParameters = function () { return []; };
     Backdrop.propDecorators = {
-        'data': [{ type: Input, args: ['showWhen',] },],
-        'mode': [{ type: Input, args: ['mode',] },],
+        "data": [{ type: Input, args: ['showWhen',] },],
+        "mode": [{ type: Input, args: ['mode',] },],
     };
     return Backdrop;
 }());

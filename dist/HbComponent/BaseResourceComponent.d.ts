@@ -1,7 +1,7 @@
 import { OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { BaseComponent } from './BaseComponent';
 import { Status } from '../reusable/modules/status.svc';
 import { Config } from '../reusable/modules/Config';

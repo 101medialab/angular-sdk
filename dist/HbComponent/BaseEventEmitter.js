@@ -1,5 +1,5 @@
 import { EventEmitter, Inject, Injectable } from '@angular/core';
-var BaseEventEmitter = /** @class */ (function () {
+var BaseEventEmitter = (function () {
     function BaseEventEmitter(name) {
         this.name = name;
         this._emitter = new EventEmitter();

@@ -14,7 +14,7 @@ import { EventDispatcher } from '../../HbComponent/EventDispatcher';
 import { Resource } from './resource.svc';
 import { Bindable } from '../Bindable';
 import RxDOM from 'rx-dom';
-var Status = /** @class */ (function (_super) {
+var Status = (function (_super) {
     __extends(Status, _super);
     function Status(eventDispatcher, resource) {
         var _this = _super.call(this, eventDispatcher, resource) || this;
@@ -66,7 +66,27 @@ var Status = /** @class */ (function (_super) {
      *     }
      * }
      */
-    Status.prototype.setMetaData = function (attrs) {
+    /**
+         * Format:
+         * {
+         *     name: 'content'
+         *     name: {
+         *         attr1 : 'value1',
+         *         attr2 : 'value2'
+         *     }
+         * }
+         */
+    Status.prototype.setMetaData = /**
+         * Format:
+         * {
+         *     name: 'content'
+         *     name: {
+         *         attr1 : 'value1',
+         *         attr2 : 'value2'
+         *     }
+         * }
+         */
+    function (attrs) {
         for (var name_1 in attrs) {
             if (!(name_1 in this.$metas)) {
                 this.$metas[name_1] = this.$head.find('meta[name=' + name_1 + ']');
@@ -111,7 +131,10 @@ var Status = /** @class */ (function (_super) {
     Object.defineProperty(Status, "APP_ENV", {
         // Never use this static attribute to do anything normal user must not see.
         // All code compile and send to users, it is simple to exploit the application.
-        get: function () {
+        get: 
+        // Never use this static attribute to do anything normal user must not see.
+        // All code compile and send to users, it is simple to exploit the application.
+        function () {
             return Status.appEnv;
         },
         enumerable: true,

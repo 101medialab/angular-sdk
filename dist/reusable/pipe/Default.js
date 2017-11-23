@@ -1,5 +1,5 @@
 import { Pipe } from '@angular/core';
-var Default = /** @class */ (function () {
+var Default = (function () {
     function Default() {
     }
     Default.prototype.transform = function (value, args) {

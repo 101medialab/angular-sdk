@@ -1,11 +1,12 @@
 import { OnChanges } from '@angular/core';
+import { FileUploader } from 'ng2-file-upload/file-upload/file-uploader.class';
 import { ExtendedAuthHttp } from '../ExtendedAuthHttp';
 export declare class UploaderComponent implements OnChanges {
     private isInitializable;
     private baseUrl;
-    private title;
+    title: any;
     private uploadLimit;
-    private uploader;
+    uploader: FileUploader;
     private authToken;
     hasBaseDropZoneOver: boolean;
     constructor(authHttp: ExtendedAuthHttp);

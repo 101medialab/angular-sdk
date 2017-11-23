@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef } from '@angular/core';
-var ShareButton = /** @class */ (function () {
+var ShareButton = (function () {
     function ShareButton(el) {
         this.el = el;
     }
@@ -48,7 +48,7 @@ var ShareButton = /** @class */ (function () {
         { type: ElementRef, },
     ]; };
     ShareButton.propDecorators = {
-        'data': [{ type: Input, args: ['share-button',] },],
+        "data": [{ type: Input, args: ['share-button',] },],
     };
     return ShareButton;
 }());

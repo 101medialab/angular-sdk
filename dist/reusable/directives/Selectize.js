@@ -1,6 +1,6 @@
 import { Directive, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import 'selectize';
-var Selectize = /** @class */ (function () {
+var Selectize = (function () {
     function Selectize(el) {
         this.el = el;
         // Pathetically you cannot inherit EventEmitter, add it manually
@@ -27,8 +27,8 @@ var Selectize = /** @class */ (function () {
         { type: ElementRef, },
     ]; };
     Selectize.propDecorators = {
-        'options': [{ type: Input, args: ['selectize',] },],
-        'onChange': [{ type: Output, args: ['onChange',] },],
+        "options": [{ type: Input, args: ['selectize',] },],
+        "onChange": [{ type: Output, args: ['onChange',] },],
     };
     return Selectize;
 }());

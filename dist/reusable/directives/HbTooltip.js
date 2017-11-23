@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef } from '@angular/core';
 import 'bootstrap-sass/assets/javascripts/bootstrap/tooltip.js';
-var HbTooltip = /** @class */ (function () {
+var HbTooltip = (function () {
     function HbTooltip(el) {
         this.el = el;
         this.$el = $(this.el.nativeElement);
@@ -21,7 +21,7 @@ var HbTooltip = /** @class */ (function () {
         { type: ElementRef, },
     ]; };
     HbTooltip.propDecorators = {
-        'config': [{ type: Input, args: ['hb-tooltip',] },],
+        "config": [{ type: Input, args: ['hb-tooltip',] },],
     };
     return HbTooltip;
 }());

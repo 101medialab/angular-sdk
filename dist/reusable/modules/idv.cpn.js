@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { BaseResourceComponent } from '../../HbComponent/BaseResourceComponent';
-var IdvComponent = /** @class */ (function (_super) {
+var IdvComponent = (function (_super) {
     __extends(IdvComponent, _super);
     function IdvComponent(diContainer, activatedRoute) {
         var _this = _super.call(this, diContainer, activatedRoute) || this;

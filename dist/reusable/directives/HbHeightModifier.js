@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef } from '@angular/core';
 import { EventDispatcher } from '../../HbComponent/EventDispatcher';
-var HbHeightModifier = /** @class */ (function () {
+var HbHeightModifier = (function () {
     function HbHeightModifier(el, eventDispatcher) {
         this.el = el;
         this.eventDispatcher = eventDispatcher;
@@ -8,7 +8,10 @@ var HbHeightModifier = /** @class */ (function () {
         this.$el = $(this.el.nativeElement);
     }
     // TODO: Support namespace in this.config.name
-    HbHeightModifier.prototype.ngOnChanges = function (_a) {
+    // TODO: Support namespace in this.config.name
+    HbHeightModifier.prototype.ngOnChanges = 
+    // TODO: Support namespace in this.config.name
+    function (_a) {
         var _this = this;
         var config = _a.config;
         if (config.currentValue) {
@@ -58,7 +61,7 @@ var HbHeightModifier = /** @class */ (function () {
         { type: EventDispatcher, },
     ]; };
     HbHeightModifier.propDecorators = {
-        'config': [{ type: Input, args: ['hbHeightModifier',] },],
+        "config": [{ type: Input, args: ['hbHeightModifier',] },],
     };
     return HbHeightModifier;
 }());

@@ -1,7 +1,7 @@
-import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
 import { ExtendedJSONEditorFactory as JSONEditorFactory } from '../JSONEditor/ExtendedJSONEditorFactory';
 import { ObjectAttributeTypeExtractor } from '../ObjectAttributeTypeExtractor';
-var JSONEditorComponent = /** @class */ (function () {
+var JSONEditorComponent = (function () {
     function JSONEditorComponent() {
         this.config = {};
         this.objectAttributeTypeExtractorOptions = {};
@@ -56,16 +56,16 @@ var JSONEditorComponent = /** @class */ (function () {
     /** @nocollapse */
     JSONEditorComponent.ctorParameters = function () { return []; };
     JSONEditorComponent.propDecorators = {
-        'name': [{ type: Input, args: ['name',] },],
-        'config': [{ type: Input, args: ['config',] },],
-        'objectAttributeTypeExtractorOptions': [{ type: Input, args: ['objectAttributeTypeExtractorOptions',] },],
-        'schema': [{ type: Input, args: ['schema',] },],
-        'schemaData': [{ type: Input, args: ['schemaData',] },],
-        'schemaTransformer': [{ type: Input, args: ['schemaTransformer',] },],
-        'data': [{ type: Input, args: ['data',] },],
-        'isInitializable': [{ type: Input, args: ['isInitializable',] },],
-        'onSubmit': [{ type: Output, args: ['onSubmit',] },],
-        'container': [{ type: ViewChild, args: ['container',] },],
+        "name": [{ type: Input, args: ['name',] },],
+        "config": [{ type: Input, args: ['config',] },],
+        "objectAttributeTypeExtractorOptions": [{ type: Input, args: ['objectAttributeTypeExtractorOptions',] },],
+        "schema": [{ type: Input, args: ['schema',] },],
+        "schemaData": [{ type: Input, args: ['schemaData',] },],
+        "schemaTransformer": [{ type: Input, args: ['schemaTransformer',] },],
+        "data": [{ type: Input, args: ['data',] },],
+        "isInitializable": [{ type: Input, args: ['isInitializable',] },],
+        "onSubmit": [{ type: Output, args: ['onSubmit',] },],
+        "container": [{ type: ViewChild, args: ['container',] },],
     };
     return JSONEditorComponent;
 }());

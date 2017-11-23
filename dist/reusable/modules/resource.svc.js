@@ -14,7 +14,7 @@ import { EventDispatcher } from '../../HbComponent/EventDispatcher';
 import { BaseResource } from '../../HbComponent/BaseResource';
 import { HttpHeader } from '../../HbComponent/HttpHeader';
 import { Config } from './Config';
-var Resource = /** @class */ (function (_super) {
+var Resource = (function (_super) {
     __extends(Resource, _super);
     function Resource(http, config, eventDispatcher) {
         var _this = _super.call(this, http, config.API_DOMAIN_URL, [

@@ -12,7 +12,7 @@ import { Directive, Input, ElementRef } from '@angular/core';
 import { Status } from '../modules/status.svc';
 import { BaseComponent } from '../../HbComponent/BaseComponent';
 import * as RxDOM from 'rx-dom';
-var EmitWhenViewportChanges = /** @class */ (function (_super) {
+var EmitWhenViewportChanges = (function (_super) {
     __extends(EmitWhenViewportChanges, _super);
     function EmitWhenViewportChanges(status, el) {
         var _this = _super.call(this, status) || this;
@@ -81,7 +81,7 @@ var EmitWhenViewportChanges = /** @class */ (function (_super) {
         { type: ElementRef, },
     ]; };
     EmitWhenViewportChanges.propDecorators = {
-        'config': [{ type: Input, args: ['emitWhenViewportChanges',] },],
+        "config": [{ type: Input, args: ['emitWhenViewportChanges',] },],
     };
     return EmitWhenViewportChanges;
 }(BaseComponent));

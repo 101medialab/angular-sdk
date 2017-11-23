@@ -13,7 +13,7 @@ import {ObjectAttributeTypeExtractor} from '../ObjectAttributeTypeExtractor';
     `
 })
 export class JSONEditorComponent implements OnChanges {
-    @Input('name') private name: string;
+    @Input('name') public name: string;
     @Input('config') private config: any = {};
     @Input('objectAttributeTypeExtractorOptions') private objectAttributeTypeExtractorOptions: any = {};
     @Input('schema') private schema: any = {};

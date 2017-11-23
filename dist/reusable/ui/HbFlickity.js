@@ -1,8 +1,8 @@
-import { Component, ViewChild, Input, Inject } from '@angular/core';
+import { Component, ViewChild, Input, ElementRef, Inject } from '@angular/core';
 import { EventDispatcher } from '../../HbComponent/EventDispatcher';
 import Flickity from 'flickity/js/flickity.js';
 import 'flickity-bg-lazyload';
-var HbFlickity = /** @class */ (function () {
+var HbFlickity = (function () {
     function HbFlickity(eventDispatcher) {
         this.eventDispatcher = eventDispatcher;
         this.viewInitialized = false;
@@ -52,8 +52,8 @@ var HbFlickity = /** @class */ (function () {
         { type: EventDispatcher, decorators: [{ type: Inject, args: [EventDispatcher,] },] },
     ]; };
     HbFlickity.propDecorators = {
-        'container': [{ type: ViewChild, args: ['container',] },],
-        'options': [{ type: Input, args: ['options',] },],
+        "container": [{ type: ViewChild, args: ['container',] },],
+        "options": [{ type: Input, args: ['options',] },],
     };
     return HbFlickity;
 }());

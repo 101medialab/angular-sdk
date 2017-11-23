@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var JSONEditorType = /** @class */ (function () {
+var JSONEditorType = (function () {
     function JSONEditorType(type, title, config) {
         if (title === void 0) { title = ''; }
         if (config === void 0) { config = null; }
@@ -25,7 +25,7 @@ var JSONEditorType = /** @class */ (function () {
     return JSONEditorType;
 }());
 export { JSONEditorType };
-var StringType = /** @class */ (function (_super) {
+var StringType = (function (_super) {
     __extends(StringType, _super);
     function StringType(title, config) {
         if (config === void 0) { config = null; }
@@ -34,7 +34,7 @@ var StringType = /** @class */ (function (_super) {
     return StringType;
 }(JSONEditorType));
 export { StringType };
-var ObjectType = /** @class */ (function (_super) {
+var ObjectType = (function (_super) {
     __extends(ObjectType, _super);
     function ObjectType(title, properties, config) {
         if (properties === void 0) { properties = {}; }
@@ -46,7 +46,7 @@ var ObjectType = /** @class */ (function (_super) {
     return ObjectType;
 }(JSONEditorType));
 export { ObjectType };
-var ArrayType = /** @class */ (function (_super) {
+var ArrayType = (function (_super) {
     __extends(ArrayType, _super);
     function ArrayType(title, items, format, config) {
         if (items === void 0) { items = {}; }
@@ -60,7 +60,7 @@ var ArrayType = /** @class */ (function (_super) {
     return ArrayType;
 }(JSONEditorType));
 export { ArrayType };
-var BooleanType = /** @class */ (function (_super) {
+var BooleanType = (function (_super) {
     __extends(BooleanType, _super);
     function BooleanType(title, format, config) {
         if (format === void 0) { format = 'checkbox'; }
@@ -72,7 +72,7 @@ var BooleanType = /** @class */ (function (_super) {
     return BooleanType;
 }(JSONEditorType));
 export { BooleanType };
-var DateType = /** @class */ (function (_super) {
+var DateType = (function (_super) {
     __extends(DateType, _super);
     function DateType(title, config) {
         if (config === void 0) { config = {}; }
@@ -84,7 +84,7 @@ var DateType = /** @class */ (function (_super) {
     return DateType;
 }(StringType));
 export { DateType };
-var NumberType = /** @class */ (function (_super) {
+var NumberType = (function (_super) {
     __extends(NumberType, _super);
     function NumberType(title, config) {
         if (config === void 0) { config = {}; }

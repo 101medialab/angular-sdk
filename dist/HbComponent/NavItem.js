@@ -1,4 +1,4 @@
-var NavItem = /** @class */ (function () {
+var NavItem = (function () {
     function NavItem(name, args, matrix, query) {
         if (matrix === void 0) { matrix = null; }
         if (query === void 0) { query = null; }

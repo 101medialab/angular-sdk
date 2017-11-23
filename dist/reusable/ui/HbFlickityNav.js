@@ -1,7 +1,7 @@
-import { Component, ViewChild, Input, Inject } from '@angular/core';
+import { Component, ViewChild, Input, ElementRef, Inject } from '@angular/core';
 import { EventDispatcher } from '../../HbComponent/EventDispatcher';
 import { Bindable } from '../Bindable';
-var HbFlickityNav = /** @class */ (function () {
+var HbFlickityNav = (function () {
     function HbFlickityNav(eventDispatcher) {
         this.eventDispatcher = eventDispatcher;
         this.viewInitialized = false;
@@ -65,8 +65,8 @@ var HbFlickityNav = /** @class */ (function () {
         { type: EventDispatcher, decorators: [{ type: Inject, args: [EventDispatcher,] },] },
     ]; };
     HbFlickityNav.propDecorators = {
-        'container': [{ type: ViewChild, args: ['container',] },],
-        'options': [{ type: Input, args: ['options',] },],
+        "container": [{ type: ViewChild, args: ['container',] },],
+        "options": [{ type: Input, args: ['options',] },],
     };
     return HbFlickityNav;
 }());

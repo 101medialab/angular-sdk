@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef } from '@angular/core';
 import 'perfect-scrollbar';
-var HbPerfectScroll = /** @class */ (function () {
+var HbPerfectScroll = (function () {
     function HbPerfectScroll(elemRef) {
         this.options = {};
         this.$el = $(elemRef.nativeElement);
@@ -37,7 +37,7 @@ var HbPerfectScroll = /** @class */ (function () {
         { type: ElementRef, },
     ]; };
     HbPerfectScroll.propDecorators = {
-        'options': [{ type: Input, args: ['hb-perfect-scroll',] },],
+        "options": [{ type: Input, args: ['hb-perfect-scroll',] },],
     };
     return HbPerfectScroll;
 }());

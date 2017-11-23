@@ -9,7 +9,7 @@ export declare class HbFlickityNav implements OnChanges {
     protected $el: any;
     protected instance: any;
     protected dimensions: any;
-    protected isInitialized: Bindable;
+    isInitialized: Bindable;
     constructor(eventDispatcher: EventDispatcher);
     ngAfterViewInit(): void;
     ngOnChanges(change: any): void;

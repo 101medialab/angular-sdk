@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { FileUploader } from 'ng2-file-upload/file-upload/file-uploader.class';
-var ExtendedFileUploader = /** @class */ (function (_super) {
+var ExtendedFileUploader = (function (_super) {
     __extends(ExtendedFileUploader, _super);
     function ExtendedFileUploader() {
         return _super !== null && _super.apply(this, arguments) || this;

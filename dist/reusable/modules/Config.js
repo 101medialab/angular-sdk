@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 import { Inject, Injectable } from '@angular/core';
 import { Config as BaseConfig } from '../Config';
 import { NavItem } from '../../HbComponent/NavItem';
-var Config = /** @class */ (function (_super) {
+var Config = (function (_super) {
     __extends(Config, _super);
     function Config(resourceName, pluralResourceName, ResourceClass) {
         if (resourceName === void 0) { resourceName = ''; }

@@ -1,5 +1,5 @@
 import { Inject } from "@angular/core";
-var Config = /** @class */ (function () {
+var Config = (function () {
     function Config(_a) {
         var resourceName = _a.resourceName, pluralResourceName = _a.pluralResourceName, ResourceClass = _a.ResourceClass;
         this._API_DOMAIN_URL = '';

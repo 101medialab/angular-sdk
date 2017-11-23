@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { IdvComponent } from './idv.cpn';
-var SluggedIdvComponent = /** @class */ (function (_super) {
+var SluggedIdvComponent = (function (_super) {
     __extends(SluggedIdvComponent, _super);
     function SluggedIdvComponent(diContainer, activatedRoute) {
         return _super.call(this, diContainer, activatedRoute) || this;

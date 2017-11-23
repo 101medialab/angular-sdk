@@ -7,7 +7,8 @@ import {HttpModule} from '@angular/http';
 import {FileDropDirective} from 'ng2-file-upload/file-upload/file-drop.directive';
 import {FileSelectDirective} from 'ng2-file-upload/file-upload/file-select.directive';
 
-import {Angulartics2Module, Angulartics2GoogleAnalytics} from 'angulartics2';
+import {Angulartics2Module} from 'angulartics2';
+import {Angulartics2GoogleAnalytics} from 'angulartics2/ga';
 
 import {
     CanDeactivateGuard,

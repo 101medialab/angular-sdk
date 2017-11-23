@@ -1,6 +1,6 @@
 import { Pipe } from '@angular/core';
 import { Status } from '../modules/status.svc';
-var Asset = /** @class */ (function () {
+var Asset = (function () {
     function Asset() {
     }
     Asset.prototype.transform = function (relativePath, args) {

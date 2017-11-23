@@ -5,7 +5,8 @@ import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FileDropDirective } from 'ng2-file-upload/file-upload/file-drop.directive';
 import { FileSelectDirective } from 'ng2-file-upload/file-upload/file-select.directive';
-import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { CanDeactivateGuard, BackToTop, EmitWhenViewportChanges, HbClass, HbHeightModifier, HbPerfectScroll, HbTooltip, ProfileSelectize, ScrollToWhen, Selectize, Backdrop, JSONEditorComponent, UploaderComponent, ShareButton, LogoutComponent, HbFlickity, HbCollectionFlickity, HbFlickityNav, Default, Asset, Photon, Values, MapToIterable, BaseDIContainer, DummyDIContainer, Status, Config } from '../index';
 export function DummyDIContainerFactory(baseDIContainer, config, status) {
     return new DummyDIContainer(baseDIContainer, config, status);
@@ -30,14 +31,13 @@ var directivesAndPipes = [
     HbFlickity,
     HbCollectionFlickity,
     HbFlickityNav,
-    // Pipe
     Default,
     Asset,
     Photon,
     Values,
     MapToIterable
 ];
-var CommonModule = /** @class */ (function () {
+var CommonModule = (function () {
     function CommonModule() {
     }
     CommonModule.decorators = [

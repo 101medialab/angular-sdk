@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var TypeMeta = /** @class */ (function () {
+var TypeMeta = (function () {
     function TypeMeta(_type) {
         this._type = _type;
     }
@@ -22,7 +22,7 @@ var TypeMeta = /** @class */ (function () {
     return TypeMeta;
 }());
 export { TypeMeta };
-var PrimitiveTypeMeta = /** @class */ (function (_super) {
+var PrimitiveTypeMeta = (function (_super) {
     __extends(PrimitiveTypeMeta, _super);
     function PrimitiveTypeMeta(_value) {
         var _this = _super.call(this, ([
@@ -43,9 +43,10 @@ var PrimitiveTypeMeta = /** @class */ (function (_super) {
     return PrimitiveTypeMeta;
 }(TypeMeta));
 export { PrimitiveTypeMeta };
-var NonPrimitiveTypeMeta = /** @class */ (function (_super) {
+var NonPrimitiveTypeMeta = (function (_super) {
     __extends(NonPrimitiveTypeMeta, _super);
     function NonPrimitiveTypeMeta(type, _mapping, // All attributes should be type of ExtractorResultType
+        // All attributes should be type of ExtractorResultType
         _value) {
         if (_mapping === void 0) { _mapping = null; }
         if (_value === void 0) { _value = null; }
@@ -75,7 +76,7 @@ var OnOATResolvedSymbol = Symbol('OnOATResolved');
 export function OnOATResolved(cb) {
     return Reflect.metadata(OnOATResolvedSymbol, cb);
 }
-var ObjectAttributeTypeExtractor = /** @class */ (function () {
+var ObjectAttributeTypeExtractor = (function () {
     function ObjectAttributeTypeExtractor() {
     }
     ObjectAttributeTypeExtractor.generateMapping = function (input, options) {
@@ -178,7 +179,10 @@ var ObjectAttributeTypeExtractor = /** @class */ (function () {
         return setterKey;
     };
     // For naming convention changing. Not really related to this extractor
-    ObjectAttributeTypeExtractor.fixNamingConvention = function (data, options) {
+    // For naming convention changing. Not really related to this extractor
+    ObjectAttributeTypeExtractor.fixNamingConvention = 
+    // For naming convention changing. Not really related to this extractor
+    function (data, options) {
         var result = null;
         options = Object.assign({
             keyNamingStrategy: 'camelCase',
@@ -210,7 +214,10 @@ var ObjectAttributeTypeExtractor = /** @class */ (function () {
         return result;
     };
     // For JSON editor only. Should be extracted.
-    ObjectAttributeTypeExtractor.convertDataToString = function (data, callbacks) {
+    // For JSON editor only. Should be extracted.
+    ObjectAttributeTypeExtractor.convertDataToString = 
+    // For JSON editor only. Should be extracted.
+    function (data, callbacks) {
         if (callbacks === void 0) { callbacks = {}; }
         var result = null;
         if (data instanceof Array) {

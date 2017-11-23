@@ -1,6 +1,5 @@
 import {Component, ViewChild, Input, ElementRef, OnChanges, Inject}  from '@angular/core';
 import {EventDispatcher} from '../../HbComponent/EventDispatcher';
-import {HbPerfectScroll} from '../directives/HbPerfectScroll';
 import {Bindable} from '../Bindable';
 
 @Component({
@@ -26,7 +25,7 @@ export class HbFlickityNav implements OnChanges {
     protected $el = null;
     protected instance = null;
     protected dimensions = null;
-    protected isInitialized: Bindable = new Bindable(false);
+    public isInitialized: Bindable = new Bindable(false);
 
     constructor(
         @Inject(EventDispatcher) protected eventDispatcher: EventDispatcher

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload/file-upload/file-uploader.class';
 import { ExtendedAuthHttp } from '../ExtendedAuthHttp';
-var UploaderComponent = /** @class */ (function () {
+var UploaderComponent = (function () {
     function UploaderComponent(authHttp) {
         this.uploadLimit = 1;
         this.authToken = '';
@@ -46,10 +46,10 @@ var UploaderComponent = /** @class */ (function () {
         { type: ExtendedAuthHttp, },
     ]; };
     UploaderComponent.propDecorators = {
-        'isInitializable': [{ type: Input, args: ['isInitializable',] },],
-        'baseUrl': [{ type: Input, args: ['baseUrl',] },],
-        'title': [{ type: Input, args: ['title',] },],
-        'uploadLimit': [{ type: Input, args: ['uploadLimit',] },],
+        "isInitializable": [{ type: Input, args: ['isInitializable',] },],
+        "baseUrl": [{ type: Input, args: ['baseUrl',] },],
+        "title": [{ type: Input, args: ['title',] },],
+        "uploadLimit": [{ type: Input, args: ['uploadLimit',] },],
     };
     return UploaderComponent;
 }());

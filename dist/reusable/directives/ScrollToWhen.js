@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 import { Directive, Input, ElementRef } from '@angular/core';
 import { Status } from '../modules/status.svc';
 import { BaseComponent } from '../../HbComponent/BaseComponent';
-var ScrollToWhen = /** @class */ (function (_super) {
+var ScrollToWhen = (function (_super) {
     __extends(ScrollToWhen, _super);
     function ScrollToWhen(status, el) {
         var _this = _super.call(this, status) || this;
@@ -59,7 +59,7 @@ var ScrollToWhen = /** @class */ (function (_super) {
         { type: ElementRef, },
     ]; };
     ScrollToWhen.propDecorators = {
-        'data': [{ type: Input, args: ['scrollToWhen',] },],
+        "data": [{ type: Input, args: ['scrollToWhen',] },],
     };
     return ScrollToWhen;
 }(BaseComponent));

@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { Status } from "./status.svc";
-var LogoutComponent = /** @class */ (function () {
+var LogoutComponent = (function () {
     function LogoutComponent(status, router) {
         this.status = status;
         this.router = router;

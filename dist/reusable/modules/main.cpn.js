@@ -12,7 +12,7 @@ import URI from 'urijs';
 import { BaseResourceComponent } from '../../HbComponent/BaseResourceComponent';
 import { Debounce } from '../Debounce';
 import { NavItem } from '../../HbComponent/NavItem';
-var MainComponent = /** @class */ (function (_super) {
+var MainComponent = (function (_super) {
     __extends(MainComponent, _super);
     function MainComponent(criteriaNames, defaultCriteria, diContainer, activatedRoute) {
         if (criteriaNames === void 0) { criteriaNames = []; }
@@ -154,7 +154,9 @@ var MainComponent = /** @class */ (function (_super) {
             if (key in config && config[key] !== _this.defaultCriteria[key]) {
                 fromConfig[key] = config[key];
             }
-            else if (_this.currentCriteria && !(key in config) &&
+            else if (
+            // If currentCriteria is not the same as default, set it to fromConfig too
+            _this.currentCriteria && !(key in config) &&
                 key in _this.currentCriteria && _this.currentCriteria[key] != _this.defaultCriteria[key]) {
                 fromConfig[key] = _this.currentCriteria[key];
             }

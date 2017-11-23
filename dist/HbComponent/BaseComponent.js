@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import { BaseClass as Base } from '../reusable/BaseClass';
-var BaseComponent = /** @class */ (function (_super) {
+var BaseComponent = (function (_super) {
     __extends(BaseComponent, _super);
     function BaseComponent(mainStatus) {
         if (mainStatus === void 0) { mainStatus = null; }

@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 import { Directive, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { setupProfileSelectize } from '../JSONEditor/plugin';
 import { Selectize } from './Selectize';
-var ProfileSelectize = /** @class */ (function (_super) {
+var ProfileSelectize = (function (_super) {
     __extends(ProfileSelectize, _super);
     function ProfileSelectize(el) {
         var _this = _super.call(this, el) || this;
@@ -41,8 +41,8 @@ var ProfileSelectize = /** @class */ (function (_super) {
         { type: ElementRef, },
     ]; };
     ProfileSelectize.propDecorators = {
-        'onChange': [{ type: Output, args: ['onChange',] },],
-        'options': [{ type: Input, args: ['profileSelectize',] },],
+        "onChange": [{ type: Output, args: ['onChange',] },],
+        "options": [{ type: Input, args: ['profileSelectize',] },],
     };
     return ProfileSelectize;
 }(Selectize));

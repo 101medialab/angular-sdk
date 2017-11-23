@@ -1,4 +1,4 @@
-var BaseClass = /** @class */ (function () {
+var BaseClass = (function () {
     function BaseClass() {
     }
     BaseClass.prototype.log = function () {

@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../reusable/test/setupJest.ts"],"names":[],"mappings":"AAAA,OAAO,kCAAkC,CAAC;AAC1C,OAAO,eAAe,CAAC;AACvB,OAAO,kBAAkB,CAAC","file":"setupJest.js","sourceRoot":""}
+{"version":3,"file":"setupJest.js","sourceRoot":"","sources":["../../../reusable/test/setupJest.ts"],"names":[],"mappings":"AAAA,OAAO,kCAAkC,CAAC;AAC1C,OAAO,eAAe,CAAC;AACvB,OAAO,kBAAkB,CAAC"}

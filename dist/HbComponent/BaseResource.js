@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Headers } from '@angular/http';
 import { ExtendedAuthHttp } from '../reusable/ExtendedAuthHttp';
 import { EventDispatcher } from './EventDispatcher';
-var BaseResource = /** @class */ (function () {
+var BaseResource = (function () {
     function BaseResource(http, _baseUrl, headers, eventDispatcher) {
         if (headers === void 0) { headers = []; }
         this.http = http;
@@ -131,7 +131,16 @@ var BaseResource = /** @class */ (function () {
     // TODO: Currently when component destroys, it will call this method to prevent any callback to component no longer exist(as destroyed)
     //       However this method will trigger `EXCEPTION: Error: Uncaught (in promise): undefined` error, may be it need to terminate L83 and L109's promises by calling promise.done();
     //       http://stackoverflow.com/questions/28001722/how-to-catch-uncaught-exception-in-promise
-    BaseResource.prototype.cancelAllCurrentLoading = function () {
+    // This function might over kill some requests.
+    // TODO: Currently when component destroys, it will call this method to prevent any callback to component no longer exist(as destroyed)
+    //       However this method will trigger `EXCEPTION: Error: Uncaught (in promise): undefined` error, may be it need to terminate L83 and L109's promises by calling promise.done();
+    //       http://stackoverflow.com/questions/28001722/how-to-catch-uncaught-exception-in-promise
+    BaseResource.prototype.cancelAllCurrentLoading = 
+    // This function might over kill some requests.
+    // TODO: Currently when component destroys, it will call this method to prevent any callback to component no longer exist(as destroyed)
+    //       However this method will trigger `EXCEPTION: Error: Uncaught (in promise): undefined` error, may be it need to terminate L83 and L109's promises by calling promise.done();
+    //       http://stackoverflow.com/questions/28001722/how-to-catch-uncaught-exception-in-promise
+    function () {
         var _this = this;
         this.currentLoading.forEach(function (currentLoading, url) {
             _this.cancelCurrentLoading(url);

@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef } from '@angular/core';
 import { Status } from '../modules/status.svc';
-var HbClassConfig = /** @class */ (function () {
+var HbClassConfig = (function () {
     function HbClassConfig() {
         this.event = '';
         this.action = '';
@@ -12,7 +12,7 @@ var HbClassConfig = /** @class */ (function () {
 }());
 export { HbClassConfig };
 // TODO: isInitialized has not checked
-var HbClass = /** @class */ (function () {
+var HbClass = (function () {
     function HbClass(el, mainStatus) {
         this.el = el;
         this.mainStatus = mainStatus;
@@ -57,7 +57,32 @@ var HbClass = /** @class */ (function () {
     //          remove: ''
     //      }
     //  }
-    HbClass.prototype.normalizeToggleConfig = function (config) {
+    //  {
+    //      toggle: {
+    //          add: '',
+    //          remove: ''
+    //      },
+    //      class: '',
+    //      delay: 0,
+    //      emitWhenDone: {
+    //          add: '',
+    //          remove: ''
+    //      }
+    //  }
+    HbClass.prototype.normalizeToggleConfig = 
+    //  {
+    //      toggle: {
+    //          add: '',
+    //          remove: ''
+    //      },
+    //      class: '',
+    //      delay: 0,
+    //      emitWhenDone: {
+    //          add: '',
+    //          remove: ''
+    //      }
+    //  }
+    function (config) {
         var result = [];
         ['add', 'remove'].forEach(function (action) {
             if (action in config.toggle) {
@@ -83,7 +108,26 @@ var HbClass = /** @class */ (function () {
     //          emitWhenDone: ''
     //      }]
     //  }
-    HbClass.prototype.normalizeChainConfig = function (config) {
+    //  {
+    //      event: '',
+    //      actions: [{
+    //          action: '',
+    //          class: '',
+    //          delay: 0,
+    //          emitWhenDone: ''
+    //      }]
+    //  }
+    HbClass.prototype.normalizeChainConfig = 
+    //  {
+    //      event: '',
+    //      actions: [{
+    //          action: '',
+    //          class: '',
+    //          delay: 0,
+    //          emitWhenDone: ''
+    //      }]
+    //  }
+    function (config) {
         var result = [];
         config.actions.forEach(function (action) {
             var temp = new HbClassConfig();
@@ -124,7 +168,7 @@ var HbClass = /** @class */ (function () {
         { type: Status, },
     ]; };
     HbClass.propDecorators = {
-        'config': [{ type: Input, args: ['hbClass',] },],
+        "config": [{ type: Input, args: ['hbClass',] },],
     };
     return HbClass;
 }());

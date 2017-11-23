@@ -1,6 +1,6 @@
 import { EventEmitter, OnChanges } from '@angular/core';
 export declare class JSONEditorComponent implements OnChanges {
-    private name;
+    name: string;
     private config;
     private objectAttributeTypeExtractorOptions;
     private schema;

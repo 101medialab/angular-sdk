@@ -90,9 +90,9 @@ import {ExtendedAuthHttp} from '../ExtendedAuthHttp';
 export class UploaderComponent implements OnChanges {
     @Input('isInitializable') private isInitializable;
     @Input('baseUrl') private baseUrl;
-    @Input('title') private title;
+    @Input('title') public title;
     @Input('uploadLimit') private uploadLimit = 1;
-    private uploader: FileUploader;
+    public uploader: FileUploader;
     private authToken: string = '';
     public hasBaseDropZoneOver: boolean = false;
 
