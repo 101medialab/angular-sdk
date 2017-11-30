@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { AuthHttp, AuthConfig, JwtHelper } from 'angular2-jwt';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 var ExtendedAuthHttpConfig = (function () {
     function ExtendedAuthHttpConfig(baseUrl, authHttpConfig, APIs, refreshTokenAPI, JWToken, refreshBeforeExpire) {
         if (authHttpConfig === void 0) { authHttpConfig = {}; }
@@ -40,6 +41,7 @@ var ExtendedAuthHttp = (function (_super) {
         _this.httpClient = http;
         _this.jwtHelper = new JwtHelper();
         _this.setToken(_this.extendedAuthHttpConfig.JWToken || '');
+        _this.tokenStream = new BehaviorSubject(null);
         return _this;
     }
     ExtendedAuthHttp.prototype.use = function (id) {
@@ -98,8 +100,10 @@ var ExtendedAuthHttp = (function (_super) {
         return this.token;
     };
     ExtendedAuthHttp.prototype.setToken = function (token) {
-        if (token && !this.jwtHelper.isTokenExpired(token))
+        if (token && !this.jwtHelper.isTokenExpired(token)) {
             this.token = token;
+            this.tokenStream.next(token);
+        }
         if (this.token) {
             if (this.isTokenNeedToRefresh()) {
                 this.refreshToken();

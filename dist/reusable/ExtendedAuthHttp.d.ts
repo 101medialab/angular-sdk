@@ -1,5 +1,6 @@
 import { Http, RequestOptions } from '@angular/http';
 import { AuthHttp, IAuthConfigOptional } from 'angular2-jwt';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export declare class ExtendedAuthHttpConfig {
     baseUrl: string;
     authHttpConfig: IAuthConfigOptional;
@@ -16,6 +17,7 @@ export declare class ExtendedAuthHttp extends AuthHttp {
     private refreshTimeoutId;
     private httpClient;
     private currentAPIid;
+    tokenStream: BehaviorSubject<string>;
     constructor(extendedAuthHttpConfig: ExtendedAuthHttpConfig, http: Http, option: RequestOptions);
     use(id: any): this;
     getCurrentAPIBaseUrl(): string;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { AuthHttp, AuthConfig, JwtHelper, IAuthConfigOptional } from 'angular2-jwt';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export class ExtendedAuthHttpConfig {
     constructor(
@@ -21,6 +22,7 @@ export class ExtendedAuthHttp extends AuthHttp {
     private refreshTimeoutId;
     private httpClient;
     private currentAPIid: string = null;
+    tokenStream: BehaviorSubject<string>;
 
     constructor(
         private extendedAuthHttpConfig: ExtendedAuthHttpConfig,
@@ -36,6 +38,7 @@ export class ExtendedAuthHttp extends AuthHttp {
         this.httpClient = http;
         this.jwtHelper = new JwtHelper();
         this.setToken(this.extendedAuthHttpConfig.JWToken || '');
+        this.tokenStream = new BehaviorSubject(null);
     }
 
     use(id) {
@@ -87,7 +90,10 @@ export class ExtendedAuthHttp extends AuthHttp {
     }
 
     public setToken(token) {
-        if (token && !this.jwtHelper.isTokenExpired(token)) this.token = token;
+        if (token && !this.jwtHelper.isTokenExpired(token)) {
+            this.token = token;
+            this.tokenStream.next(token);
+        }
 
         if (this.token) {
             if (this.isTokenNeedToRefresh()) {
