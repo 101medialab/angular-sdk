@@ -25,22 +25,28 @@ var JSONEditorFactory = (function () {
         if (resolveTypeUndefined === void 0) { resolveTypeUndefined = null; }
         var schema = {}, attrMapping = attrMappingObj instanceof NonPrimitiveTypeMeta ? attrMappingObj.mapping : attrMappingObj, defaultValue = {}, i = 1;
         for (var key in attrMapping) {
+            var current = attrMapping[key];
             if (['id'].indexOf(key) === -1) {
                 var titleCase = key.replace(/([A-Z]+)/g, " $1").replace(/_/g, ' ').capitalize();
-                if (['object', 'array'].indexOf(attrMapping[key].type) > -1) {
-                    var type = attrMapping[key].type, schemaTemp = void 0;
-                    if ('type' in attrMapping[key].mapping) {
-                        // For primitive type array
-                        schemaTemp = {
-                            type: attrMapping[key].mapping.type,
-                        };
-                        if ('value' in attrMapping[key].mapping) {
-                            schemaTemp['default'] = attrMapping[key].mapping.value;
+                if (['object', 'array'].indexOf(current.type) > -1) {
+                    var type = current.type, schemaTemp = void 0;
+                    if (current.type == 'array') {
+                        if ('type' in current.mapping && current.mapping.type != 'object') {
+                            // For primitive type array
+                            schemaTemp = {
+                                type: current.mapping.type,
+                            };
+                            if ('value' in current.mapping) {
+                                schemaTemp['default'] = current.mapping.value;
+                            }
+                        }
+                        else {
+                            // For reference type array
+                            schemaTemp = this.generateSchemaByAttributeTypeObject(current.mapping);
                         }
                     }
                     else {
-                        // For reference type array
-                        schemaTemp = this.generateSchemaByAttributeTypeObject(attrMapping[key].mapping);
+                        schemaTemp = this.generateSchemaByAttributeTypeObject(current.mapping);
                     }
                     if (type === 'array') {
                         schemaTemp.title = false;
@@ -51,14 +57,14 @@ var JSONEditorFactory = (function () {
                         schema[key] = schemaTemp;
                     }
                 }
-                else if (attrMapping[key].type !== 'any') {
-                    if (attrMapping[key] !== 'undefined' && attrMapping[key].type != 'undefined') {
-                        schema[key] = new JSONEditorTypes[attrMapping[key].type.capitalize() + 'Type'](titleCase);
-                        schema[key]['default'] = attrMapping[key].value;
-                        defaultValue[key] = attrMapping[key].value;
+                else if (current.type !== 'any') {
+                    if (current !== 'undefined' && current.type != 'undefined') {
+                        schema[key] = new JSONEditorTypes[current.type.capitalize() + 'Type'](titleCase);
+                        schema[key]['default'] = current.value;
+                        defaultValue[key] = current.value;
                     }
                     else {
-                        //console.error(`attrMapping[key] ${key} is undefined`);
+                        //console.error(`current ${key} is undefined`);
                         schema[key] = resolveTypeUndefined ? resolveTypeUndefined(attrMapping, key) : new JSONEditorTypes.StringType(titleCase, { 'default': '' });
                     }
                 }
