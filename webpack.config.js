@@ -30,8 +30,10 @@ module.exports = {
             path.join(process.cwd(), '.')
         ),
         new webpack.ProvidePlugin({
-            '$': 'jquery',
-            'jQuery': 'jquery'
+            'window.jQuery': 'jquery',
+            'window.$': 'jquery',
+            'jQuery': 'jquery',
+            '$': 'jquery'
         }),
         // new CopyWebpackPlugin([ { from: './reusable/directives/templates', to: './reusable/directives/templates' } ], {}),
     ],
