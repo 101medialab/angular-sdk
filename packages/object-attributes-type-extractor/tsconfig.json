@@ -1,0 +1,36 @@
+{
+    "compileOnSave": false,
+    "buildOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "target": "ES5",
+        "module": "ES2015",
+        "moduleResolution": "node",
+        "declaration": true,
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "outDir": "./dist",
+        "rootDir": "./",
+        "skipLibCheck": true,
+        "typeRoots": [
+            "./node_modules/@types"
+        ],
+        "lib": [
+            "dom",
+            "es2017"
+        ]
+    },
+    "files": [
+        "./reflect-metadata.d.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ],
+    "awesomeTypescriptLoaderOptions": {
+        "useBabel": true,
+        "useCache": true
+    }
+}

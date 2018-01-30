@@ -1,0 +1,58 @@
+{
+  "name": "object-attributes-type-extractor",
+  "version": "1.0.0",
+  "main": "dist/ObjectAttributeTypeExtractor.js",
+  "module": "dist/ObjectAttributeTypeExtractor.js",
+  "typings": "dist/ObjectAttributeTypeExtractor.d.ts",
+  "author": "tom.lo@101medialab.com",
+  "bugs": {
+    "url": "https://github.com/101medialab/angular2-sdk/issues"
+  },
+  "scripts": {
+    "cleanup": "rimraf dist",
+    "build": "npm run cleanup && webpack --config webpack.config.js && npm t",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "babel-preset-env": "^1.6.1",
+    "jest-preset-angular": "^5.0.0",
+    "reflect-metadata": "^0.1.12",
+    "typescript": "2.4.2",
+    "webpack": "^3.10.0",
+    "zone.js": "^0.8.20"
+  },
+  "devDependencies": {
+    "@types/jest": "^21.1.10",
+    "@types/node": "8.0.53",
+    "awesome-typescript-loader": "^3.4.1",
+    "jest": "^21.2.1",
+    "raw-loader": "0.5.1",
+    "rimraf": "2.6.2",
+    "ts-jest": "^21.2.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/101medialab/angular2-sdk.git"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/dist/"
+    ],
+    "preset": "jest-preset-angular",
+    "setupTestFrameworkScriptFile": "<rootDir>/setupJest.js",
+    "transform": {
+      "^.+\\.(ts|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js",
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "./tsconfig.spec.json",
+        "useBabelrc": true
+      }
+    },
+    "moduleDirectories": [
+      "node_modules"
+    ]
+  }
+}

@@ -13,7 +13,7 @@
     "ngc": "node_modules/.bin/ngc -p tsconfig.json",
     "start": "npm run cleanup && npm run ngc",
     "start-prod": "npm run ngc && npm run build",
-    "build": "npm run cleanup && npm run ngc && webpack --config webpack.config.js&& npm t",
+    "build": "npm run cleanup && npm run ngc && webpack --config webpack.config.js", // && npm t
     "deploy": "gh-pages -d dist",
     "aot": "npm run cleanup && npm run ngc",
     "jit": "npm run cleanup",
