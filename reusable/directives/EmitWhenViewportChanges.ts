@@ -3,24 +3,25 @@ import {Status} from '../modules/status.svc';
 import {BaseComponent} from '../../HbComponent/BaseComponent';
 import * as RxDOM from 'rx-dom';
 
+type EmitWhenViewportChangesConfig = {
+    refreshRate: number,
+    target: Element,
+    offsetViewport: {
+        top: number,
+        bottom: number,
+        left: number
+    },
+    appear: Array<any>,
+    disappear: Array<any>
+};
+
 @Directive({
     selector: '[emitWhenViewportChanges]'
 })
-
 export class EmitWhenViewportChanges extends BaseComponent implements OnChanges {
     private $el;
     private isInitialized: boolean = false;
-    @Input('emitWhenViewportChanges') private config: {
-        refreshRate: number,
-        target: Element,
-        offsetViewport: {
-            top: number,
-            bottom: number,
-            left: number
-        },
-        appear: Array<any>,
-        disappear: Array<any>
-    };
+    @Input('emitWhenViewportChanges') private config: EmitWhenViewportChangesConfig;
 
     constructor(
         status: Status,
@@ -38,7 +39,7 @@ export class EmitWhenViewportChanges extends BaseComponent implements OnChanges 
             this.config = config.currentValue;
 
             if (!('refreshRate' in this.config)) {
-                this.config.refreshRate = 100;
+                (<EmitWhenViewportChangesConfig>this.config).refreshRate = 100;
             }
 
             let $target = $(this.config.target ? this.config.target : window),

@@ -1,4 +1,4 @@
-var Bindable = (function () {
+var Bindable = /** @class */ (function () {
     function Bindable(_value) {
         this._value = _value;
     }

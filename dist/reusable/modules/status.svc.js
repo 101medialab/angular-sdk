@@ -14,7 +14,7 @@ import { EventDispatcher } from '../../HbComponent/EventDispatcher';
 import { Resource } from './resource.svc';
 import { Bindable } from '../Bindable';
 import RxDOM from 'rx-dom';
-var Status = (function (_super) {
+var Status = /** @class */ (function (_super) {
     __extends(Status, _super);
     function Status(eventDispatcher, resource) {
         var _this = _super.call(this, eventDispatcher, resource) || this;

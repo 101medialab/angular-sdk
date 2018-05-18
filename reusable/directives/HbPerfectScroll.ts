@@ -1,5 +1,6 @@
 import {Directive, Input, ElementRef, OnChanges, OnDestroy} from '@angular/core';
-import 'perfect-scrollbar/src/js/adaptor/jquery';
+// TODO: HypeDB need to check this import.
+// import 'perfect-scrollbar/dist/perfect-scrollbar';
 
 @Directive({
     selector: '[hb-perfect-scroll]'

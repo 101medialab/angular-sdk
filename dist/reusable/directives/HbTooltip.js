@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef } from '@angular/core';
 import 'bootstrap-sass/assets/javascripts/bootstrap/tooltip.js';
-var HbTooltip = (function () {
+var HbTooltip = /** @class */ (function () {
     function HbTooltip(el) {
         this.el = el;
         this.$el = $(this.el.nativeElement);

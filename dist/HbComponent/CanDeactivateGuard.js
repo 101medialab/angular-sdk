@@ -1,6 +1,6 @@
 // Copied from https://angular.io/docs/ts/latest/guide/router.html#!#can-deactivate-guard
 import { Injectable } from '@angular/core';
-var CanDeactivateGuard = (function () {
+var CanDeactivateGuard = /** @class */ (function () {
     function CanDeactivateGuard() {
     }
     CanDeactivateGuard.prototype.canDeactivate = function (component) {
@@ -9,8 +9,6 @@ var CanDeactivateGuard = (function () {
     CanDeactivateGuard.decorators = [
         { type: Injectable },
     ];
-    /** @nocollapse */
-    CanDeactivateGuard.ctorParameters = function () { return []; };
     return CanDeactivateGuard;
 }());
 export { CanDeactivateGuard };

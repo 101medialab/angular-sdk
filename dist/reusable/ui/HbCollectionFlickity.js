@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 import { Component, ViewChild, Input, ElementRef, Inject } from '@angular/core';
 import { EventDispatcher } from '../../HbComponent/EventDispatcher';
 import { HbFlickity } from './HbFlickity';
-var HbCollectionFlickity = (function (_super) {
+var HbCollectionFlickity = /** @class */ (function (_super) {
     __extends(HbCollectionFlickity, _super);
     function HbCollectionFlickity(eventDispatcher) {
         var _this = _super.call(this, eventDispatcher) || this;

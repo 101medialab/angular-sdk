@@ -1,6 +1,6 @@
 import { Directive, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import 'selectize';
-var Selectize = (function () {
+var Selectize = /** @class */ (function () {
     function Selectize(el) {
         this.el = el;
         // Pathetically you cannot inherit EventEmitter, add it manually

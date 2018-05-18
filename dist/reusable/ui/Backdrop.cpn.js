@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Bindable } from '../Bindable';
-var Backdrop = (function () {
+var Backdrop = /** @class */ (function () {
     function Backdrop() {
         this.mode = 'screen';
     }

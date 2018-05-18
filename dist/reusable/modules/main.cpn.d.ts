@@ -25,7 +25,7 @@ export declare class MainComponent extends BaseResourceComponent {
     sendRequest(query: any, num: any, offset: any, includePage: any): void;
     onRequestDone(data: any, includePage: any, num: any): void;
     setupData(data: any): any;
-    protected generateRoute(name: any, config?: any): Object | string[];
+    protected generateRoute(name: any, config?: any): Object;
     protected getNetCriteria(config?: {}): Array<string> | Object;
     updateCriteria(criteria: any, value: any): void;
     resetCriteria(): void;

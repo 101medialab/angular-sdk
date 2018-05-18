@@ -1,4 +1,4 @@
-var DummyDIContainer = (function () {
+var DummyDIContainer = /** @class */ (function () {
     function DummyDIContainer(baseDI, config, status) {
         this._baseDI = baseDI;
         this._config = config;

@@ -1,6 +1,7 @@
 import { Directive, Input, ElementRef } from '@angular/core';
-import 'perfect-scrollbar/src/js/adaptor/jquery';
-var HbPerfectScroll = (function () {
+// TODO: HypeDB need to check this import.
+// import 'perfect-scrollbar/dist/perfect-scrollbar';
+var HbPerfectScroll = /** @class */ (function () {
     function HbPerfectScroll(elemRef) {
         this.options = {};
         this.$el = $(elemRef.nativeElement);

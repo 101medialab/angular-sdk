@@ -2,7 +2,7 @@ import { Component, ViewChild, Input, ElementRef, Inject } from '@angular/core';
 import { EventDispatcher } from '../../HbComponent/EventDispatcher';
 import Flickity from 'flickity/js/flickity.js';
 import 'flickity-bg-lazyload';
-var HbFlickity = (function () {
+var HbFlickity = /** @class */ (function () {
     function HbFlickity(eventDispatcher) {
         this.eventDispatcher = eventDispatcher;
         this.viewInitialized = false;

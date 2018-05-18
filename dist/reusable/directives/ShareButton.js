@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef } from '@angular/core';
-var ShareButton = (function () {
+var ShareButton = /** @class */ (function () {
     function ShareButton(el) {
         this.el = el;
     }

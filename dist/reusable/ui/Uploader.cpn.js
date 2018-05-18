@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload/file-upload/file-uploader.class';
 import { ExtendedAuthHttp } from '../ExtendedAuthHttp';
-var UploaderComponent = (function () {
+var UploaderComponent = /** @class */ (function () {
     function UploaderComponent(authHttp) {
         this.uploadLimit = 1;
         this.authToken = '';

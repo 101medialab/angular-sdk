@@ -1,5 +1,4 @@
 import { ElementRef, OnChanges, OnDestroy } from '@angular/core';
-import 'perfect-scrollbar/src/js/adaptor/jquery';
 export declare class HbPerfectScroll implements OnChanges, OnDestroy {
     options: any;
     private $el;

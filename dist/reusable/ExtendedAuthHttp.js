@@ -12,7 +12,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { AuthHttp, AuthConfig, JwtHelper } from 'angular2-jwt';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-var ExtendedAuthHttpConfig = (function () {
+var ExtendedAuthHttpConfig = /** @class */ (function () {
     function ExtendedAuthHttpConfig(baseUrl, authHttpConfig, APIs, refreshTokenAPI, JWToken, refreshBeforeExpire) {
         if (authHttpConfig === void 0) { authHttpConfig = {}; }
         if (APIs === void 0) { APIs = new Map(); }
@@ -29,7 +29,7 @@ var ExtendedAuthHttpConfig = (function () {
     return ExtendedAuthHttpConfig;
 }());
 export { ExtendedAuthHttpConfig };
-var ExtendedAuthHttp = (function (_super) {
+var ExtendedAuthHttp = /** @class */ (function (_super) {
     __extends(ExtendedAuthHttp, _super);
     function ExtendedAuthHttp(extendedAuthHttpConfig, http, option) {
         var _this = _super.call(this, new AuthConfig(Object.assign(extendedAuthHttpConfig.authHttpConfig, {

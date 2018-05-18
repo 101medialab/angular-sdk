@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var TypeMeta = (function () {
+var TypeMeta = /** @class */ (function () {
     function TypeMeta(_type) {
         this._type = _type;
     }
@@ -22,7 +22,7 @@ var TypeMeta = (function () {
     return TypeMeta;
 }());
 export { TypeMeta };
-var PrimitiveTypeMeta = (function (_super) {
+var PrimitiveTypeMeta = /** @class */ (function (_super) {
     __extends(PrimitiveTypeMeta, _super);
     function PrimitiveTypeMeta(_value) {
         var _this = _super.call(this, ([
@@ -43,11 +43,11 @@ var PrimitiveTypeMeta = (function (_super) {
     return PrimitiveTypeMeta;
 }(TypeMeta));
 export { PrimitiveTypeMeta };
-var NonPrimitiveTypeMeta = (function (_super) {
+var NonPrimitiveTypeMeta = /** @class */ (function (_super) {
     __extends(NonPrimitiveTypeMeta, _super);
     function NonPrimitiveTypeMeta(type, _mapping, // All attributes should be type of ExtractorResultType
-        // All attributes should be type of ExtractorResultType
-        _value) {
+    // All attributes should be type of ExtractorResultType
+    _value) {
         if (_mapping === void 0) { _mapping = null; }
         if (_value === void 0) { _value = null; }
         var _this = _super.call(this, type) || this;
@@ -76,7 +76,7 @@ var OnOATResolvedSymbol = Symbol('OnOATResolved');
 export function OnOATResolved(cb) {
     return Reflect.metadata(OnOATResolvedSymbol, cb);
 }
-var ObjectAttributeTypeExtractor = (function () {
+var ObjectAttributeTypeExtractor = /** @class */ (function () {
     function ObjectAttributeTypeExtractor() {
     }
     ObjectAttributeTypeExtractor.generateMapping = function (input, options) {

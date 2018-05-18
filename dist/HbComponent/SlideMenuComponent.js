@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 import { Bindable } from '../reusable/Bindable';
 import { BaseComponent } from '../HbComponent/BaseComponent';
-var SlideMenuComponent = (function (_super) {
+var SlideMenuComponent = /** @class */ (function (_super) {
     __extends(SlideMenuComponent, _super);
     function SlideMenuComponent(status) {
         var _this = _super.call(this, status) || this;

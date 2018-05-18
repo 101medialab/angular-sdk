@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 import { JSONEditorFactory } from './JSONEditorFactory';
 import "json-editor";
-var ExtendedJSONEditorFactory = (function (_super) {
+var ExtendedJSONEditorFactory = /** @class */ (function (_super) {
     __extends(ExtendedJSONEditorFactory, _super);
     function ExtendedJSONEditorFactory(_a) {
         var config = _a.config, schema = _a.schema, data = _a.data;

@@ -37,7 +37,7 @@ var directivesAndPipes = [
     Values,
     MapToIterable
 ];
-var CommonModule = (function () {
+var CommonModule = /** @class */ (function () {
     function CommonModule() {
     }
     CommonModule.decorators = [
@@ -69,8 +69,6 @@ var CommonModule = (function () {
                     ])
                 },] },
     ];
-    /** @nocollapse */
-    CommonModule.ctorParameters = function () { return []; };
     return CommonModule;
 }());
 export { CommonModule };

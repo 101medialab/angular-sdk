@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef } from '@angular/core';
-var BackToTop = (function () {
+var BackToTop = /** @class */ (function () {
     function BackToTop(el) {
         this.el = el;
         this.$el = $(this.el.nativeElement);

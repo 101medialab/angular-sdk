@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Status as MainStatus } from '../reusable/modules/status.svc';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-var BaseDIContainer = (function () {
+var BaseDIContainer = /** @class */ (function () {
     function BaseDIContainer(router, titleService, mainStatus, ngGA) {
         this._router = router;
         this._titleService = titleService;

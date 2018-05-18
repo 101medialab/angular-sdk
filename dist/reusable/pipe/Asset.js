@@ -1,6 +1,6 @@
 import { Pipe } from '@angular/core';
 import { Status } from '../modules/status.svc';
-var Asset = (function () {
+var Asset = /** @class */ (function () {
     function Asset() {
     }
     Asset.prototype.transform = function (relativePath, args) {
@@ -12,8 +12,6 @@ var Asset = (function () {
                     name: 'asset'
                 },] },
     ];
-    /** @nocollapse */
-    Asset.ctorParameters = function () { return []; };
     return Asset;
 }());
 export { Asset };

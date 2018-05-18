@@ -1,7 +1,7 @@
 import { Component, ViewChild, Input, ElementRef, Inject } from '@angular/core';
 import { EventDispatcher } from '../../HbComponent/EventDispatcher';
 import { Bindable } from '../Bindable';
-var HbFlickityNav = (function () {
+var HbFlickityNav = /** @class */ (function () {
     function HbFlickityNav(eventDispatcher) {
         this.eventDispatcher = eventDispatcher;
         this.viewInitialized = false;

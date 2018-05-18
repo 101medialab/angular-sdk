@@ -1,5 +1,5 @@
 import { Pipe } from '@angular/core';
-var Values = (function () {
+var Values = /** @class */ (function () {
     function Values() {
     }
     Values.prototype.transform = function (value, args) {
@@ -11,8 +11,6 @@ var Values = (function () {
                     name: 'values', pure: false
                 },] },
     ];
-    /** @nocollapse */
-    Values.ctorParameters = function () { return []; };
     return Values;
 }());
 export { Values };

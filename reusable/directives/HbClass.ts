@@ -123,7 +123,7 @@ export class HbClass implements OnChanges {
             [() => {
                 setTimeout(() => {
                     let action = !('action' in config) ?
-                            this.$el.hasClass(config.class) ?
+                            this.$el.hasClass((<any>config).class) ?
                                 'remove' : 'add' :
                             config.action
                         ;

@@ -1,5 +1,5 @@
 import { Pipe } from '@angular/core';
-var Default = (function () {
+var Default = /** @class */ (function () {
     function Default() {
     }
     Default.prototype.transform = function (value, args) {
@@ -11,8 +11,6 @@ var Default = (function () {
                     name: 'default'
                 },] },
     ];
-    /** @nocollapse */
-    Default.ctorParameters = function () { return []; };
     return Default;
 }());
 export { Default };
