@@ -45,15 +45,13 @@ import {
     Status,
     Config
 } from '../index';
+import { FileUploadModule } from "ng2-file-upload";
 
 export function DummyDIContainerFactory(baseDIContainer: BaseDIContainer, config: Config, status: Status) {
     return new DummyDIContainer(baseDIContainer, config, status);
 }
 
 let directivesAndPipes = [
-        FileSelectDirective,
-        FileDropDirective,
-
         BackToTop,
         EmitWhenViewportChanges,
         HbClass,
@@ -91,6 +89,7 @@ let directivesAndPipes = [
         HttpModule,
         FormsModule,
         ReactiveFormsModule,
+        FileUploadModule,
         Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
     ],
     providers: [
